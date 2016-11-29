@@ -1,0 +1,16 @@
+CC= gcc
+CFLAGS = -g #-O2 
+CPPFLAGS = -I/sw/include 
+DEFS = -DHAVE_PLPLOT
+HEADERS = WinSpecHeader25.h
+LIBS = `pkg-config --cflags --libs plplotd`
+#LIBS =-I/sw/include/plplot -L/sw/lib -L/sw/lib/freetype219/lib -lplplotd -lcsirocsa -lm -lfreetype -lltdl -lcsironn
+LDFLAGS = -L/sw/lib
+
+OBJECTS= viewspe.o readspe.o plplotsubs0.o
+
+viewspe : $(OBJECTS) $(HEADERS)
+	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTS) $(LIBS) -o $@
+
+.c.o: $(HEADERS)
+	$(CC) -c $(DEFS) $(CPPFLAGS) $(CFLAGS) $< -o $@

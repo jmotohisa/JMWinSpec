@@ -1,0 +1,721 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6284C0DC24D4E89D0006A589 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0DB24D4E89D0006A589 /* AppDelegate.m */; };
+		6284C0DE24D4E89E0006A589 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6284C0DD24D4E89E0006A589 /* Assets.xcassets */; };
+		6284C0E124D4E89E0006A589 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6284C0DF24D4E89E0006A589 /* MainMenu.xib */; };
+		6284C0E424D4E89E0006A589 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0E324D4E89E0006A589 /* main.m */; };
+		6284C0EF24D4E89E0006A589 /* ViewSPE_CatalinaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0EE24D4E89E0006A589 /* ViewSPE_CatalinaTests.m */; };
+		6284C0FA24D4E89E0006A589 /* ViewSPE_CatalinaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0F924D4E89E0006A589 /* ViewSPE_CatalinaUITests.m */; };
+		6284C10E24D4E9100006A589 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6284C10D24D4E9100006A589 /* Quartz.framework */; };
+		6284C11224D4E9100006A589 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C11124D4E9100006A589 /* PreviewViewController.m */; };
+		6284C11524D4E9100006A589 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6284C11324D4E9100006A589 /* PreviewViewController.xib */; };
+		6284C11A24D4E9100006A589 /* SPEQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6284C10B24D4E9100006A589 /* SPEQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6284C0EB24D4E89E0006A589 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6284C0CF24D4E89D0006A589 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6284C0D624D4E89D0006A589;
+			remoteInfo = ViewSPE_Catalina;
+		};
+		6284C0F624D4E89E0006A589 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6284C0CF24D4E89D0006A589 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6284C0D624D4E89D0006A589;
+			remoteInfo = ViewSPE_Catalina;
+		};
+		6284C11824D4E9100006A589 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6284C0CF24D4E89D0006A589 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6284C10A24D4E9100006A589;
+			remoteInfo = SPEQuickLook;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6284C11E24D4E9100006A589 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6284C11A24D4E9100006A589 /* SPEQuickLook.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6284C0D724D4E89D0006A589 /* ViewSPE_Catalina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewSPE_Catalina.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6284C0DA24D4E89D0006A589 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6284C0DB24D4E89D0006A589 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6284C0DD24D4E89E0006A589 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6284C0E024D4E89E0006A589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6284C0E224D4E89E0006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6284C0E324D4E89E0006A589 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6284C0E524D4E89E0006A589 /* ViewSPE_Catalina.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ViewSPE_Catalina.entitlements; sourceTree = "<group>"; };
+		6284C0EA24D4E89E0006A589 /* ViewSPE_CatalinaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewSPE_CatalinaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6284C0EE24D4E89E0006A589 /* ViewSPE_CatalinaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSPE_CatalinaTests.m; sourceTree = "<group>"; };
+		6284C0F024D4E89E0006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewSPE_CatalinaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6284C0F924D4E89E0006A589 /* ViewSPE_CatalinaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSPE_CatalinaUITests.m; sourceTree = "<group>"; };
+		6284C0FB24D4E89E0006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6284C10B24D4E9100006A589 /* SPEQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SPEQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6284C10D24D4E9100006A589 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		6284C11024D4E9100006A589 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		6284C11124D4E9100006A589 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		6284C11424D4E9100006A589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		6284C11624D4E9100006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6284C11724D4E9100006A589 /* SPEQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SPEQuickLook.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6284C0D424D4E89D0006A589 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0E724D4E89E0006A589 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0F224D4E89E0006A589 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C10824D4E9100006A589 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C10E24D4E9100006A589 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6284C0CE24D4E89D0006A589 = {
+			isa = PBXGroup;
+			children = (
+				6284C0D924D4E89D0006A589 /* ViewSPE_Catalina */,
+				6284C0ED24D4E89E0006A589 /* ViewSPE_CatalinaTests */,
+				6284C0F824D4E89E0006A589 /* ViewSPE_CatalinaUITests */,
+				6284C10F24D4E9100006A589 /* SPEQuickLook */,
+				6284C10C24D4E9100006A589 /* Frameworks */,
+				6284C0D824D4E89D0006A589 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6284C0D824D4E89D0006A589 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6284C0D724D4E89D0006A589 /* ViewSPE_Catalina.app */,
+				6284C0EA24D4E89E0006A589 /* ViewSPE_CatalinaTests.xctest */,
+				6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */,
+				6284C10B24D4E9100006A589 /* SPEQuickLook.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6284C0D924D4E89D0006A589 /* ViewSPE_Catalina */ = {
+			isa = PBXGroup;
+			children = (
+				6284C0DA24D4E89D0006A589 /* AppDelegate.h */,
+				6284C0DB24D4E89D0006A589 /* AppDelegate.m */,
+				6284C0DD24D4E89E0006A589 /* Assets.xcassets */,
+				6284C0DF24D4E89E0006A589 /* MainMenu.xib */,
+				6284C0E224D4E89E0006A589 /* Info.plist */,
+				6284C0E324D4E89E0006A589 /* main.m */,
+				6284C0E524D4E89E0006A589 /* ViewSPE_Catalina.entitlements */,
+			);
+			path = ViewSPE_Catalina;
+			sourceTree = "<group>";
+		};
+		6284C0ED24D4E89E0006A589 /* ViewSPE_CatalinaTests */ = {
+			isa = PBXGroup;
+			children = (
+				6284C0EE24D4E89E0006A589 /* ViewSPE_CatalinaTests.m */,
+				6284C0F024D4E89E0006A589 /* Info.plist */,
+			);
+			path = ViewSPE_CatalinaTests;
+			sourceTree = "<group>";
+		};
+		6284C0F824D4E89E0006A589 /* ViewSPE_CatalinaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6284C0F924D4E89E0006A589 /* ViewSPE_CatalinaUITests.m */,
+				6284C0FB24D4E89E0006A589 /* Info.plist */,
+			);
+			path = ViewSPE_CatalinaUITests;
+			sourceTree = "<group>";
+		};
+		6284C10C24D4E9100006A589 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6284C10D24D4E9100006A589 /* Quartz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6284C10F24D4E9100006A589 /* SPEQuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				6284C11024D4E9100006A589 /* PreviewViewController.h */,
+				6284C11124D4E9100006A589 /* PreviewViewController.m */,
+				6284C11324D4E9100006A589 /* PreviewViewController.xib */,
+				6284C11624D4E9100006A589 /* Info.plist */,
+				6284C11724D4E9100006A589 /* SPEQuickLook.entitlements */,
+			);
+			path = SPEQuickLook;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6284C0FE24D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_Catalina" */;
+			buildPhases = (
+				6284C0D324D4E89D0006A589 /* Sources */,
+				6284C0D424D4E89D0006A589 /* Frameworks */,
+				6284C0D524D4E89D0006A589 /* Resources */,
+				6284C11E24D4E9100006A589 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6284C11924D4E9100006A589 /* PBXTargetDependency */,
+			);
+			name = ViewSPE_Catalina;
+			productName = ViewSPE_Catalina;
+			productReference = 6284C0D724D4E89D0006A589 /* ViewSPE_Catalina.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6284C0E924D4E89E0006A589 /* ViewSPE_CatalinaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6284C10124D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_CatalinaTests" */;
+			buildPhases = (
+				6284C0E624D4E89E0006A589 /* Sources */,
+				6284C0E724D4E89E0006A589 /* Frameworks */,
+				6284C0E824D4E89E0006A589 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6284C0EC24D4E89E0006A589 /* PBXTargetDependency */,
+			);
+			name = ViewSPE_CatalinaTests;
+			productName = ViewSPE_CatalinaTests;
+			productReference = 6284C0EA24D4E89E0006A589 /* ViewSPE_CatalinaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6284C0F424D4E89E0006A589 /* ViewSPE_CatalinaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6284C10424D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_CatalinaUITests" */;
+			buildPhases = (
+				6284C0F124D4E89E0006A589 /* Sources */,
+				6284C0F224D4E89E0006A589 /* Frameworks */,
+				6284C0F324D4E89E0006A589 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6284C0F724D4E89E0006A589 /* PBXTargetDependency */,
+			);
+			name = ViewSPE_CatalinaUITests;
+			productName = ViewSPE_CatalinaUITests;
+			productReference = 6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		6284C10A24D4E9100006A589 /* SPEQuickLook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6284C11B24D4E9100006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */;
+			buildPhases = (
+				6284C10724D4E9100006A589 /* Sources */,
+				6284C10824D4E9100006A589 /* Frameworks */,
+				6284C10924D4E9100006A589 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SPEQuickLook;
+			productName = SPEQuickLook;
+			productReference = 6284C10B24D4E9100006A589 /* SPEQuickLook.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6284C0CF24D4E89D0006A589 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = "Junichi Motohisa";
+				TargetAttributes = {
+					6284C0D624D4E89D0006A589 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					6284C0E924D4E89E0006A589 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 6284C0D624D4E89D0006A589;
+					};
+					6284C0F424D4E89E0006A589 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 6284C0D624D4E89D0006A589;
+					};
+					6284C10A24D4E9100006A589 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+				};
+			};
+			buildConfigurationList = 6284C0D224D4E89D0006A589 /* Build configuration list for PBXProject "ViewSPE_Catalina" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6284C0CE24D4E89D0006A589;
+			productRefGroup = 6284C0D824D4E89D0006A589 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */,
+				6284C0E924D4E89E0006A589 /* ViewSPE_CatalinaTests */,
+				6284C0F424D4E89E0006A589 /* ViewSPE_CatalinaUITests */,
+				6284C10A24D4E9100006A589 /* SPEQuickLook */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6284C0D524D4E89D0006A589 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C0DE24D4E89E0006A589 /* Assets.xcassets in Resources */,
+				6284C0E124D4E89E0006A589 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0E824D4E89E0006A589 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0F324D4E89E0006A589 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C10924D4E9100006A589 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C11524D4E9100006A589 /* PreviewViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6284C0D324D4E89D0006A589 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C0E424D4E89E0006A589 /* main.m in Sources */,
+				6284C0DC24D4E89D0006A589 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0E624D4E89E0006A589 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C0EF24D4E89E0006A589 /* ViewSPE_CatalinaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C0F124D4E89E0006A589 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C0FA24D4E89E0006A589 /* ViewSPE_CatalinaUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6284C10724D4E9100006A589 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6284C11224D4E9100006A589 /* PreviewViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6284C0EC24D4E89E0006A589 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */;
+			targetProxy = 6284C0EB24D4E89E0006A589 /* PBXContainerItemProxy */;
+		};
+		6284C0F724D4E89E0006A589 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */;
+			targetProxy = 6284C0F624D4E89E0006A589 /* PBXContainerItemProxy */;
+		};
+		6284C11924D4E9100006A589 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6284C10A24D4E9100006A589 /* SPEQuickLook */;
+			targetProxy = 6284C11824D4E9100006A589 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6284C0DF24D4E89E0006A589 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6284C0E024D4E89E0006A589 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		6284C11324D4E9100006A589 /* PreviewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6284C11424D4E9100006A589 /* Base */,
+			);
+			name = PreviewViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6284C0FC24D4E89E0006A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6284C0FD24D4E89E0006A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6284C0FF24D4E89E0006A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ViewSPE_Catalina/ViewSPE_Catalina.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_Catalina/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-Catalina";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6284C10024D4E89E0006A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ViewSPE_Catalina/ViewSPE_Catalina.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_Catalina/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-Catalina";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6284C10224D4E89E0006A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_CatalinaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-CatalinaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViewSPE_Catalina.app/Contents/MacOS/ViewSPE_Catalina";
+			};
+			name = Debug;
+		};
+		6284C10324D4E89E0006A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_CatalinaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-CatalinaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViewSPE_Catalina.app/Contents/MacOS/ViewSPE_Catalina";
+			};
+			name = Release;
+		};
+		6284C10524D4E89E0006A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_CatalinaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-CatalinaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ViewSPE_Catalina;
+			};
+			name = Debug;
+		};
+		6284C10624D4E89E0006A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ViewSPE_CatalinaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-CatalinaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ViewSPE_Catalina;
+			};
+			name = Release;
+		};
+		6284C11C24D4E9100006A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SPEQuickLook/SPEQuickLook.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SPEQuickLook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-Catalina.SPEQuickLook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6284C11D24D4E9100006A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SPEQuickLook/SPEQuickLook.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SPEQuickLook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "HokkaidoUniversity.ViewSPE-Catalina.SPEQuickLook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6284C0D224D4E89D0006A589 /* Build configuration list for PBXProject "ViewSPE_Catalina" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6284C0FC24D4E89E0006A589 /* Debug */,
+				6284C0FD24D4E89E0006A589 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6284C0FE24D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_Catalina" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6284C0FF24D4E89E0006A589 /* Debug */,
+				6284C10024D4E89E0006A589 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6284C10124D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_CatalinaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6284C10224D4E89E0006A589 /* Debug */,
+				6284C10324D4E89E0006A589 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6284C10424D4E89E0006A589 /* Build configuration list for PBXNativeTarget "ViewSPE_CatalinaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6284C10524D4E89E0006A589 /* Debug */,
+				6284C10624D4E89E0006A589 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6284C11B24D4E9100006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6284C11C24D4E9100006A589 /* Debug */,
+				6284C11D24D4E9100006A589 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6284C0CF24D4E89D0006A589 /* Project object */;
+}

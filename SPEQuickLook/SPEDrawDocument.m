@@ -46,7 +46,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 
 @implementation SPEDrawDocument
 
-- (CPTLayerHostingView *)drawSPEfile:(NSString *)fileName
+- (CPTGraphHostingView *)drawSPEfile:(NSString *)fileName
 {
 	// get file path and file name
 	//        NSURL * filePath = [openPanel URL];
@@ -81,20 +81,20 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	if(header.NumFrames==1 && header.ydim==1)
 	{
 	// plot of single spectrum data
-		NSRect viewRect;
+    NSRect viewRect;
 	viewRect.origin.x=0;
 	viewRect.origin.y=0;
 	viewRect.size.width=501;
 	viewRect.size.height=306;
 //	NSView *view=[[NSView alloc] initWithFrame:viewRect] autorelease];
-	CPTLayerHostingView *hostingView=[[CPTLayerHostingView alloc] initWithFrame:viewRect];
+	CPTGraphHostingView *hostingView=[[CPTGraphHostingView alloc] initWithFrame:viewRect];
 	CPTXYGraph *graph;
 //	[hostingView setFrame:viewRect];
 //	[hostingView setBounds:viewRect];
 //	[view setBounds:viewRect];
 	graph = [[[CPTXYGraph alloc] initWithFrame:viewRect] autorelease];
 	//	graph = [[CPTXYGraph alloc] initWithFrame:hostingView.bounds];
-	hostingView.hostedLayer = graph;
+	hostingView.hostedGraph = graph;
 	
 	graph.paddingBottom = 20;
 	graph.paddingLeft = 20;
@@ -111,10 +111,10 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	//		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(speData->xmin)
 	//														length:CPTDecimalFromFloat(speData->xmax)];
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble([speData xMin])
-													length:CPTDecimalFromDouble([speData xMax]-[speData xMin])];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble([speData yMin])
-													length:CPTDecimalFromDouble([speData yMax]-[speData yMin])];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:[NSNumber numberWithDouble:[speData xMin]]
+                                                        length:[NSNumber numberWithDouble:([speData xMax]-[speData xMin])]];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[NSNumber numberWithDouble:[speData yMin]]
+                                                        length:[NSNumber numberWithDouble:([speData yMax]-[speData yMin])]];
 	double xTickInterval,yTickInterval;
 	xTickInterval = majorTickInterval([speData xMin],[speData xMax]);
 	yTickInterval = majorTickInterval([speData yMin],[speData yMax]);
@@ -126,7 +126,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *xAxis = axisSet.xAxis;
 	//		xAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
-	xAxis.majorIntervalLength = CPTDecimalFromDouble(xTickInterval);
+    xAxis.majorIntervalLength = [NSNumber numberWithDouble:xTickInterval];
 	xAxis.minorTicksPerInterval = 0;
 	xAxis.majorTickLineStyle = lineStyle;
 	xAxis.minorTickLineStyle = lineStyle;
@@ -134,13 +134,13 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	xAxis.minorTickLength = 5.0f;
 	xAxis.majorTickLength = 9.0f;
 	//		xAxis.isFloatingAxis = YES;
-	xAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble([speData yMin]);
+    xAxis.orthogonalPosition = [NSNumber numberWithDouble:[speData yMin]];
 	xAxis.title = @"wavelength";
 	
 	//	Y Axis
 	CPTXYAxis *yAxis = axisSet.yAxis;
 	//		yAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
-	yAxis.majorIntervalLength = CPTDecimalFromDouble(yTickInterval);
+    yAxis.majorIntervalLength = [NSNumber numberWithDouble:yTickInterval];
 	yAxis.minorTicksPerInterval = 0;
 	yAxis.majorTickLineStyle = lineStyle;
 	yAxis.minorTickLineStyle = lineStyle;
@@ -148,7 +148,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	yAxis.minorTickLength = 5.0f;
 	yAxis.majorTickLength = 9.0f;
 	//		yAxis.isFloatingAxis = YES;
-	yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble([speData xMin]);
+    yAxis.orthogonalPosition = [NSNumber numberWithDouble:[speData xMin]];
 	yAxis.title = @"intensity";
 	yAxis.titleOffset = 35.0f;	//	move left from y axis. negative value is go right.
 	lineStyle.lineWidth = 0.5f;
@@ -170,7 +170,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 	[speData release];
 
 	return hostingView;
-	} else if(header.numFrames==1 && header.ydim != 1) {
+	} else if(header.NumFrames==1 && header.ydim != 1) {
 		// image mode: data
 		// ビットマップデータを取得する
 		CFDataRef   dataRef;
@@ -188,7 +188,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 								
 				// 輝度値を計算する
 				UInt8   y;
-				y = (*(daat+j*xMax+i)-[data zMin])/([data zMax]-[data zMin]);
+				y = (*(data+j*xMax+i)-[data zMin])/([data zMax]-[data zMin]);
 				
 				// 輝度の値をRGB値として設定する
 				*(tmp + 1) = y;
@@ -207,7 +207,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 		
 		// 画像を作成する
 		CGImageRef  effectedCgImage;
-		UIImage*    effectedImage;
+		CIImage*    effectedImage;
 		effectedCgImage = CGImageCreate(
 										header.xdim, header.ydim, 
 										bitsPerComponent, bitsPerPixel, bytesPerRow, 

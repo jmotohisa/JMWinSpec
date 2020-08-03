@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C05A19C06CAA52B00D84F6F /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C05A19B06CAA52B00D84F6F /* GeneratePreviewForURL.m */; };
 		61E3BCFB0870B4F2002186A0 /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E3BCFA0870B4F2002186A0 /* GenerateThumbnailForURL.m */; };
+		620717DD24D6ABC600CCE27A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620717CD24D6AB0E00CCE27A /* CorePlot.framework */; };
 		621A4917143F35E200194ED5 /* AutoTicks.h in Headers */ = {isa = PBXBuildFile; fileRef = 621A490E143F35E200194ED5 /* AutoTicks.h */; };
 		621A4918143F35E200194ED5 /* AutoTicks.c in Sources */ = {isa = PBXBuildFile; fileRef = 621A490F143F35E200194ED5 /* AutoTicks.c */; };
 		621A4919143F35E200194ED5 /* SPEData.h in Headers */ = {isa = PBXBuildFile; fileRef = 621A4910143F35E200194ED5 /* SPEData.h */; };
@@ -21,7 +22,6 @@
 		621A4A01143FA60E00194ED5 /* SPEDrawDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 621A49FF143FA60E00194ED5 /* SPEDrawDocument.h */; };
 		621A4A02143FA60E00194ED5 /* SPEDrawDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 621A4A00143FA60E00194ED5 /* SPEDrawDocument.m */; };
 		622DF7161441D832009B9EFF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 622DF7151441D832009B9EFF /* AppKit.framework */; };
-		629F0073142EE05A00ECF6A8 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629F0072142EE05A00ECF6A8 /* CorePlot.framework */; };
 		8D576312048677EA00EA77CD /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB77B6FE84183AC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
 		8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */; };
 		8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D5B49A704867FD3000E48DA /* InfoPlist.strings */; };
@@ -30,12 +30,72 @@
 		F28CFC030A3EC0C6000ABFF5 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28CFC020A3EC0C6000ABFF5 /* QuickLook.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		620717CC24D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = "CorePlot Mac";
+		};
+		620717CE24D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = "UnitTests Mac";
+		};
+		620717D024D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09781A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		620717D224D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09821A46185300D45436;
+			remoteInfo = "UnitTests iOS";
+		};
+		620717D424D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09BA1A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		620717D624D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09C41A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouchTests";
+		};
+		620717D824D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
+			remoteInfo = "CorePlot tvOS";
+		};
+		620717DA24D6AB0E00CCE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
+			remoteInfo = "UnitTests tvOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		08FB77B6FE84183AC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		2C05A19B06CAA52B00D84F6F /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
 		61E3BCFA0870B4F2002186A0 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
+		620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = "../../core-plot/framework/CorePlot.xcodeproj"; sourceTree = "<group>"; };
 		621A490E143F35E200194ED5 /* AutoTicks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTicks.h; sourceTree = "<group>"; };
 		621A490F143F35E200194ED5 /* AutoTicks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AutoTicks.c; sourceTree = "<group>"; };
 		621A4910143F35E200194ED5 /* SPEData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEData.h; sourceTree = "<group>"; };
@@ -48,8 +108,7 @@
 		621A49FF143FA60E00194ED5 /* SPEDrawDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEDrawDocument.h; sourceTree = "<group>"; };
 		621A4A00143FA60E00194ED5 /* SPEDrawDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEDrawDocument.m; sourceTree = "<group>"; };
 		622DF7151441D832009B9EFF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		629F0072142EE05A00ECF6A8 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = ../../../Library/Frameworks/CorePlot.framework; sourceTree = SOURCE_ROOT; };
-		8D576316048677EA00EA77CD /* SPEQuickLookLeopard.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPEQuickLookLeopard.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* SPEQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPEQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C86B05260671AA6E00DD9006 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		F28CFBFC0A3EC0AF000ABFF5 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -61,11 +120,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620717DD24D6ABC600CCE27A /* CorePlot.framework in Frameworks */,
 				8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */,
 				C86B05270671AA6E00DD9006 /* CoreServices.framework in Frameworks */,
 				F28CFBFD0A3EC0AF000ABFF5 /* ApplicationServices.framework in Frameworks */,
 				F28CFC030A3EC0C6000ABFF5 /* QuickLook.framework in Frameworks */,
-				629F0073142EE05A00ECF6A8 /* CorePlot.framework in Frameworks */,
 				622DF7161441D832009B9EFF /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +140,8 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB6FE9D52B211CA2CBB /* Products */,
+				620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */,
+				620717DC24D6ABC600CCE27A /* Frameworks */,
 			);
 			name = SPEQuickLookLeopard;
 			sourceTree = "<group>";
@@ -89,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				622DF7151441D832009B9EFF /* AppKit.framework */,
-				629F0072142EE05A00ECF6A8 /* CorePlot.framework */,
 				F28CFC020A3EC0C6000ABFF5 /* QuickLook.framework */,
 				F28CFBFC0A3EC0AF000ABFF5 /* ApplicationServices.framework */,
 				C86B05260671AA6E00DD9006 /* CoreServices.framework */,
@@ -120,9 +180,31 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* SPEQuickLookLeopard.qlgenerator */,
+				8D576316048677EA00EA77CD /* SPEQuickLook.qlgenerator */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		620717BD24D6AB0D00CCE27A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				620717CD24D6AB0E00CCE27A /* CorePlot.framework */,
+				620717CF24D6AB0E00CCE27A /* UnitTests.xctest */,
+				620717D124D6AB0E00CCE27A /* CorePlot.framework */,
+				620717D324D6AB0E00CCE27A /* UnitTests iOS.xctest */,
+				620717D524D6AB0E00CCE27A /* libCorePlot-CocoaTouch.a */,
+				620717D724D6AB0E00CCE27A /* CorePlot-CocoaTouchTests.xctest */,
+				620717D924D6AB0E00CCE27A /* CorePlot.framework */,
+				620717DB24D6AB0E00CCE27A /* UnitTests tvOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		620717DC24D6ABC600CCE27A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		621A49FE143FA59100194ED5 /* SPESources */ = {
@@ -162,9 +244,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D57630D048677EA00EA77CD /* SPEQuickLookLeopard */ = {
+		8D57630D048677EA00EA77CD /* SPEQuickLook */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CA3261E0896AD4900168862 /* Build configuration list for PBXNativeTarget "SPEQuickLookLeopard" */;
+			buildConfigurationList = 2CA3261E0896AD4900168862 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */;
 			buildPhases = (
 				8D57630E048677EA00EA77CD /* Headers */,
 				8D57630F048677EA00EA77CD /* Resources */,
@@ -176,10 +258,10 @@
 			);
 			dependencies = (
 			);
-			name = SPEQuickLookLeopard;
+			name = SPEQuickLook;
 			productInstallPath = /Library/QuickLook;
 			productName = SPEQuickLookLeopard;
-			productReference = 8D576316048677EA00EA77CD /* SPEQuickLookLeopard.qlgenerator */;
+			productReference = 8D576316048677EA00EA77CD /* SPEQuickLook.qlgenerator */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -188,7 +270,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1010;
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "SPEQuickLook" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -199,12 +281,77 @@
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* SPEQuickLookLeopard */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 620717BD24D6AB0D00CCE27A /* Products */;
+					ProjectRef = 620717BC24D6AB0D00CCE27A /* CorePlot.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				8D57630D048677EA00EA77CD /* SPEQuickLookLeopard */,
+				8D57630D048677EA00EA77CD /* SPEQuickLook */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		620717CD24D6AB0E00CCE27A /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 620717CC24D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717CF24D6AB0E00CCE27A /* UnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.xctest;
+			remoteRef = 620717CE24D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717D124D6AB0E00CCE27A /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 620717D024D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717D324D6AB0E00CCE27A /* UnitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests iOS.xctest";
+			remoteRef = 620717D224D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717D524D6AB0E00CCE27A /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = 620717D424D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717D724D6AB0E00CCE27A /* CorePlot-CocoaTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CorePlot-CocoaTouchTests.xctest";
+			remoteRef = 620717D624D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717D924D6AB0E00CCE27A /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 620717D824D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		620717DB24D6AB0E00CCE27A /* UnitTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests tvOS.xctest";
+			remoteRef = 620717DA24D6AB0E00CCE27A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D57630F048677EA00EA77CD /* Resources */ = {
@@ -260,6 +407,7 @@
 		2CA3261F0896AD4900168862 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
@@ -268,14 +416,13 @@
 					"\"$(SRCROOT)/../../../Library/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmotohisa.spe.qlgenerator;
-				PRODUCT_NAME = SPEQuickLookLeopard;
+				PRODUCT_NAME = SPEQuickLook;
 				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -284,6 +431,7 @@
 		2CA326200896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
@@ -296,7 +444,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmotohisa.spe.qlgenerator;
-				PRODUCT_NAME = SPEQuickLookLeopard;
+				PRODUCT_NAME = SPEQuickLook;
 				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -305,12 +453,20 @@
 		2CA326230896AD4900168862 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -328,7 +484,6 @@
 				INSTALL_PATH = "~/Library/QuickLook";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -336,12 +491,20 @@
 		2CA326240896AD4900168862 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -357,7 +520,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "~/Library/QuickLook";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -365,7 +527,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2CA3261E0896AD4900168862 /* Build configuration list for PBXNativeTarget "SPEQuickLookLeopard" */ = {
+		2CA3261E0896AD4900168862 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CA3261F0896AD4900168862 /* Debug */,

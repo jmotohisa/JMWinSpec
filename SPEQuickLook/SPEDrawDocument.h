@@ -32,6 +32,6 @@
 // Return the current value of the property.
 - (NSSize)canvasSize;
 
-- (CPTLayerHostingView *)drawSPEfile:(NSString *)fileName;
+- (CPTGraphHostingView *)drawSPEfile:(NSString *)fileName;
 
 @end

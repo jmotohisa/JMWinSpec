@@ -41,7 +41,7 @@
 			zmax=*(data0+i);
 		[data addObject:[NSNumber numberWithDouble:*(data0+i)]];
 	}
-	if(haeader.NumFrames==1)
+	if(header.NumFrames==1)
 	{
 		ymin=zmin;
 		ymax=zmax;

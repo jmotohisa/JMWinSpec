@@ -1,6 +1,6 @@
 //
 //  SPEDrawDocument.m
-//  SPEQuickLookLeopard
+//  SPEQuickLook
 //
 //  Created by Junichi Motohisa on 11/10/08.
 //  Copyright 2011 北海道大学. All rights reserved.
@@ -175,6 +175,7 @@ static int SPEDrawDocumentCurrentVersion = 2;
 		// ビットマップデータを取得する
 		CFDataRef   dataRef;
 		UInt8	*buffer;
+        CGDataProviderRef dataProvider;
 		dataRef = CGDataProviderCopyData(dataProvider);
 		buffer = (UInt8*)CFDataGetBytePtr(dataRef);
 		

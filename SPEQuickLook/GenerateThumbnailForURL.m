@@ -21,7 +21,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	SPEDrawDocument *SPEDraw=[[SPEDrawDocument alloc] init];
 	CPTGraphHostingView *imageData=[[CPTGraphHostingView alloc] init];
 	imageData = [SPEDraw drawSPEfile:filePath];
-	NSImage *image = [[imageData hostedGraph] imageOfGraph;
+	NSImage *image = [[imageData hostedGraph] imageOfGraph];
 	CGImageRef imageDataRef = (CGImageRef)[image TIFFRepresentation];
 	
 	QLThumbnailRequestSetImage(thumbnail,imageDataRef,nil);

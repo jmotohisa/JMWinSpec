@@ -30,4 +30,4 @@ DerivedData/
 /*.gcno
 
 ## LabView
-LabView/*.aliases
+*.aliases

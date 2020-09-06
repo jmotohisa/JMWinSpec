@@ -16,7 +16,9 @@
 		<Item Name="int_binread.vi" Type="VI" URL="../int_binread.vi"/>
 		<Item Name="long_binread.vi" Type="VI" URL="../long_binread.vi"/>
 		<Item Name="Read and Write Binary File Examples.vi" Type="VI" URL="../Read and Write Binary File Examples.vi"/>
+		<Item Name="read_exptime.vi" Type="VI" URL="../read_exptime.vi"/>
 		<Item Name="readSPEHeader.vi" Type="VI" URL="../readSPEHeader.vi"/>
+		<Item Name="readSPEHeaderTest.vi" Type="VI" URL="../readSPEHeaderTest.vi"/>
 		<Item Name="short_binread.vi" Type="VI" URL="../short_binread.vi"/>
 		<Item Name="依存項目" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">

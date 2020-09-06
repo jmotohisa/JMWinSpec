@@ -14,7 +14,7 @@
 @interface FileDialogController : NSObject <CPTScatterPlotDataSource>
 {
 //	IBOutlet NSString *fileName;
-    IBOutlet CPTLayerHostingView *_hostingView;
+    IBOutlet CPTGraphHostingView *_hostingView;
     CPTXYGraph *graph;
 //@private
 	WINXHEADER_STRUCT header;

@@ -61,7 +61,7 @@
 		
 //		CPTXYGraph *graph;
 		graph = [[[CPTXYGraph alloc] initWithFrame:_hostingView.bounds] autorelease];
-		_hostingView.hostedLayer = graph;
+		_hostingView.hostedGraph = graph;
 		
 		graph.paddingBottom = 20;
 		graph.paddingLeft = 20;

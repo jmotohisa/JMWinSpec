@@ -7,19 +7,91 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		624C9A8E24D4EF5A00483956 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		624C9A9124D4EF6500483956 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		624C9A9824D5296D00483956 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		624C9A9A24D5299D00483956 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		624C9A9B24D52A8200483956 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; };
+		624C9A9C24D52A9700483956 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624C9A7E24D4EEBB00483956 /* CorePlot.framework */; };
 		6284C0DC24D4E89D0006A589 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0DB24D4E89D0006A589 /* AppDelegate.m */; };
 		6284C0DE24D4E89E0006A589 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6284C0DD24D4E89E0006A589 /* Assets.xcassets */; };
 		6284C0E124D4E89E0006A589 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6284C0DF24D4E89E0006A589 /* MainMenu.xib */; };
 		6284C0E424D4E89E0006A589 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0E324D4E89E0006A589 /* main.m */; };
 		6284C0EF24D4E89E0006A589 /* ViewSPE_CatalinaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0EE24D4E89E0006A589 /* ViewSPE_CatalinaTests.m */; };
 		6284C0FA24D4E89E0006A589 /* ViewSPE_CatalinaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C0F924D4E89E0006A589 /* ViewSPE_CatalinaUITests.m */; };
-		6284C10E24D4E9100006A589 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6284C10D24D4E9100006A589 /* Quartz.framework */; };
-		6284C11224D4E9100006A589 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C11124D4E9100006A589 /* PreviewViewController.m */; };
-		6284C11524D4E9100006A589 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6284C11324D4E9100006A589 /* PreviewViewController.xib */; };
-		6284C11A24D4E9100006A589 /* SPEQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6284C10B24D4E9100006A589 /* SPEQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6284C12424D4EC060006A589 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6284C10D24D4E9100006A589 /* Quartz.framework */; };
+		6284C12824D4EC060006A589 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C12724D4EC060006A589 /* PreviewViewController.m */; };
+		6284C12B24D4EC060006A589 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6284C12924D4EC060006A589 /* PreviewViewController.xib */; };
+		6284C13024D4EC060006A589 /* SPEQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6284C12324D4EC060006A589 /* SPEQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6284C14024D4EC970006A589 /* FileDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13724D4EC970006A589 /* FileDialogController.m */; };
+		6284C14124D4EC970006A589 /* FileDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13724D4EC970006A589 /* FileDialogController.m */; };
+		6284C14224D4EC970006A589 /* SPEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13B24D4EC970006A589 /* SPEData.m */; };
+		6284C14324D4EC970006A589 /* SPEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13B24D4EC970006A589 /* SPEData.m */; };
+		6284C14424D4EC970006A589 /* AutoTicks.c in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13C24D4EC970006A589 /* AutoTicks.c */; };
+		6284C14524D4EC970006A589 /* AutoTicks.c in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13C24D4EC970006A589 /* AutoTicks.c */; };
+		6284C14624D4EC970006A589 /* readspe.c in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13D24D4EC970006A589 /* readspe.c */; };
+		6284C14724D4EC970006A589 /* readspe.c in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13D24D4EC970006A589 /* readspe.c */; };
+		6284C14824D4EC970006A589 /* SPEHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13E24D4EC970006A589 /* SPEHeader.m */; };
+		6284C14924D4EC970006A589 /* SPEHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C13E24D4EC970006A589 /* SPEHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		624C9A7D24D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = "CorePlot Mac";
+		};
+		624C9A7F24D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = "UnitTests Mac";
+		};
+		624C9A8124D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09781A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		624C9A8324D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09821A46185300D45436;
+			remoteInfo = "UnitTests iOS";
+		};
+		624C9A8524D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09BA1A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		624C9A8724D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09C41A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouchTests";
+		};
+		624C9A8924D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
+			remoteInfo = "CorePlot tvOS";
+		};
+		624C9A8B24D4EEBB00483956 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
+			remoteInfo = "UnitTests tvOS";
+		};
 		6284C0EB24D4E89E0006A589 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6284C0CF24D4E89D0006A589 /* Project object */;
@@ -34,23 +106,65 @@
 			remoteGlobalIDString = 6284C0D624D4E89D0006A589;
 			remoteInfo = ViewSPE_Catalina;
 		};
-		6284C11824D4E9100006A589 /* PBXContainerItemProxy */ = {
+		6284C12E24D4EC060006A589 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6284C0CF24D4E89D0006A589 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6284C10A24D4E9100006A589;
+			remoteGlobalIDString = 6284C12224D4EC060006A589;
 			remoteInfo = SPEQuickLook;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		624C9A8F24D4EF5A00483956 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				624C9A8E24D4EF5A00483956 /* CorePlot.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624C9A9224D4EF6500483956 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				624C9A9124D4EF6500483956 /* CorePlot.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624C9A9324D528E700483956 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				624C9A9824D5296D00483956 /* CorePlot.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624C9A9924D5299600483956 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				624C9A9A24D5299D00483956 /* CorePlot.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6284C11E24D4E9100006A589 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6284C11A24D4E9100006A589 /* SPEQuickLook.appex in Embed App Extensions */,
+				6284C13024D4EC060006A589 /* SPEQuickLook.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +172,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = "../../core-plot/framework/CorePlot.xcodeproj"; sourceTree = "<group>"; };
 		6284C0D724D4E89D0006A589 /* ViewSPE_Catalina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewSPE_Catalina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6284C0DA24D4E89D0006A589 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6284C0DB24D4E89D0006A589 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -72,13 +187,25 @@
 		6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewSPE_CatalinaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6284C0F924D4E89E0006A589 /* ViewSPE_CatalinaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSPE_CatalinaUITests.m; sourceTree = "<group>"; };
 		6284C0FB24D4E89E0006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6284C10B24D4E9100006A589 /* SPEQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SPEQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6284C10D24D4E9100006A589 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		6284C11024D4E9100006A589 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
-		6284C11124D4E9100006A589 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
-		6284C11424D4E9100006A589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
-		6284C11624D4E9100006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6284C11724D4E9100006A589 /* SPEQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SPEQuickLook.entitlements; sourceTree = "<group>"; };
+		6284C12324D4EC060006A589 /* SPEQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SPEQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6284C12624D4EC060006A589 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		6284C12724D4EC060006A589 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		6284C12A24D4EC060006A589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		6284C12C24D4EC060006A589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6284C12D24D4EC060006A589 /* SPEQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SPEQuickLook.entitlements; sourceTree = "<group>"; };
+		6284C13424D4EC970006A589 /* AutoTicks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTicks.h; sourceTree = SOURCE_ROOT; };
+		6284C13524D4EC970006A589 /* SPEData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEData.h; sourceTree = SOURCE_ROOT; };
+		6284C13624D4EC970006A589 /* WinSpecHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinSpecHeader.h; sourceTree = SOURCE_ROOT; };
+		6284C13724D4EC970006A589 /* FileDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDialogController.m; sourceTree = SOURCE_ROOT; };
+		6284C13824D4EC970006A589 /* FileDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDialogController.h; sourceTree = SOURCE_ROOT; };
+		6284C13924D4EC970006A589 /* SPEHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEHeader.h; sourceTree = SOURCE_ROOT; };
+		6284C13A24D4EC970006A589 /* WinSpecHeader25.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinSpecHeader25.h; sourceTree = SOURCE_ROOT; };
+		6284C13B24D4EC970006A589 /* SPEData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEData.m; sourceTree = SOURCE_ROOT; };
+		6284C13C24D4EC970006A589 /* AutoTicks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AutoTicks.c; sourceTree = SOURCE_ROOT; };
+		6284C13D24D4EC970006A589 /* readspe.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readspe.c; sourceTree = SOURCE_ROOT; };
+		6284C13E24D4EC970006A589 /* SPEHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEHeader.m; sourceTree = SOURCE_ROOT; };
+		6284C13F24D4EC970006A589 /* readspe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = readspe.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				624C9A9C24D52A9700483956 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,26 +231,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6284C10824D4E9100006A589 /* Frameworks */ = {
+		6284C12024D4EC060006A589 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6284C10E24D4E9100006A589 /* Quartz.framework in Frameworks */,
+				6284C12424D4EC060006A589 /* Quartz.framework in Frameworks */,
+				624C9A9B24D52A8200483956 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		624C9A6E24D4EEBB00483956 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				624C9A7E24D4EEBB00483956 /* CorePlot.framework */,
+				624C9A8024D4EEBB00483956 /* UnitTests.xctest */,
+				624C9A8224D4EEBB00483956 /* CorePlot.framework */,
+				624C9A8424D4EEBB00483956 /* UnitTests iOS.xctest */,
+				624C9A8624D4EEBB00483956 /* libCorePlot-CocoaTouch.a */,
+				624C9A8824D4EEBB00483956 /* CorePlot-CocoaTouchTests.xctest */,
+				624C9A8A24D4EEBB00483956 /* CorePlot.framework */,
+				624C9A8C24D4EEBB00483956 /* UnitTests tvOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6284C0CE24D4E89D0006A589 = {
 			isa = PBXGroup;
 			children = (
 				6284C0D924D4E89D0006A589 /* ViewSPE_Catalina */,
 				6284C0ED24D4E89E0006A589 /* ViewSPE_CatalinaTests */,
 				6284C0F824D4E89E0006A589 /* ViewSPE_CatalinaUITests */,
-				6284C10F24D4E9100006A589 /* SPEQuickLook */,
+				6284C12524D4EC060006A589 /* SPEQuickLook */,
 				6284C10C24D4E9100006A589 /* Frameworks */,
 				6284C0D824D4E89D0006A589 /* Products */,
+				624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,7 +277,7 @@
 				6284C0D724D4E89D0006A589 /* ViewSPE_Catalina.app */,
 				6284C0EA24D4E89E0006A589 /* ViewSPE_CatalinaTests.xctest */,
 				6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */,
-				6284C10B24D4E9100006A589 /* SPEQuickLook.appex */,
+				6284C12324D4EC060006A589 /* SPEQuickLook.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +285,18 @@
 		6284C0D924D4E89D0006A589 /* ViewSPE_Catalina */ = {
 			isa = PBXGroup;
 			children = (
+				6284C13C24D4EC970006A589 /* AutoTicks.c */,
+				6284C13424D4EC970006A589 /* AutoTicks.h */,
+				6284C13824D4EC970006A589 /* FileDialogController.h */,
+				6284C13724D4EC970006A589 /* FileDialogController.m */,
+				6284C13D24D4EC970006A589 /* readspe.c */,
+				6284C13F24D4EC970006A589 /* readspe.h */,
+				6284C13524D4EC970006A589 /* SPEData.h */,
+				6284C13B24D4EC970006A589 /* SPEData.m */,
+				6284C13924D4EC970006A589 /* SPEHeader.h */,
+				6284C13E24D4EC970006A589 /* SPEHeader.m */,
+				6284C13624D4EC970006A589 /* WinSpecHeader.h */,
+				6284C13A24D4EC970006A589 /* WinSpecHeader25.h */,
 				6284C0DA24D4E89D0006A589 /* AppDelegate.h */,
 				6284C0DB24D4E89D0006A589 /* AppDelegate.m */,
 				6284C0DD24D4E89E0006A589 /* Assets.xcassets */,
@@ -177,14 +334,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6284C10F24D4E9100006A589 /* SPEQuickLook */ = {
+		6284C12524D4EC060006A589 /* SPEQuickLook */ = {
 			isa = PBXGroup;
 			children = (
-				6284C11024D4E9100006A589 /* PreviewViewController.h */,
-				6284C11124D4E9100006A589 /* PreviewViewController.m */,
-				6284C11324D4E9100006A589 /* PreviewViewController.xib */,
-				6284C11624D4E9100006A589 /* Info.plist */,
-				6284C11724D4E9100006A589 /* SPEQuickLook.entitlements */,
+				6284C12624D4EC060006A589 /* PreviewViewController.h */,
+				6284C12724D4EC060006A589 /* PreviewViewController.m */,
+				6284C12924D4EC060006A589 /* PreviewViewController.xib */,
+				6284C12C24D4EC060006A589 /* Info.plist */,
+				6284C12D24D4EC060006A589 /* SPEQuickLook.entitlements */,
 			);
 			path = SPEQuickLook;
 			sourceTree = "<group>";
@@ -200,11 +357,13 @@
 				6284C0D424D4E89D0006A589 /* Frameworks */,
 				6284C0D524D4E89D0006A589 /* Resources */,
 				6284C11E24D4E9100006A589 /* Embed App Extensions */,
+				624C9A8F24D4EF5A00483956 /* Embed Frameworks */,
+				624C9A9324D528E700483956 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6284C11924D4E9100006A589 /* PBXTargetDependency */,
+				6284C12F24D4EC060006A589 /* PBXTargetDependency */,
 			);
 			name = ViewSPE_Catalina;
 			productName = ViewSPE_Catalina;
@@ -247,13 +406,15 @@
 			productReference = 6284C0F524D4E89E0006A589 /* ViewSPE_CatalinaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		6284C10A24D4E9100006A589 /* SPEQuickLook */ = {
+		6284C12224D4EC060006A589 /* SPEQuickLook */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6284C11B24D4E9100006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */;
+			buildConfigurationList = 6284C13124D4EC060006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */;
 			buildPhases = (
-				6284C10724D4E9100006A589 /* Sources */,
-				6284C10824D4E9100006A589 /* Frameworks */,
-				6284C10924D4E9100006A589 /* Resources */,
+				6284C11F24D4EC060006A589 /* Sources */,
+				6284C12024D4EC060006A589 /* Frameworks */,
+				6284C12124D4EC060006A589 /* Resources */,
+				624C9A9224D4EF6500483956 /* Embed Frameworks */,
+				624C9A9924D5299600483956 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -261,7 +422,7 @@
 			);
 			name = SPEQuickLook;
 			productName = SPEQuickLook;
-			productReference = 6284C10B24D4E9100006A589 /* SPEQuickLook.appex */;
+			productReference = 6284C12324D4EC060006A589 /* SPEQuickLook.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +445,7 @@
 						CreatedOnToolsVersion = 11.6;
 						TestTargetID = 6284C0D624D4E89D0006A589;
 					};
-					6284C10A24D4E9100006A589 = {
+					6284C12224D4EC060006A589 = {
 						CreatedOnToolsVersion = 11.6;
 					};
 				};
@@ -300,15 +461,80 @@
 			mainGroup = 6284C0CE24D4E89D0006A589;
 			productRefGroup = 6284C0D824D4E89D0006A589 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 624C9A6E24D4EEBB00483956 /* Products */;
+					ProjectRef = 624C9A6D24D4EEBB00483956 /* CorePlot.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */,
 				6284C0E924D4E89E0006A589 /* ViewSPE_CatalinaTests */,
 				6284C0F424D4E89E0006A589 /* ViewSPE_CatalinaUITests */,
-				6284C10A24D4E9100006A589 /* SPEQuickLook */,
+				6284C12224D4EC060006A589 /* SPEQuickLook */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		624C9A7E24D4EEBB00483956 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 624C9A7D24D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8024D4EEBB00483956 /* UnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.xctest;
+			remoteRef = 624C9A7F24D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8224D4EEBB00483956 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 624C9A8124D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8424D4EEBB00483956 /* UnitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests iOS.xctest";
+			remoteRef = 624C9A8324D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8624D4EEBB00483956 /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = 624C9A8524D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8824D4EEBB00483956 /* CorePlot-CocoaTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CorePlot-CocoaTouchTests.xctest";
+			remoteRef = 624C9A8724D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8A24D4EEBB00483956 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 624C9A8924D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		624C9A8C24D4EEBB00483956 /* UnitTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests tvOS.xctest";
+			remoteRef = 624C9A8B24D4EEBB00483956 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6284C0D524D4E89D0006A589 /* Resources */ = {
@@ -334,11 +560,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6284C10924D4E9100006A589 /* Resources */ = {
+		6284C12124D4EC060006A589 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6284C11524D4E9100006A589 /* PreviewViewController.xib in Resources */,
+				6284C12B24D4EC060006A589 /* PreviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +575,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6284C14824D4EC970006A589 /* SPEHeader.m in Sources */,
 				6284C0E424D4E89E0006A589 /* main.m in Sources */,
+				6284C14024D4EC970006A589 /* FileDialogController.m in Sources */,
+				6284C14424D4EC970006A589 /* AutoTicks.c in Sources */,
+				6284C14224D4EC970006A589 /* SPEData.m in Sources */,
+				6284C14624D4EC970006A589 /* readspe.c in Sources */,
 				6284C0DC24D4E89D0006A589 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,11 +601,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6284C10724D4E9100006A589 /* Sources */ = {
+		6284C11F24D4EC060006A589 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6284C11224D4E9100006A589 /* PreviewViewController.m in Sources */,
+				6284C14324D4EC970006A589 /* SPEData.m in Sources */,
+				6284C12824D4EC060006A589 /* PreviewViewController.m in Sources */,
+				6284C14124D4EC970006A589 /* FileDialogController.m in Sources */,
+				6284C14924D4EC970006A589 /* SPEHeader.m in Sources */,
+				6284C14524D4EC970006A589 /* AutoTicks.c in Sources */,
+				6284C14724D4EC970006A589 /* readspe.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,10 +627,10 @@
 			target = 6284C0D624D4E89D0006A589 /* ViewSPE_Catalina */;
 			targetProxy = 6284C0F624D4E89E0006A589 /* PBXContainerItemProxy */;
 		};
-		6284C11924D4E9100006A589 /* PBXTargetDependency */ = {
+		6284C12F24D4EC060006A589 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6284C10A24D4E9100006A589 /* SPEQuickLook */;
-			targetProxy = 6284C11824D4E9100006A589 /* PBXContainerItemProxy */;
+			target = 6284C12224D4EC060006A589 /* SPEQuickLook */;
+			targetProxy = 6284C12E24D4EC060006A589 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -407,10 +643,10 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		6284C11324D4E9100006A589 /* PreviewViewController.xib */ = {
+		6284C12924D4EC060006A589 /* PreviewViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6284C11424D4E9100006A589 /* Base */,
+				6284C12A24D4EC060006A589 /* Base */,
 			);
 			name = PreviewViewController.xib;
 			sourceTree = "<group>";
@@ -633,7 +869,7 @@
 			};
 			name = Release;
 		};
-		6284C11C24D4E9100006A589 /* Debug */ = {
+		6284C13224D4EC060006A589 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SPEQuickLook/SPEQuickLook.entitlements;
@@ -650,7 +886,7 @@
 			};
 			name = Debug;
 		};
-		6284C11D24D4E9100006A589 /* Release */ = {
+		6284C13324D4EC060006A589 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SPEQuickLook/SPEQuickLook.entitlements;
@@ -706,11 +942,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6284C11B24D4E9100006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */ = {
+		6284C13124D4EC060006A589 /* Build configuration list for PBXNativeTarget "SPEQuickLook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6284C11C24D4E9100006A589 /* Debug */,
-				6284C11D24D4E9100006A589 /* Release */,
+				6284C13224D4EC060006A589 /* Debug */,
+				6284C13324D4EC060006A589 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

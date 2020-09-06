@@ -1,6 +1,6 @@
+.DS_Store
 *.o
 headertest
-
 
 # Xcode
 #
@@ -28,3 +28,6 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+## LabView
+LabView/*.aliases

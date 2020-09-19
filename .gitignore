@@ -31,3 +31,5 @@ DerivedData/
 
 ## LabView
 *.aliases
+*.lvlps
+LabView/builds

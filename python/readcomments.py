@@ -6,6 +6,13 @@ import argparse
 import sys
 import glob
 
+def outputter(fname,fnameflag,label,val):
+    if(not fnameflag) :
+        print(fname,':',label,':',val)
+    else:
+        print(label,':',val)
+        
+
 def get_args():
     # 準備
     parser = argparse.ArgumentParser(description='Read Winspec Header')
@@ -19,6 +26,9 @@ def get_args():
     parser.add_argument('-n', '--none',\
                         action="store_true", \
                         help='without comment output')
+    parser.add_argument('-s', '--sup',\
+                        action="store_true", \
+                        help='suppress filename output')
     # parser.add_argument('-r', '--rangey',\
     #                     nargs='?',\
     #                     type=float,\
@@ -33,7 +43,8 @@ def get_args():
 
 args = get_args()
 fnames=args.fnames
-print(fnames)
+sup=args.sup
+# print(fnames)
 # fn='/Users/motohisa/Documents/experiment/20200124/W001.spe'
 
 # commments start at, with length
@@ -42,26 +53,26 @@ length=80
 
 for fn in fnames:
     with open(fn,'rb') as f:
-        print(read_short(f,0)) #ControllerVersion
+        # print(read_short(f,0)) #ControllerVersion
         # f.seek(4,0)
         # exposure = f.read(2)
         
-        print('exp_sec: ',read_float(f,10))
-        print('xDimDet: ',read_WORD(f,6))
-        print('yDimDet: ',read_WORD(f,18))
-        print(read_string(f,20,10)) # date
-        print('SpecCenterWlNm: ',read_float(f,72))
+        outputter(fn,sup,'exp_sec',read_float(f,10))
+        outputter(fn,sup,'xDimDet',read_WORD(f,6))
+        outputter(fn,sup,'yDimDet',read_WORD(f,18))
+        outputter(fn,sup,'date',read_string(f,20,10)) # date
+        outputter(fn,sup,'SpecCenterWlNm',read_float(f,72))
         #    print(read_DWORD(f,114)) # PulserRepeatExp
     
         if not args.none:
-            print(fn,':',read_string(f,start,length))
-            print(fn,':',read_string(f,start+length,length))
-            print(fn,':',read_string(f,start+length*2,length))
-            print(fn,':',read_string(f,start+length*3,length))
-            print(fn,':',read_string(f,start+length*4,length))
+            outputter(fn,sup,'1',read_string(f,start,length))
+            outputter(fn,sup,'2',read_string(f,start+length,length))
+            outputter(fn,sup,'3',read_string(f,start+length*2,length))
+            outputter(fn,sup,'4',read_string(f,start+length*3,length))
+            outputter(fn,sup,'5',read_string(f,start+length*4,length))
             
-        print('lnoscan: ',read_LONG(f,664)) # lnoscan
-        print('lavgexp: ',read_LONG(f,668)) # lavgexp
-        print('NumFrames: ',read_LONG(f,1446)) # NumFrames
-        print('file_header_ver :', read_float(f,1992))
-        print('offset_x :',read_double(f,3000))
+        outputter(fn,sup,'lnoscan',read_LONG(f,664)) # lnoscan
+        outputter(fn,sup,'lavgexp',read_LONG(f,668)) # lavgexp
+        outputter(fn,sup,'NumFrames',read_LONG(f,1446)) # NumFrames
+        outputter(fn,sup,'file_header_ver', read_float(f,1992))
+        outputter(fn,sup,'offset_x',read_double(f,3000))

@@ -2,7 +2,7 @@
 
 use Convert::Binary::C;
 use Data::Dumper;
-use Data::Hexdumper;
+use Data::Hexdump;
 
 my $c = new Convert::Binary::C ByteOrder => 'LittleEndian', Alignment => 1;
 #$c->Include('/Users/motohisa/Documents/programing/WinSpec/');

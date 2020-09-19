@@ -3,6 +3,7 @@
 
 from binread import *
 import argparse
+import os
 import sys
 import glob
 
@@ -51,28 +52,33 @@ sup=args.sup
 start=200
 length=80
 
-for fn in fnames:
-    with open(fn,'rb') as f:
-        # print(read_short(f,0)) #ControllerVersion
-        # f.seek(4,0)
-        # exposure = f.read(2)
-        
-        outputter(fn,sup,'exp_sec',read_float(f,10))
-        outputter(fn,sup,'xDimDet',read_WORD(f,6))
-        outputter(fn,sup,'yDimDet',read_WORD(f,18))
-        outputter(fn,sup,'date',read_string(f,20,10)) # date
-        outputter(fn,sup,'SpecCenterWlNm',read_float(f,72))
-        #    print(read_DWORD(f,114)) # PulserRepeatExp
-    
-        if not args.none:
-            outputter(fn,sup,'1',read_string(f,start,length))
-            outputter(fn,sup,'2',read_string(f,start+length,length))
-            outputter(fn,sup,'3',read_string(f,start+length*2,length))
-            outputter(fn,sup,'4',read_string(f,start+length*3,length))
-            outputter(fn,sup,'5',read_string(f,start+length*4,length))
+for fn0 in fnames:
+    # print(fn,os.path.splitext(fn)[1][1:].lower())
+    fnames2=glob.glob(fn0)
+    for fn in fnames2:
+        if os.path.splitext(fn)[1][1:].lower() == 'spe' :
+            with open(fn,'rb') as f:
+                # print(read_short(f,0)) #ControllerVersion
+                # f.seek(4,0)
+                # exposure = f.read(2)
+                
+                outputter(fn,sup,'exp_sec',read_float(f,10))
+                outputter(fn,sup,'xDimDet',read_WORD(f,6))
+                outputter(fn,sup,'yDimDet',read_WORD(f,18))
+                outputter(fn,sup,'date',read_string(f,20,10)) # date
+                outputter(fn,sup,'SpecCenterWlNm',read_float(f,72))
+                #    print(read_DWORD(f,114)) # PulserRepeatExp
+                
+                if not args.none:
+                    outputter(fn,sup,'1',read_string(f,start,length))
+                    outputter(fn,sup,'2',read_string(f,start+length,length))
+                    outputter(fn,sup,'3',read_string(f,start+length*2,length))
+                    outputter(fn,sup,'4',read_string(f,start+length*3,length))
+                    outputter(fn,sup,'5',read_string(f,start+length*4,length))
             
-        outputter(fn,sup,'lnoscan',read_LONG(f,664)) # lnoscan
-        outputter(fn,sup,'lavgexp',read_LONG(f,668)) # lavgexp
-        outputter(fn,sup,'NumFrames',read_LONG(f,1446)) # NumFrames
-        outputter(fn,sup,'file_header_ver', read_float(f,1992))
-        outputter(fn,sup,'offset_x',read_double(f,3000))
+                outputter(fn,sup,'lnoscan',read_LONG(f,664)) # lnoscan
+                outputter(fn,sup,'lavgexp',read_LONG(f,668)) # lavgexp
+                outputter(fn,sup,'NumFrames',read_LONG(f,1446)) # NumFrames
+                outputter(fn,sup,'file_header_ver', read_float(f,1992))
+                outputter(fn,sup,'offset_x',read_double(f,3000))
+                

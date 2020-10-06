@@ -20,6 +20,7 @@
 		<Item Name="readSPEHeader.vi" Type="VI" URL="../readSPEHeader.vi"/>
 		<Item Name="readSPEHeaderTest.vi" Type="VI" URL="../readSPEHeaderTest.vi"/>
 		<Item Name="short_binread.vi" Type="VI" URL="../short_binread.vi"/>
+		<Item Name="string_binread.vi" Type="VI" URL="../string_binread.vi"/>
 		<Item Name="依存項目" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="compatCalcOffset.vi" Type="VI" URL="/&lt;vilib&gt;/_oldvers/_oldvers.llb/compatCalcOffset.vi"/>

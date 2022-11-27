@@ -5,8 +5,6 @@
 
 #include "WinSpecHeader25.h"
 
-#include "config.h"
-
 #define GLOBAL_VALUE_DEFINE
 #include "readspe.h"
 
@@ -24,11 +22,7 @@ int read_spe_header(char *filename, WINXHEADER_STRUCT *header)
   return(1);
 }
 
-#ifdef HAS_PLPLOT
-int read_spe_data(char *filename, PLFLT *data, WINXHEADER_STRUCT header)
-#else
 int read_spe_data(char *filename, double *data, WINXHEADER_STRUCT header)
-#endif
 {
   FILE *fp;
   float *f_data;
@@ -91,11 +85,7 @@ int read_spe_data(char *filename, double *data, WINXHEADER_STRUCT header)
   return(1);
 }
   
-#ifdef HAS_PLPLOT
-int poly(int n, PLFLT *x, int norder, double *coef)
-#else
 int poly(int n, double *x, int norder, double *coef)
-#endif
 {
   int i,j;
   double y;

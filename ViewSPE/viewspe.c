@@ -104,13 +104,8 @@ int main(int argc, char **argv)
 	if(err = read_spe_header(argv[ifile],&header)>0)
 	  {
 	//malloc(sizeof(t) * CHK_MALLOC_n_tmp)
-#ifdef HAS_PLPLOT
-		data = (PLFLT *) malloc(sizeof(PLFLT)*header.xdim*header.ydim*header.NumFrames);
-		x=(PLFLT *) malloc(sizeof(PLFLT)*header.xdim);
-#else
-		data = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
-		x=(double *) malloc(sizeof(double)*header.xdim);
-#endif
+	    data = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
+	    x=(double *) malloc(sizeof(double)*header.xdim);
 	  } else {
 	  break;
 	}
@@ -120,36 +115,45 @@ int main(int argc, char **argv)
 	//	GBLoadWave/Q/N=$"coef"/T={4,4}/B/U=6/S=3263/W=1/P=$path file
 
 	//	poly((int) header.xdim, x,atoi(header.polynom_order_x), header.polynom_coeff_x);
-	poly((int) header.xdim, x,6, header.polynom_coeff_x);
+	poly((int) header.xdim, x, 6, header.polynom_coeff_x);
 
 	// plot
 #ifdef HAS_PLPLOT
+	PLFLT *x_,*data_;
+	data_ = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
+	x_=(double *) malloc(sizeof(double)*header.xdim);
+	for(i=0;i<header.xdim;i++)
+	  *(x_+i)=*(x+i);
+	for(i=0;i<header.xdim*header.ydim*header.NumFrames;i++)
+	  *(data_+i)=*(data+i);
 	plsdev(TERM);
 	plinit();
 	if(header.ydim==1 & header.NumFrames==1)
-	  plot1_plplot(header.xdim,x,data,argv[ifile]); // 1d plot
+	  plot1_plplot(header.xdim,x_,data_,argv[ifile]); // 1d plot
 	else
 	  {
-		if(header.NumFrames ==1 )
-		  { // 2D plot
-			PLFLT *y;
-			int j;
-			y=(PLFLT *) malloc(sizeof(PLFLT)*header.ydim*header.NumFrames);
-			for(j=0;j<header.ydim*header.NumFrames;j++)
-			  *(y+j)=j;
-			//		plot2d_plsurf3d_plplot(header.xdim,header.ydim*header.NumFrames,
-			//						 data,argv[ifile]); // surface plot
-			plot2d_plshade_plplot(header.xdim,header.ydim*header.NumFrames,
-								  x,y,
-								  data, argv[ifile]); // surface plot
-			free(y);
-		  }
-		else if(header.ydim==1)
-		  { // 1D multiple plot
-			plot1_plplot2(header.xdim,header.NumFrames,x,data,argv[ifile]); // 1d plot
-		  }
+	    if(header.NumFrames ==1 )
+	      { // 2D plot
+		PLFLT *y;
+		int j;
+		y=(PLFLT *) malloc(sizeof(PLFLT)*header.ydim*header.NumFrames);
+		for(j=0;j<header.ydim*header.NumFrames;j++)
+		  *(y+j)=j;
+		//		plot2d_plsurf3d_plplot(header.xdim,header.ydim*header.NumFrames,
+		//						 data,argv[ifile]); // surface plot
+		plot2d_plshade_plplot(header.xdim,header.ydim*header.NumFrames,
+				      x_,y,
+				      data_, argv[ifile]); // surface plot
+		free(y);
+	      }
+	    else if(header.ydim==1)
+	      { // 1D multiple plot
+		plot1_plplot2(header.xdim,header.NumFrames,x_,data_,argv[ifile]); // 1d plot
+	      }
 	  }
 	plend();
+	free(x_);
+	free(data_);
 #endif
 
 	free(data);

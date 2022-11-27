@@ -29,8 +29,11 @@ if test $PKG_CONFIG = no; then
 fi
 
 # check for plplot
-
-PKG_CHECK_MODULES(PLPLOT, plplotd,[AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])])
+PKG_CHECK_MODULES(PLPLOT,plplot,
+  [AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])],
+    [PKG_CHECK_MODULES(PLPLOTD, plplotd,[AC_DEFINE(HAS_PLPLOT, 1,
+      [If plplot has been installed, define this])],
+        [AC_WARN([no plplot found])])])
 
 #if test "PLPLOT" = "yes"; then
 #   AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])

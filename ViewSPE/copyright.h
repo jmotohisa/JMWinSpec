@@ -4,7 +4,7 @@
 /* License and copyright string for inclusion in program output: */
 
 #define COPYRIGHT \
-"Copyright (c) 2011 Massachusetts Hokkaido University\n"\
+"Copyright (c) 2011-2022 Hokkaido University\n"\
 "\n"\
 "Permission is hereby granted, free of charge, to any person obtaining\n"\
 "a copy of this software and associated documentation files (the\n"\

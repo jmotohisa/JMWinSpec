@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Sat Nov 26 19:16:36 JST 2022>
+ *  glue.c - Time-stamp: <Sun Nov 27 16:53:22 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -44,15 +44,8 @@
 #define GLOBAL_VALUE_DEFINE
 #include "glue.h"
 
-#include "../ViewSPE/config.h"
 #include "../ViewSPE/WinSpecHeader25.h"
 #include "../ViewSPE/readspe.h"
-
-#ifdef HAS_PLPLOT
-#define MYDOUBLE PLFLT
-#else
-#define MYDOUBLE double
-#endif
 
 #define TRUE 1
 #define FALSE 0
@@ -75,48 +68,86 @@ double poly2(double x, int norder, double *coef)
   return(y);
 }
 
-void convert0(double *coef, int n_coef, double *data, int xdim,
+void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
+	      double start, double end, double resolution,
 	      double *wl_dest,int n_dest,
-	      double **ydata,int **flg)
-
+	      double **spectrum_dest,int **flg)
 {
   int i,j,n;
   double wl;
-  double *wl_left,*wl_right;
-  // original data
-  wl_left=(double *) malloc(sizeof(double)*xdim);
-  wl_right=(double *) malloc(sizeof(double)*xdim);
-  for(i=0;i<xdim;i++)
+  double *w, *z;
+  double zLj,zRj,wLi,wRi,p;
+  int *pixel_start,*pixel_end,pix_start,pix_end;
+  
+  // original data (w, spectrum_orig)
+  w=(double *) malloc(sizeof(double)*(xdim+1)); //  *(w+i-1/2)
+  for(i=0;i<=xdim;i++)
     {
-      *(wl_left+i)=  poly2(i-0.5, 6, coef);
-      *(wl_right+i)= poly2(i+0.5, 6, coef);
+      *(w+i)=  poly2(i-0.5, 6, coef);
     }
 
-  // output data
-  *ydata=(double *) malloc(sizeof(double)*n);
+  // output data (z,spectrum_dest)
+  z=(double *) malloc(sizeof(double)*(n+1));  // *(z+j-1/2)
   *flg = (int *) malloc(sizeof(int)*n);
+  pixel_start = (int *) malloc(sizeof(int)*n);
+  pixel_end = (int *) malloc(sizeof(int)*n);
+  *spectrum_dest = (double *) malloc(sizeof(double)*n);
   
+  for(j=0;j<=n;j++)
+    {
+      *(z+j)=start+resolution*(j-0.5);
+    }
+
+  // find starting and ending pixel in which conversion is enable
+  // (both pixel_start and pixel_end should be >=0)
   for(j=0;j<n;j++)
     {
-      //      wl=start+resolution*j;
-      wl=*(wl_dest+j);      
+      zLj=*(z+j);
+      zRj=*(z+j+1);
+      *(pixel_start+j)=-1;
+      *(pixel_end+j)=-1;
       for(i=0;i<xdim;i++)
 	{
-	  if(wl>*(wl_left+i) && wl<*(wl_right+i))
-	    {
-	      *(*ydata+j)=(wl-(*(wl_left+i)))/(*(wl_right+i)-(*(wl_right+i)))*(*(data+i));
-	      *(*flg+j)=TRUE;
-	    }
-	  else
-	    {
-	      *(*ydata+j)=0;
-	      *(*flg+j)=FALSE;
-	    }
+	  wLi=*(w+i);
+	  wRi=*(w+i+1);
+	  if(zLj>wLi && zLj<wRi)
+	    *(pixel_start+j)=i;
+	  if(zRj>wLi && zRj<wRi)
+	    *(pixel_end+j)=i;
 	}
     }
-  return;
-}
 
+  for(j=0;j<n;j++)
+    {
+      pix_start=*(pixel_start+j);
+      pix_end  =*(pixel_end+j);
+      if(*(pixel_start+j)>=0 && *(pixel_end+j)>=0)
+	{
+	  *(*flg+j)=TRUE;
+	  if(pix_start==pix_end) {
+	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
+	  } else {
+	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(w+i+1)-*(z+j));
+	    for(i=*(pixel_start+j)+1;i<*(pixel_end+j);i++)
+	      {
+		p+=*(spectrum_orig+i);
+	      }
+	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
+	  }
+	}
+      else
+	{
+
+	  *(*flg+j)=FALSE;
+	  p=0;
+	}
+      *(*spectrum_dest+j)=p;
+    }
+  free(z);
+  free(w);
+  free(pixel_start);
+  free(pixel_end);
+}
 
 /*!
   @brief 
@@ -138,12 +169,12 @@ void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
   
   *n_dest=(start-end)/resolution+1;
   *wl_dest=(double *) malloc(sizeof(double)*(*n_dest));
-
   
   for(j=0;j<*n_dest;j++) {
     *(*wl_dest+j)=start+resolution*j;
   }
   convert0(coef, n_coef, spectrum_orig, xdim,
+	   start, end, resolution,
 	   *wl_dest,*n_dest,spectrum_dest,flg);
   return;
   
@@ -153,15 +184,15 @@ void getspe(char *fname, double **coef, double **wl, double **spectrum,
 	    int *nxdim,int *nydim,int *numFrames)
 {
   WINXHEADER_STRUCT header;
-  MYDOUBLE *data,*x;
+  double *data,*x;
   int err;
   int i;
   long n;
   
   if((err = read_spe_header(fname,&header))>0)
     {
-      data = (MYDOUBLE *) malloc(sizeof(MYDOUBLE)*header.xdim*header.ydim*header.NumFrames);
-      x=(MYDOUBLE *) malloc(sizeof(MYDOUBLE)*header.xdim);
+      data = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
+      x=(double *) malloc(sizeof(double)*header.xdim);
     } else {
     
   }
@@ -221,6 +252,5 @@ void glue(char *fname[],int nfile, double start, double end, double resolution,
   *n_dest=(start-end)/resolution+1;
   *wl_dest=(double *) malloc(sizeof(double)*(*n_dest));
   *y_dest=(double *) malloc(sizeof(double)*(*n_dest));
-
 }
 

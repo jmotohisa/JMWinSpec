@@ -58,11 +58,7 @@ int main(int argc, char **argv)
   int err;
   int ifile;
   long i;
-#ifdef HAS_PLPLOT
-  PLFLT *data,*x;
-#else
   double *data,*x;
-#endif
   
   while ((c = getopt(argc, argv, "hVviln")) != -1)
 	switch (c) {

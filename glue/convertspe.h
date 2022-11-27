@@ -1,5 +1,5 @@
 /*
- *  glue.h - last saved: Time-stamp: <Sun Nov 27 16:44:10 JST 2022>
+ *  convertspe.h - last saved: Time-stamp: <Sun Nov 27 13:36:32 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -26,17 +26,17 @@
  *   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- *  $Id: glue.h 2022-11-26 15:41:19 jmotohisa $
+ *  $Id: convertspe.h 2022-11-27 13:36:30 jmotohisa $
  */
 
 /*! 
-  @file glue.h 
+  @file convertspe.h 
   @brief 
   @author J. Motohisa
 */
 
-#ifndef _GLUE_H
-#define _GLUE_H
+#ifndef _CONVERTSPE_H
+#define _CONVERTSPE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,11 +48,7 @@ extern "C" {
 #define	GLOBAL extern
 #endif
 
-GLOBAL void getspe(char *fname, double **coef, double **wl, double **spectrum,
-		   int *nxdim,int *nydim,int *numFrames);
-GLOBAL void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
-		    double start, double end, double resolution,
-		    double **spectrum_dest,int **flg, double **wl_dest, int *n_dest);
+
 
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL
@@ -61,4 +57,4 @@ GLOBAL void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
 }
 #endif
 
-#endif  // _GLUE_H
+#endif  // _CONVERTSPE_H

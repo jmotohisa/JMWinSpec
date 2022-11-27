@@ -20,6 +20,7 @@
 		<Item Name="readSPEHeader.vi" Type="VI" URL="../readSPEHeader.vi"/>
 		<Item Name="readSPEHeaderTest.vi" Type="VI" URL="../readSPEHeaderTest.vi"/>
 		<Item Name="short_binread.vi" Type="VI" URL="../short_binread.vi"/>
+		<Item Name="string_binread.vi" Type="VI" URL="../string_binread.vi"/>
 		<Item Name="依存項目" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="compatCalcOffset.vi" Type="VI" URL="/&lt;vilib&gt;/_oldvers/_oldvers.llb/compatCalcOffset.vi"/>
@@ -34,7 +35,6 @@
 				<Property Name="App_INI_aliasGUID" Type="Str">{6B7D991D-0EC1-4A22-8C27-7093FCDF0948}</Property>
 				<Property Name="App_INI_GUID" Type="Str">{08F76EFC-96B6-4469-8FC1-D84A29CE952B}</Property>
 				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
 				<Property Name="Bld_buildCacheID" Type="Str">{E9F47EC6-C57A-479B-B51C-2ACD6C0412B9}</Property>
 				<Property Name="Bld_buildSpecName" Type="Str">readSPEexptime</Property>
 				<Property Name="Bld_defaultLanguage" Type="Str">Japanese</Property>
@@ -46,7 +46,7 @@
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{FA09D0A9-E790-48F2-BDAE-C85A374D07D7}</Property>
 				<Property Name="Bld_version.build" Type="Int">1</Property>
-				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Bld_version.patch" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">readSPEexptime.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/readSPEexptime/readSPEexptime.exe</Property>
 				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
@@ -54,7 +54,7 @@
 				<Property Name="Destination[1].destName" Type="Str">サポートディレクトリ</Property>
 				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/readSPEexptime/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{CE27BE0F-E969-485F-B4D3-BB1C443DFB7E}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{CB90D981-A322-4682-9443-A0FA9F3E01BB}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/マイ コンピュータ/read_exptime.vi</Property>
@@ -119,14 +119,13 @@
 				<Property Name="DistPart[0].SoftDepCount" Type="Int">13</Property>
 				<Property Name="DistPart[0].upgradeCode" Type="Str">{CA8FF739-2EDA-4134-9A70-0F5DD933FDED}</Property>
 				<Property Name="DistPartCount" Type="Int">1</Property>
-				<Property Name="INST_autoIncrement" Type="Bool">true</Property>
 				<Property Name="INST_buildLocation" Type="Path">../builds/readSPEexptime/readSPEexptime_installer</Property>
 				<Property Name="INST_buildLocation.type" Type="Str">relativeToCommon</Property>
 				<Property Name="INST_buildSpecName" Type="Str">readSPEexptime_installer</Property>
 				<Property Name="INST_defaultDir" Type="Str">{1DEBE433-2EC4-4A73-9410-46CD85725ED2}</Property>
 				<Property Name="INST_language" Type="Int">17</Property>
 				<Property Name="INST_productName" Type="Str">readSPEexptime</Property>
-				<Property Name="INST_productVersion" Type="Str">1.0.1</Property>
+				<Property Name="INST_productVersion" Type="Str">0.0.1</Property>
 				<Property Name="InstSpecBitness" Type="Str">32-bit</Property>
 				<Property Name="InstSpecVersion" Type="Str">15018023</Property>
 				<Property Name="MSI_autoselectDrivers" Type="Bool">true</Property>

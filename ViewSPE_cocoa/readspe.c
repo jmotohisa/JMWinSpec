@@ -108,7 +108,7 @@ int poly(int n, double *x, int norder, double *coef)
 		for(j=norder-2;j>=0;j--)
 		{
 			//		  *(x+i)=*(coef+j)+i*(*(x+i));
-			y=*(coef+j)+i*y;
+		  y=*(coef+j)+(i+1)*y; // NOTE: should be i+1, not i;
 		}
 		*(x+i)=y;
 	}

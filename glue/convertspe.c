@@ -1,5 +1,5 @@
 /*
- *  convertspe.c - Time-stamp: <Sun Nov 27 16:45:40 JST 2022>
+ *  convertspe.c - Time-stamp: <Mon Nov 28 21:14:24 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -55,15 +55,20 @@
   @param[in,out]
   @return
 */
+void dump_spectrum(char *s, int n, double *wl, double *spectrum);
+void dump_spectrum2(int n, int *flg, double *wl, double *spectrum);
 
 void usage(FILE *f)
 {
   fprintf(f, "Usage: convertspe [options] [<filenames>]\n"
 		  "Options:\n"
 		  "         -h : this help message\n"
-		  "         -s : starting waveleng\n"
-		  "         -e : ending waveleng\n"
-		  "         -r : resolution\n"
+		  "         -s  <val> : starting waveleng\n"
+		  "         -e  <val> : ending waveleng\n"
+		  "         -r  <val> : resolution\n"
+		  "         -c : check wlcen\n"
+		  "         -n : dont normalize with exp_sec\n"
+		  
 		  );
 }
 
@@ -82,8 +87,9 @@ int main(int argc, char **argv)
   double start,end,resolution;
   double *spectrum_dest,*wl_dest;
   int n_dest,*flg;
+  int check_SpecCenterWlNm,dont_normalize_exp_sec;
   
-  while ((c = getopt(argc, argv, "hs:e:r:")) != -1)
+  while ((c = getopt(argc, argv, "hs:e:r:cn")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -96,6 +102,12 @@ int main(int argc, char **argv)
 	  break;
 	case 'r':
 	  resolution=atof(optarg);
+	  break;
+	case 'c':
+	  check_SpecCenterWlNm=TRUE;
+	  break;
+	case 'n':
+	  dont_normalize_exp_sec=TRUE;
 	  break;
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
@@ -118,5 +130,19 @@ int main(int argc, char **argv)
       convert(coef, n_coef, spectrum, nxdim,
 	      start, end, resolution,
 	      &spectrum_dest,&flg, &wl_dest, &n_dest);
+	  dump_spectrum2(n_dest,flg,wl_dest,spectrum_dest);
+	  free(flg);
+	  free(wl_dest);
+	  free(spectrum_dest);
     }
+  
+}
+
+void dump_spectrum2(int n, int *flg, double *wl,double *spectrum)
+{
+int i;
+for(i=0;i<n;i++) {
+  printf("%d\t%lf\t%lf\n",*(flg+i), *(wl+i),*(spectrum+i));
+}
+return;
 }

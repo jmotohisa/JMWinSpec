@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+/* #include <byteswap.h> */
 
 #include "WinSpecHeader25.h"
 
@@ -57,10 +58,12 @@ int read_spe_data(char *filename, double *data, WINXHEADER_STRUCT header)
   case 1:
 	//		CHK_MALLOC(l_data,long,n);
 	//		fread(l_data,sizeof(long),n,fp);
-	data0 = (void *) malloc(sizeof(long)*n);
-	fread(data0,sizeof(long),n,fp);
+	data0 = (void *) malloc(sizeof(int)*n);
+	fread(data0,sizeof(int),n,fp);
 	for(i=0;i<n;i++)
-	  *(data+i)=*((long *) data0+i);
+	  {
+		*(data+i)=*((int *) data0+i);
+	  }
 	break;
   case 2:
 	data0 = (void *) malloc(sizeof(short)*n);
@@ -96,8 +99,8 @@ int poly(int n, double *x, int norder, double *coef)
 	  y=*(coef+norder-1);
 	  for(j=norder-2;j>=0;j--)
 		{
-		  //		  *(x+i)=*(coef+j)+i*(*(x+i));
-		  y=*(coef+j)+i*y;
+		  //		  *(x+i)=*(coef+j)+(i+1)*(*(x+i));
+		  y=*(coef+j)+(i+1)*y; // note: should be i+1,  not i
 		}
 	  *(x+i)=y;
 	}

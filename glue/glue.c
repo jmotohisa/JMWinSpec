@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Sun Nov 27 16:53:22 JST 2022>
+ *  glue.c - Time-stamp: <Mon Nov 28 11:33:23 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -73,7 +73,7 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 	      double *wl_dest,int n_dest,
 	      double **spectrum_dest,int **flg)
 {
-  int i,j,n;
+  int i,j;
   double wl;
   double *w, *z;
   double zLj,zRj,wLi,wRi,p;
@@ -83,24 +83,24 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
   w=(double *) malloc(sizeof(double)*(xdim+1)); //  *(w+i-1/2)
   for(i=0;i<=xdim;i++)
     {
-      *(w+i)=  poly2(i-0.5, 6, coef);
+      *(w+i)=  poly2(i+0.5, 6, coef); // NOTE:
     }
 
   // output data (z,spectrum_dest)
-  z=(double *) malloc(sizeof(double)*(n+1));  // *(z+j-1/2)
-  *flg = (int *) malloc(sizeof(int)*n);
-  pixel_start = (int *) malloc(sizeof(int)*n);
-  pixel_end = (int *) malloc(sizeof(int)*n);
-  *spectrum_dest = (double *) malloc(sizeof(double)*n);
+  z=(double *) malloc(sizeof(double)*(n_dest+1));  // *(z+j-1/2)
+  *flg = (int *) malloc(sizeof(int)*n_dest);
+  pixel_start = (int *) malloc(sizeof(int)*n_dest);
+  pixel_end = (int *) malloc(sizeof(int)*n_dest);
+  *spectrum_dest = (double *) malloc(sizeof(double)*n_dest);
   
-  for(j=0;j<=n;j++)
+  for(j=0;j<=n_dest;j++)
     {
       *(z+j)=start+resolution*(j-0.5);
     }
 
   // find starting and ending pixel in which conversion is enable
   // (both pixel_start and pixel_end should be >=0)
-  for(j=0;j<n;j++)
+  for(j=0;j<n_dest;j++)
     {
       zLj=*(z+j);
       zRj=*(z+j+1);
@@ -117,7 +117,7 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 	}
     }
 
-  for(j=0;j<n;j++)
+  for(j=0;j<n_dest;j++)
     {
       pix_start=*(pixel_start+j);
       pix_end  =*(pixel_end+j);
@@ -125,14 +125,16 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 	{
 	  *(*flg+j)=TRUE;
 	  if(pix_start==pix_end) {
+		i=pix_start;
 	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
 	  } else {
+		i=pix_start;
 	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(w+i+1)-*(z+j));
 	    for(i=*(pixel_start+j)+1;i<*(pixel_end+j);i++)
 	      {
 		p+=*(spectrum_orig+i);
 	      }
-	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
+	    p+=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
 	  }
 	}
       else
@@ -167,7 +169,7 @@ void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
 {
   int j,n;
   
-  *n_dest=(start-end)/resolution+1;
+  *n_dest=(end-start)/resolution+1;
   *wl_dest=(double *) malloc(sizeof(double)*(*n_dest));
   
   for(j=0;j<*n_dest;j++) {
@@ -188,6 +190,7 @@ void getspe(char *fname, double **coef, double **wl, double **spectrum,
   int err;
   int i;
   long n;
+  double exp_sec;
   
   if((err = read_spe_header(fname,&header))>0)
     {
@@ -206,6 +209,7 @@ void getspe(char *fname, double **coef, double **wl, double **spectrum,
   *nxdim=header.xdim;
   *nydim=header.ydim;
   *numFrames=header.NumFrames;
+  exp_sec=header.exp_sec;
 
   /* copy data */
   for(i=0;i<6;i++) {
@@ -217,7 +221,7 @@ void getspe(char *fname, double **coef, double **wl, double **spectrum,
     }
   for(i=0;i<n;i++)
     {
-      *(*spectrum+i)=*(data+i);
+      *(*spectrum+i)=*(data+i)/exp_sec;
     }
   
   free(data);

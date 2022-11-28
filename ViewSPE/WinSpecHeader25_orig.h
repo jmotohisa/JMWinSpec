@@ -22,14 +22,9 @@
                                     Decimal Byte
                                        Offset
 									   ----------- */
-#pragma pack(1)
-
-#define LONG int
-#define DWORD unsigned LONG
-
 #define BYTE unsigned char
 #define WORD unsigned short
-//#define DWORD unsigned long
+#define DWORD unsigned long
 
 #define DATEMAX 10
 #define TIMEMAX 7
@@ -132,8 +127,8 @@ typedef struct WINXHEAD{
   short   scramble         ;//            658  0=scrambled,1=unscrambled
   short   ContinuousCleansFlag;//         660  T/F Continuous Cleans Timing Option
   short   ExternalTriggerFlag;//          662  T/F External Trigger Timing Option
-  LONG    lnoscan          ;//            664  Number of scans (Early WinX)
-  LONG    lavgexp          ;//            668  Number of Accumulations
+  long    lnoscan          ;//            664  Number of scans (Early WinX)
+  long    lavgexp          ;//            668  Number of Accumulations
   float   ReadoutTime      ;//            672  Experiment readout time
   short   TriggeredModeFlag;//            676  T/F Triggered Timing Option
   char    Spare_2[10]      ;//            678  
@@ -168,7 +163,7 @@ typedef struct WINXHEAD{
   short   CosmicApplied    ;//           1438  set to 1 if cosmic ray removal applied
   short   CosmicType       ;//           1440  if cosmic ray applied, this is type
   float   CosmicThreshold  ;//           1442  Threshold of cosmic ray removal.  
-  LONG    NumFrames        ;//           1446  number of frames in file.         
+  long    NumFrames        ;//           1446  number of frames in file.         
   float   MaxIntensity     ;//           1450  max intensity of data (future)    
   float   MinIntensity     ;//           1454  min intensity of data (future)    
   char    ylabel[LABELMAX] ;//           1458  y axis label.                     
@@ -224,7 +219,7 @@ typedef struct WINXHEAD{
   char    blemish[HDRNAMEMAX]   ;//      1872  blemish file name.          
   float   file_header_ver       ;//      1992  version of this file header 
   char    YT_Info[1000]         ;//      1996-2995  Reserved for YT information
-  LONG    WinView_id            ;//      2996  == 0x01234567L if file created by WinX
+  long    WinView_id            ;//      2996  == 0x01234567L if file created by WinX
   /*
 -------------------------------------------------------------------------------
 
@@ -300,8 +295,7 @@ typedef struct WINXHEAD{
   short   AvGainUsed            ;//      4094  avalanche gain was used
   short   AvGain                ;//      4096  avalanche gain value
   short   lastvalue             ;//      4098  Always the LAST value in the header
-} WINXHEADER_STRUCT;
-//} WINXHEADER_STRUCT __attribute__ ((packed));
+} __attribute__ ((packed)) WINXHEADER_STRUCT;
 
 /*                         END OF HEADER
 

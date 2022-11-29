@@ -1,5 +1,5 @@
 /*
- *  convertspe.c - Time-stamp: <Tue Nov 29 10:42:01 JST 2022>
+ *  convertspe.c - Time-stamp: <Tue Nov 29 11:01:04 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -46,7 +46,9 @@
 
 #define GLOBAL_VALUE_DEFINE
 #include "convertspe.h"
+
 #include "glue.h"
+#include "readspe.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -85,22 +87,27 @@ int main(int argc, char **argv)
   int err;
   int ifile;
   long i;
-  double *data,*x;
-  double start,end,resolution;
+  double start,end,resolution=1;
   double *spectrum_dest,*wl_dest;
+  int istart=0,iend=0;
   int n_dest,*flg;
   int check_SpecCenterWlNm,dont_normalize_exp_sec;
   
-  while ((c = getopt(argc, argv, "hs:e:r:cn")) != -1)
+  while ((c = getopt(argc, argv, "hvs:e:r:cn")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
 	  return EXIT_SUCCESS;
+	case 'v':
+	  verbose=1;
+	  break;
 	case 's':
 	  start=atof(optarg);
+	  istart=1;
 	  break;
 	case 'e':
 	  end=atof(optarg);
+	  iend=1;
 	  break;
 	case 'r':
 	  resolution=atof(optarg);
@@ -124,27 +131,52 @@ int main(int argc, char **argv)
 
   double *coef, *wl, *spectrum;
   int nxdim,nydim,numFrames;
-  int n_coef=6;
+  int n_coef=6,n;
 
-  for (ifile = optind; ifile < argc; ++ifile)
-    {
-      getspe(argv[ifile], &coef, &wl, &spectrum, &nxdim, &nydim, &numFrames);
-      convert(coef, n_coef, spectrum, nxdim,
-	      start, end, resolution,
-	      &spectrum_dest,&flg, &wl_dest, &n_dest);
-	  dump_spectrum2(n_dest,flg,wl_dest,spectrum_dest);
-	  free(flg);
-	  free(wl_dest);
-	  free(spectrum_dest);
+  for (ifile = optind; ifile < argc; ++ifile) {
+    /* read data from SPE file*/
+    if(err = read_spe_header(argv[ifile],&header)>0)
+      {
+	n=header.xdim*header.ydim*header.NumFrames;
+	spectrum = (double *) malloc(sizeof(double)*n);
+	wl=(double *) malloc(sizeof(double)*header.xdim);
+	coef = (double *) malloc(sizeof(double)*n_coef);
+      } else {
+      break;
     }
-  
+    err = read_spe_data(argv[ifile],spectrum,header);
+    poly((int) header.xdim, wl, n_coef, header.polynom_coeff_x);
+    
+    if(istart==0)
+      start=*(wl);
+    if(iend==0)
+      end=*(wl+header.xdim-1);
+    
+    if(dont_normalize_exp_sec!=1)
+      {
+	for(i=0;i<n;i++)
+	  *(spectrum+i)=*(spectrum+i)/header.exp_sec;
+      }
+    
+    convert(header.polynom_coeff_x, n_coef, spectrum, header.xdim,
+	    start, end, resolution,
+	    &spectrum_dest,&flg, &wl_dest, &n_dest);
+    dump_spectrum2(n_dest,flg,wl_dest,spectrum_dest);
+    free(flg);
+    free(wl_dest);
+    free(spectrum_dest);
+    free(wl);
+    free(spectrum);
+    free(coef);
+  }
+  return 1;
 }
 
 void dump_spectrum2(int n, int *flg, double *wl,double *spectrum)
 {
-int i;
-for(i=0;i<n;i++) {
-  printf("%d\t%lf\t%lf\n",*(flg+i), *(wl+i),*(spectrum+i));
-}
-return;
+  int i;
+  for(i=0;i<n;i++) {
+    printf("%d\t%lf\t%lf\n",*(flg+i), *(wl+i),*(spectrum+i));
+  }
+  return;
 }

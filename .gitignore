@@ -68,3 +68,4 @@ stamp-h1
 
 *.so
 python/glue_wrap.c
+convertspe.dSYM/

@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Tue Nov 29 10:03:58 JST 2022>
+ *  glue.c - Time-stamp: <Tue Nov 29 23:12:14 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -59,7 +59,7 @@
 void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 	      double start, double end, double resolution,
 	      double *wl_dest,int n_dest,
-	      double **spectrum_dest,int **flg)
+	      double *spectrum_dest,int *flg)
 {
   int i,j;
   double wl;
@@ -76,10 +76,8 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 
   // output data (z,spectrum_dest)
   z=(double *) malloc(sizeof(double)*(n_dest+1));  // *(z+j-1/2)
-  *flg = (int *) malloc(sizeof(int)*n_dest);
   pixel_start = (int *) malloc(sizeof(int)*n_dest);
   pixel_end = (int *) malloc(sizeof(int)*n_dest);
-  *spectrum_dest = (double *) malloc(sizeof(double)*n_dest);
   
   for(j=0;j<=n_dest;j++)
     {
@@ -111,7 +109,7 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
       pix_end  =*(pixel_end+j);
       if(*(pixel_start+j)>=0 && *(pixel_end+j)>=0)
 	{
-	  *(*flg+j)=TRUE;
+	  *(flg+j)=TRUE;
 	  if(pix_start==pix_end) {
 		i=pix_start;
 	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
@@ -128,10 +126,10 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
       else
 	{
 
-	  *(*flg+j)=FALSE;
+	  *(flg+j)=FALSE;
 	  p=0;
 	}
-      *(*spectrum_dest+j)=p;
+      *(spectrum_dest+j)=p;
     }
   free(z);
   free(w);
@@ -159,13 +157,15 @@ void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
   
   *n_dest=(end-start)/resolution+1;
   *wl_dest=(double *) malloc(sizeof(double)*(*n_dest));
+  *spectrum_dest = (double *) malloc(sizeof(double)*(*n_dest));
+  *flg = (int *) malloc(sizeof(int)*(*n_dest));
   
   for(j=0;j<*n_dest;j++) {
     *(*wl_dest+j)=start+resolution*j;
   }
   convert0(coef, n_coef, spectrum_orig, xdim,
 	   start, end, resolution,
-	   *wl_dest,*n_dest,spectrum_dest,flg);
+	   *wl_dest,*n_dest,*spectrum_dest,*flg);
   return;
   
 }
@@ -246,3 +246,170 @@ void glue(char *fname[],int nfile, double start, double end, double resolution,
   *y_dest=(double *) malloc(sizeof(double)*(*n_dest));
 }
 
+void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2,
+	   double *spec_dest, int *flg_dest)
+{
+  int i,glue_type;
+  int *flg_glue,*flg_glue2;
+  int glue_start=1;
+  int pix_start1, pix_end1, pix_start2,pix_end2;
+  flg_glue=(int *) malloc(sizeof(int)*n);
+  int ss1, ss2;
+  double *weight1,*weight2,weight0;
+  int weight;
+  int i0,ii;
+  int prev,count;
+
+
+  for(i=0;i<n;i++)
+    {
+      *(flg_glue+i)=*(flg1+i)+*(flg2+i)*2;
+      *(flg_glue2+i)=*(flg1+i)-*(flg2+i);
+    }
+
+  for(i=0;i<n-1;i++)
+    {
+      if(*(flg_glue+i)==0)
+	{
+	  *(weight1+i)=0;
+	  *(weight2+i)=0;
+	  weight0=1;
+	  prev=0;
+	  count=0;
+	}
+      if(*(flg_glue+i)==1)
+	{
+	  *(weight1+i)=1;
+	  *(weight2+i)=0;
+	  weight0=1;
+	  prev=1;
+	  count=0;
+	}
+      if(*(flg_glue+i)==2)
+	{
+	  *(weight1+i)=0;
+	  *(weight2+i)=1;
+	  weight0=1;
+	  prev=2;
+	  count=0;
+	}
+      if(*(flg_glue+i)==3)
+	{
+	  i0=i;
+	  count=1;
+	  for(ii=i0+1;ii<n;ii++)
+	    {
+	      if(*(flg_glue+ii)==3)
+		{
+		  count++;
+		}
+	      if(*(flg_glue+ii)==1)
+		{
+		  if(prev==2);
+		}
+		
+	      *(weight1+i)=0.5;
+	  *(weight2+i)=0.5;
+	}
+      {
+	  *(weight1+i)=weight;
+	  *(weight2+i)=-weight;
+	  weight++;
+      }
+    }
+	  
+  ss1=0;
+  ss2=0;
+  check_pix_start_end(n, ss1, flg1, &pix_start2, &pix_end2);
+  check_pix_start_end(n, ss2, flg2, &pix_start2, &pix_end2);
+
+  if(pix_start1<=pix_start2 && pix_end1>=pix_end2)
+    {
+      for(i=pix_start1;i++;i<pix_start2)
+	{
+	  *(spec_dest+i)=*(spec1+i);
+	  *(flg_dest+i)=1;
+	}
+      for(i=pix_start2;i++;i<pix_end2)
+	{
+	  *(spec_dest+i)=(*(spec1+i) + *(spec1+i))/2;
+	  *(flg_dest+i)=1;
+	}
+      for(i=pix_end2;i++;i<pix_end1)
+	{
+	  *(spec_dest+i)=*(spec1+i);
+	  *(flg_dest+i)=1;
+	}
+    }
+  
+  if(pix_start1>=pix_start2 && pix_end1<=pix_end2)
+    {
+      for(i=pix_start2;i++;i<pix_start1)
+	{
+	  *(spec_dest+i)=*(spec2+i);
+	  *(flg_dest+i)=1;
+	}
+      for(i=pix_start1;i++;i<pix_end1)
+	{
+	  *(spec_dest+i)=(*(spec1+i) + *(spec1+i))/2;
+	  *(flg_dest+i)=1;
+	}
+      for(i=pix_end1;i++;i<pix_end2)
+	{
+	  *(spec_dest+i)=*(spec2+i);
+	  *(flg_dest+i)=1;
+	}
+    }
+  
+  if(pix_start1>=pix_start2 && pix_end1<=pix_end2)
+    {
+      
+    }
+    
+  for(i=0;i<n;i++)
+    {
+      if(*(flg1+i)==1 && *(flg2+i)==1)
+	{
+	  *(flg_glue+i)=glue_start;
+	  glue_start++;
+	}
+    }
+}
+
+void check_pix_start_end(int n, int ss, int *flg, int *start, int *end)
+{
+  int i;
+  *start=-1;
+  *end=-1;
+  
+  for(i=ss;i<n-1;i++)
+    {
+      if(*(flg+i)==0 && *(flg+i+1)==1)
+	{
+	  *start=i+1;
+	  break;
+	}
+    }
+  if(*(flg+ss)==1)
+    *start=0;
+
+  for(i=ss;i<n-1;i++)
+    {
+      if(*(flg+i)==1 && *(flg+i+1)==0)
+	{
+	  *end=i;
+	  break;
+	}
+    }
+  if(*(flg+n-1)==1)
+    *end=n-1;
+      }
+
+  return;
+}
+
+    
+	
+	
+      
+    

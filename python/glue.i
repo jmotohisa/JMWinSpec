@@ -1,9 +1,8 @@
-%module(docstring="glue spectra") gluespectra
+%module(docstring="glue spectra") glue
 
 %{
   #define SWIG_FILE_WITH_INIT
   #include "pyspeconvert.h"
-  #include "glue.h"
 %}
 
 %include "typemaps.i"
@@ -17,10 +16,9 @@
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double *wl_dest, int n_dest)}
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double *spectrum_dest,int n_spectrum_dest)}
 %apply (int* INPLACE_ARRAY1, int DIM1) {(int *flg, int n_flg)}
-%apply int *OUTPUT {int *xdim,int *ydim,int *NumFrames,int *flag_wlcen,int *ierror}
+%apply int *OUTPUT {(int *xdim),(int *ydim),(int *NumFrames),(int *flag_wlcen),(int *ierror)}
 
 %include "pyspeconvert.h"
-%include "glue.h"
 
 %exception {
     errno = 0;
@@ -39,14 +37,8 @@
         }
  }
 
-/* %pythoncode %{ */
-/* from .define_params import ( */
-/* 			    ParamSimulation, */
-/* 			    ParamYB, */
-/* 			    ) */
-/* from .rate_equation import ( */
-/* 			   gaussianpulse, */
-/* 			   runHTcw, */
-/* 			   ) */
-/* %} */
-  
+%pythoncode %{
+  from readspe import (
+			readspe,
+			)
+    %}

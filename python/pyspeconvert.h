@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.h - last saved: Time-stamp: <Tue Nov 29 13:41:27 JST 2022>
+ *  pyspeconvert.h - last saved: Time-stamp: <Tue Nov 29 17:07:51 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -48,13 +48,13 @@ extern "C" {
 #define	GLOBAL extern
 #endif
 
-  GLOBAL void pyspeconvert(char *fname, double start,double end,double resolution,
-			  int dont_normalize_exp_sec,
-			  double *wl_dest, int n_dest,
-			  double *spectrum_dest,int n_spectrum_dest,
-			  int *flg, int n_flg,
-			  int *xdim,int *ydim,int *NumFrames,
-			  int *flag_wlcen,int *ierror);
+  GLOBAL void pyspeconvert(double *wl_dest, int n_dest,
+			   double *spectrum_dest,int n_spectrum_dest,
+			   int *flg, int n_flg,
+			   char *fname, double start,double end,double resolution,
+			   int dont_normalize_exp_sec,
+			   int *xdim,int *ydim,int *NumFrames,
+			   int *flag_wlcen,int *ierror);
 
 
 

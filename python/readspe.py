@@ -42,6 +42,30 @@ def get_args():
 def readspe(fn):
     if os.path.splitext(fn)[1][1:].lower() == 'spe':
         with open(fn, 'rb') as f:
+            exp_sec = read_float(f, 10)
+            npoint = read_WORD(f, 42)
+            datatype = read_WORD(f, 108)
+            ydim = read_WORD(f, 656)
+            lavgexp = read_LONG(f, 668)
+            numFrames = read_WORD(f, 1446)
+            coef = np.zeros(6)
+            for i in np.arange(6):
+                coef[i] = read_double(f, 3263+i*8)
+            wl = np.polynomial.polynomial.polyval(np.arange(npoint), coef)
+            if(datatype == 0):  # 0 floating point
+                data = read_float_array(f, 4100, npoint*numFrames)
+            elif (datatype == 1):
+                data = read_LONG_array(f, 4100, npoint*numFrames)
+            elif(datatype == 2):
+                data = read_short_array(f, 4100, npoint*numFrames)
+            elif(datatype == 3):
+                data = read_ushort_array(f, 4100, npoint*numFrames)
+        return wl, data/exp_sec, coef, numFrames, ydim
+
+
+def readspe0(fn, sup):
+    if os.path.splitext(fn)[1][1:].lower() == 'spe':
+        with open(fn, 'rb') as f:
 
             # float   exp_sec          ;//             10  alternitive exposure, in sec.
             # WORD    xdim             ;//             42  actual # of pixels on x axis
@@ -100,7 +124,7 @@ if __name__ == '__main__':
         fnames2 = glob.glob(fn0)
         for fn in fnames2:
             # print(data)
-            wl, data, coef, numFrames, ydim = readspe(fn)
+            wl, data, coef, numFrames, ydim = readspe0(fn, sup)
             if(numFrames == 1 and ydim == 1):
                 fig = plt.plot(wl, data)
                 plt.show()

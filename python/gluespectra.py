@@ -64,8 +64,13 @@ class _SwigNonDynamicMeta(type):
 
 
 
-def pyspeconvert(fname, start, end, resolution, dont_normalize_exp_sec, wl_dest, spectrum_dest, flg):
-    r"""pyspeconvert(char * fname, double start, double end, double resolution, int dont_normalize_exp_sec, double * wl_dest, double * spectrum_dest, int * flg)"""
-    return _gluespectra.pyspeconvert(fname, start, end, resolution, dont_normalize_exp_sec, wl_dest, spectrum_dest, flg)
+def pyspeconvert(fname, start, end, resolution, dont_normalize_exp_sec, wl_dest, n_dest, spectrum_dest, n_spectrum_dest, flg, n_flg, xdim, ydim, NumFrames, flag_wlcen, ierror):
+    r"""pyspeconvert(char * fname, double start, double end, double resolution, int dont_normalize_exp_sec, double * wl_dest, int n_dest, double * spectrum_dest, int n_spectrum_dest, int * flg, int n_flg, int * xdim, int * ydim, int * NumFrames, int * flag_wlcen, int * ierror)"""
+    return _gluespectra.pyspeconvert(fname, start, end, resolution, dont_normalize_exp_sec, wl_dest, n_dest, spectrum_dest, n_spectrum_dest, flg, n_flg, xdim, ydim, NumFrames, flag_wlcen, ierror)
+
+from .readspe import (
+	readspe,
+	)
+
 
 

@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.c - Time-stamp: <Tue Nov 29 13:40:51 JST 2022>
+ *  pyspeconvert.c - Time-stamp: <Tue Nov 29 18:59:45 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -44,6 +44,7 @@
 #include "../speutils/WinSpecHeader25.h"
 #include "../speutils/readspe.h"
 #include "../speutils/glue.h"
+#include "../speutils/convertspe.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "pyspeconvert.h"
@@ -56,19 +57,23 @@
   @return
 */
 
-void pyspeconvert(char *fname, double start,double end,double resolution,
-		  int dont_normalize_exp_sec,
-		  double *wl_dest, int n_dest,
+void pyspeconvert(double *wl_dest, int n_dest,
 		  double *spectrum_dest,int n_spectrum_dest,
 		  int *flg, int n_flg,
-		  int *xdim,int *ydim,int *NumFrames,
+		  char *fname, double start,double end,double resolution,
+		  int dont_normalize_exp_sec,
+  		  int *xdim,int *ydim,int *NumFrames,
 		  int *flag_wlcen,int *ierror)
-
 {
     WINXHEADER_STRUCT header;
     int n_coef=6;
     int i,n,err;
     double *wl,*spectrum;
+    /* printf("%s\n",fname); */
+    /* printf("%lf\n",start); */
+    /* printf("%lf\n",end); */
+    /* printf("%lf\n",resolution); */
+    /* printf("%d\n",dont_normalize_exp_sec); */
 
     /* read data from SPE file*/
     if((err = read_spe_header(fname,&header))>0)
@@ -92,7 +97,12 @@ void pyspeconvert(char *fname, double start,double end,double resolution,
     int xDimDet=header.xDimDet;
     double wlcen2 = poly0((1+xDimDet)/2.,6,header.polynom_coeff_x);
     if(fabs(wlcen-wlcen2)>1)
-      *ierror=2;
+      {
+	*flag_wlcen=1;
+	*ierror=2;
+      }
+    else
+      *flag_wlcen=0;
 
     if(dont_normalize_exp_sec!=1)
       {
@@ -107,10 +117,12 @@ void pyspeconvert(char *fname, double start,double end,double resolution,
     if(resolution<=0)
       resolution=1;
 
-    convert(header.polynom_coeff_x, n_coef, spectrum, header.xdim,
-	    start, end, resolution,
-	    &spectrum_dest,&flg, &wl_dest, &n_dest);
-
+    convert0(header.polynom_coeff_x, n_coef, spectrum, header.xdim,
+	     start, end, resolution,
+	     wl_dest, n_dest,spectrum_dest,flg);
+    //    dump_spectrum("",n_dest,wl_dest,spectrum_dest);
+    /* dump_spectrum2(n_dest, flg, wl_dest, spectrum_dest); */
+    
     *ierror=0;
     free(wl);
     free(spectrum);

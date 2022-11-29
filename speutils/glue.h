@@ -1,5 +1,5 @@
 /*
- *  glue.h - last saved: Time-stamp: <Sun Nov 27 16:44:10 JST 2022>
+ *  glue.h - last saved: Time-stamp: <Tue Nov 29 17:38:04 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -53,7 +53,11 @@ GLOBAL void getspe(char *fname, double **coef, double **wl, double **spectrum,
 GLOBAL void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
 		    double start, double end, double resolution,
 		    double **spectrum_dest,int **flg, double **wl_dest, int *n_dest);
-
+GLOBAL void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
+		     double start, double end, double resolution,
+		     double *wl_dest,int n_dest,
+		     double *spectrum_dest,int *flg);
+  
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL
 

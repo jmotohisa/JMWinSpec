@@ -1,5 +1,5 @@
 /*
- *  convertspe.h - last saved: Time-stamp: <Sun Nov 27 13:36:32 JST 2022>
+ *  convertspe.h - last saved: Time-stamp: <Tue Nov 29 15:57:34 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -47,8 +47,6 @@ extern "C" {
 #else
 #define	GLOBAL extern
 #endif
-
-
 
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL

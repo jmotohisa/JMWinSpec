@@ -13,6 +13,7 @@ GLOBAL int read_spe_data(char *, double *, WINXHEADER_STRUCT );
 GLOBAL int poly(int , double *, int , double *);
 GLOBAL double poly0(double x, int norder, double *coef);
 GLOBAL void dump_spectrum(char *s, int n, double *wl, double *spectrum);
+GLOBAL void dump_spectrum2(int n, int *flg, double *wl, double *spectrum);
 
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL

@@ -1,5 +1,5 @@
 /*
- *  convertspe.c - Time-stamp: <Tue Nov 29 11:01:04 JST 2022>
+ *  convertspe.c - Time-stamp: <Tue Nov 29 15:57:43 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -60,7 +60,6 @@
   @param[in,out]
   @return
 */
-void dump_spectrum2(int n, int *flg, double *wl, double *spectrum);
 
 void usage(FILE *f)
 {
@@ -172,11 +171,3 @@ int main(int argc, char **argv)
   return 1;
 }
 
-void dump_spectrum2(int n, int *flg, double *wl,double *spectrum)
-{
-  int i;
-  for(i=0;i<n;i++) {
-    printf("%d\t%lf\t%lf\n",*(flg+i), *(wl+i),*(spectrum+i));
-  }
-  return;
-}

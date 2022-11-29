@@ -130,3 +130,12 @@ void dump_spectrum(char *s, int n, double *wl, double *spectrum)
     }
   return;
 }
+
+void dump_spectrum2(int n, int *flg, double *wl,double *spectrum)
+{
+  int i;
+  for(i=0;i<n;i++) {
+    printf("%d\t%lf\t%lf\n",*(flg+i), *(wl+i),*(spectrum+i));
+  }
+  return;
+}

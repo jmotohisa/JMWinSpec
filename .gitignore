@@ -1,7 +1,13 @@
 .DS_Store
 *.o
 *~
+*.lo
 headertest
+.libs/
+*.la
+libtool
+ltmain.sh
+m4/
 
 # Xcode
 #
@@ -35,6 +41,11 @@ DerivedData/
 *.lvlps
 LabView/builds
 
+speutils/viewspe
+speutils/Makefile
+speutils/convertspe
+speutils/checkWL
+
 autom4te.cache/
 __pycache__/
 config.status
@@ -42,8 +53,6 @@ config.guess
 config.sub
 config.log
 configure
-ViewSPE/viewspe
-ViewSPE/Makefile
 Makefile.in
 aclocal.m4
 .deps/
@@ -54,5 +63,4 @@ depcomp
 install-sh
 missing
 glue/Makefile
-glue/convertspe
 stamp-h1

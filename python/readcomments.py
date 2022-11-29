@@ -67,6 +67,9 @@ if __name__ == '__main__':
                     outputter(fn,sup,'xDimDet',read_WORD(f,6))
                     outputter(fn,sup,'yDimDet',read_WORD(f,18))
                     outputter(fn,sup,'date',read_string(f,20,10)) # date
+                    outputter(fn,sup,'xdim',read_WORD(f,42)) # xdim
+                    outputter(fn,sup,'ydim',read_WORD(f,656))
+                    outputter(fn,sup,'NumFrames',read_WORD(f,1446))
                     outputter(fn,sup,'SpecCenterWlNm',read_float(f,72))
                     #    print(read_DWORD(f,114)) # PulserRepeatExp
                 

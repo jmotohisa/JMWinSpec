@@ -1,9 +1,9 @@
 ACLOCAL_AMFLAGS = -I m4
 
-lib_LTLIBRARIES = libspeutils.la
-libspeutils_la_SOURCES = readspe.c glue.c readspe.h glue.h WinSpecHeader25.h
+lib_LIBRARIES = libspeutils.a
+libspeutils_a_SOURCES = readspe.c glue.c readspe.h glue.h WinSpecHeader25.h
 
-LIBSPEUTILS = libspeutils.la
+LIBSPEUTILS = libspeutils.a
 
 bin_PROGRAMS = viewspe checkWL
 viewspe_SOURCES = viewspe.c plplotsubs0.c viewspe.h plplotsubs0.h

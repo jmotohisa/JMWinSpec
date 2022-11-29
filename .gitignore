@@ -1,5 +1,6 @@
 .DS_Store
 *.o
+*.a
 *~
 *.lo
 headertest
@@ -64,3 +65,6 @@ install-sh
 missing
 glue/Makefile
 stamp-h1
+
+*.so
+python/glue_wrap.c

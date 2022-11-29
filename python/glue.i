@@ -2,7 +2,7 @@
 
 %{
   #define SWIG_FILE_WITH_INIT
-  #include "../viewspe/readspe.h"
+  #include "pyspeconvert.h"
   #include "glue.h"
 %}
 
@@ -14,13 +14,12 @@
 
 %feature("autodoc","1");
 
-%apply (double* INPLACE_ARRAY1, int DIM1) {(double *T, int nt)}
-%apply (double* INPLACE_ARRAY1, int DIM1) {(double *N, int nn)}
-%apply (double* INPLACE_ARRAY1, int DIM1) {(double *S, int ns)}
+%apply (double* INPLACE_ARRAY1, int DIM1) {(double *wl_dest, int n_dest)}
+%apply (double* INPLACE_ARRAY1, int DIM1) {(double *spectrum_dest,int n_spectrum_dest)}
+%apply (int* INPLACE_ARRAY1, int DIM1) {(int *flg, int n_flg)}
+%apply int *OUTPUT {int *xdim,int *ydim,int *NumFrames,int *flag_wlcen,int *ierror}
 
-%apply double *OUTPUT { (double *sint), (double *decay)}
-
-%include "../viewspe/readspe.h"
+%include "pyspeconvert.h"
 %include "glue.h"
 
 %exception {
@@ -44,29 +43,9 @@
 /* from .define_params import ( */
 /* 			    ParamSimulation, */
 /* 			    ParamYB, */
-/* 			    ParamO, */
-/* 			    ParamHT, */
-/* 			    init_vars, */
-/* 			    runYB, */
-/* 			    runYB1, */
-/* 			    runO, */
-/* 			    runHT, */
 /* 			    ) */
 /* from .rate_equation import ( */
 /* 			   gaussianpulse, */
-/* 			   func_YB_norm, */
-/* 			   func_YB_norm_gaussian, */
-/* 			   func_Oulton, */
-/* 			   func_Oulton_gaussian, */
-/* 			   func_S_from_n_Oulton_CW, */
-/* 			   func_HT, */
-/* 			   func_HT_gaussian, */
-/* 			   func_for_findroot_ht_cw, */
-/* 			   runYBcw0, */
-/* 			   runOcw0, */
-/* 			   runHTcw0, */
-/* 			   runYBcw, */
-/* 			   runOcw, */
 /* 			   runHTcw, */
 /* 			   ) */
 /* %} */

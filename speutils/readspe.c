@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 /* #include <byteswap.h> */
 
 #include "WinSpecHeader25.h"
@@ -94,16 +95,38 @@ int poly(int n, double *x, int norder, double *coef)
   double y;
   
   for(i=0;i<n;i++)
-	{
-//	  *(x+i)=*(coef+norder-1);
-	  y=*(coef+norder-1);
-	  for(j=norder-2;j>=0;j--)
-		{
-		  //		  *(x+i)=*(coef+j)+(i+1)*(*(x+i));
-		  y=*(coef+j)+(i+1)*y; // note: should be i+1,  not i
-		}
-	  *(x+i)=y;
-	}
+    *(x+i)=poly0(i+1,norder,coef); // NOTE: start from 1
   return(0);
 }
 
+double poly0(double x, int norder, double *coef)
+{
+  int j;
+  double y;
+  y=*(coef+norder-1);
+  for(j=norder-2;j>=0;j--)
+    {
+      y=*(coef+j)+x*y;
+    }
+  return(y);
+}
+
+void dump_spectrum(char *s, int n, double *wl, double *spectrum)
+{
+  int i;
+  if(strlen(s)>0)
+    {
+      for(i=0;i<n;i++)
+	{
+	  printf("%s:\t%lf\t%lf\n",s,*(wl+i),*(spectrum+i));
+	}
+    }
+  else
+    {
+      for(i=0;i<n;i++)
+	{
+	  printf("%lf\t%lf\n",*(wl+i),*(spectrum+i));
+	}
+    }
+  return;
+}

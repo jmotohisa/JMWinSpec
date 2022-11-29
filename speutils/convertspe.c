@@ -1,5 +1,5 @@
 /*
- *  convertspe.c - Time-stamp: <Mon Nov 28 21:14:24 JST 2022>
+ *  convertspe.c - Time-stamp: <Tue Nov 29 10:42:01 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -42,11 +42,14 @@
 #include <tgmath.h>
 #include <unistd.h>
 
-#include "../ViewSPE/WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "convertspe.h"
 #include "glue.h"
+
+#define TRUE 1
+#define FALSE 0
 
 /*!
   @brief
@@ -55,7 +58,6 @@
   @param[in,out]
   @return
 */
-void dump_spectrum(char *s, int n, double *wl, double *spectrum);
 void dump_spectrum2(int n, int *flg, double *wl, double *spectrum);
 
 void usage(FILE *f)

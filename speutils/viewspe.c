@@ -41,6 +41,9 @@ void usage(FILE *f)
 		  "         -h : this help message\n"
 		  "         -V : print version number and copyright\n"
 		  "         -v : verbose output\n"
+		  "         -g : display graph\n"
+	          "         -d : dump spectrum\n"
+	          "         -D : dump spectrum (with filename)\n"
 		  "         -i : show image plot\n"
 		  "         -l : diplay with axis label\n"
 		  "         -n : normalize with exposure time\n"
@@ -54,13 +57,15 @@ int main(int argc, char **argv)
   int verbose = 0;
   int image = 0;
   int label = 0;
-  int normalization = 0;
+  int fdump = 0;
+  int normalize = 0;
+  int graph=0;
   int err;
   int ifile;
-  long i;
+  long i,n;
   double *data,*x;
   
-  while ((c = getopt(argc, argv, "hVviln")) != -1)
+  while ((c = getopt(argc, argv, "hVvildng")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -78,8 +83,17 @@ int main(int argc, char **argv)
 	case 'l':
 	  label = 1;
 	  break;
+	case 'd':
+	  fdump = 1;
+	  break;
+	case 'D':
+	  fdump = 2;
+	  break;
 	case 'n':
-	  normalization = 1;
+	  normalize = 1;
+	  break;
+	case 'g':
+	  graph = 1;
 	  break;
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
@@ -100,7 +114,8 @@ int main(int argc, char **argv)
 	if(err = read_spe_header(argv[ifile],&header)>0)
 	  {
 	//malloc(sizeof(t) * CHK_MALLOC_n_tmp)
-	    data = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
+	    n=header.xdim*header.ydim*header.NumFrames;
+	    data = (double *) malloc(sizeof(double)*n);
 	    x=(double *) malloc(sizeof(double)*header.xdim);
 	  } else {
 	  break;
@@ -113,10 +128,29 @@ int main(int argc, char **argv)
 	//	poly((int) header.xdim, x,atoi(header.polynom_order_x), header.polynom_coeff_x);
 	poly((int) header.xdim, x, 6, header.polynom_coeff_x);
 
+	if(normalize==1)
+	  {
+	    for(i=0;i<n;i++)
+	      *(data+i)=*(data+i)/header.exp_sec;
+	  }
+	switch (fdump) {
+	case 1:
+	  dump_spectrum("",header.xdim,x,data); // hear 1D data is assumed now
+	  break;
+	case 2:
+	  dump_spectrum(argv[ifile],header.xdim,x,data); // hear 1D data is assumed now
+	  break;
+	case 0:
+	default:
+	  break;
+	}
+	  
 	// plot
 #ifdef HAS_PLPLOT
+	if(graph==1)
+	  {
 	PLFLT *x_,*data_;
-	data_ = (double *) malloc(sizeof(double)*header.xdim*header.ydim*header.NumFrames);
+	data_ = (double *) malloc(sizeof(double)*n);
 	x_=(double *) malloc(sizeof(double)*header.xdim);
 	for(i=0;i<header.xdim;i++)
 	  *(x_+i)=*(x+i);
@@ -150,6 +184,7 @@ int main(int argc, char **argv)
 	plend();
 	free(x_);
 	free(data_);
+	  }
 #endif
 
 	free(data);

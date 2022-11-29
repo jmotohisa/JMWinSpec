@@ -2,13 +2,15 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT(viewspe, 0.1, motohisa@ist.hokudai.ac.jp)
+AC_INIT(speutils, 0.1, motohisa@ist.hokudai.ac.jp)
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([viewspe.c])
+AC_CONFIG_SRCDIR([readspe.c])
 AC_CONFIG_HEADERS(config.h)
 
 # Checks for programs.
 AC_PROG_CC
+LT_INIT
+AC_CONFIG_MACRO_DIRS([m4])
 
 # Checks for libraries.
 
@@ -33,7 +35,7 @@ PKG_CHECK_MODULES(PLPLOT,plplot,
   [AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])],
     [PKG_CHECK_MODULES(PLPLOTD, plplotd,[AC_DEFINE(HAS_PLPLOT, 1,
       [If plplot has been installed, define this])],
-        [AC_WARN([no plplot found])])])
+        [AC_MSG_WARN([no plplot found])])])
 
 #if test "PLPLOT" = "yes"; then
 #   AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])

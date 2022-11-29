@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Mon Nov 28 11:33:23 JST 2022>
+ *  glue.c - Time-stamp: <Tue Nov 29 10:03:58 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -44,8 +44,8 @@
 #define GLOBAL_VALUE_DEFINE
 #include "glue.h"
 
-#include "../ViewSPE/WinSpecHeader25.h"
-#include "../ViewSPE/readspe.h"
+#include "WinSpecHeader25.h"
+#include "readspe.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -55,18 +55,6 @@
   @param[in] x: point number
   @return calibraated wavelength value
 */
-
-double poly2(double x, int norder, double *coef)
-{
-  int j;
-  double y;
-  y=*(coef+norder-1);
-  for(j=norder-2;j>=0;j--)
-    {
-      y=*(coef+j)+x*y;
-    }
-  return(y);
-}
 
 void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 	      double start, double end, double resolution,
@@ -83,7 +71,7 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
   w=(double *) malloc(sizeof(double)*(xdim+1)); //  *(w+i-1/2)
   for(i=0;i<=xdim;i++)
     {
-      *(w+i)=  poly2(i+0.5, 6, coef); // NOTE:
+      *(w+i)=  poly0(i+0.5, 6, coef); // NOTE:
     }
 
   // output data (z,spectrum_dest)

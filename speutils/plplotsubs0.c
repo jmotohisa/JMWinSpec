@@ -1,12 +1,19 @@
+
+#ifdef HAS_PLPLOT
 #include <plplot.h>
 #include "plplotsubs0.h"
+#else
+#define PLFLT double
+#endif
 
 #define MAX(a,b) a>b ? a:b
 #define MIN(a,b) a<b ? a:b
 
+#ifdef HAS_PLPLOT
 // 1d plot
 void plot1_plplot(int n,PLFLT *x,PLFLT *y1,char *title)
 {
+
   PLFLT xmin=1e30,xmax=-1e30,ymax=-1e30,ymin=1e30;
   int i;
   //  PLINT just=0,axis=0;
@@ -250,4 +257,4 @@ void plot1_plplot2(int n, int nplot,PLFLT *x,PLFLT *y1,char *title)
   pllab ("wavelenghth", "intensity" , title);
   plflush();
 }
-
+#endif

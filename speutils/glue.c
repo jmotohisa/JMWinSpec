@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Tue Nov 29 23:12:14 JST 2022>
+ *  glue.c - Time-stamp: <Wed Nov 30 09:03:01 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -374,6 +374,7 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
 	  glue_start++;
 	}
     }
+    }
 }
 
 void check_pix_start_end(int n, int ss, int *flg, int *start, int *end)
@@ -403,11 +404,9 @@ void check_pix_start_end(int n, int ss, int *flg, int *start, int *end)
     }
   if(*(flg+n-1)==1)
     *end=n-1;
-      }
 
   return;
 }
-
     
 	
 	

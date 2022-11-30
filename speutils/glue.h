@@ -1,5 +1,5 @@
 /*
- *  glue.h - last saved: Time-stamp: <Tue Nov 29 17:38:04 JST 2022>
+ *  glue.h - last saved: Time-stamp: <Wed Nov 30 08:57:56 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -57,6 +57,9 @@ GLOBAL void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 		     double start, double end, double resolution,
 		     double *wl_dest,int n_dest,
 		     double *spectrum_dest,int *flg);
+
+GLOBAL void check_pix_start_end(int n, int ss, int *flg, int *start, int *end);
+  
   
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL

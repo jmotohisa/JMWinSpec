@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 17:39:28 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Nov 30 18:05:20 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -163,6 +163,7 @@ int main(int argc, char **argv)
   char file_ref[MAXLEN];
   char file_dest[MAXLEN];
   char file_back[MAXLEN];
+  void *data;
   float *data_float;
   int *data_int;
   short *data_short;
@@ -305,8 +306,10 @@ int main(int argc, char **argv)
     fread(data_float,sizeof(float),n,fp_orig);
     break;
   case 1:
-    data_int=(int *)malloc(sizeof(int)*n);
-    fread(data_int,sizeof(int),n,fp_orig);
+	data ==(void *)malloc(sizeof(int)*n);
+    fread(data,sizeof(int),n,fp_orig);
+    /* data_int=(int *)malloc(sizeof(int)*n); */
+    /* fread(data_int,sizeof(int),n,fp_orig); */
     break;
   case 2:
     data_short=(short *)malloc(sizeof(short)*n);
@@ -338,21 +341,21 @@ int main(int argc, char **argv)
       fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
       switch(datatype) {
       case 0:
-	fwrite(data_float,sizeof(float),n,fp_dest);
-	break;
+		fwrite(data_float,sizeof(float),n,fp_dest);
+		break;
       case 1:
-	fwrite(data_int,sizeof(int),n,fp_dest);
-	break;
+		fwrite(data,sizeof(int),n,fp_dest);
+		break;
       case 2:
-	fwrite(data_short,sizeof(short),n,fp_dest);
-	break;
+		fwrite(data_short,sizeof(short),n,fp_dest);
+		break;
       case 3:
-	fwrite(data_ushort,sizeof(unsigned short),n,fp_dest);
-	break;
+		fwrite(data_ushort,sizeof(unsigned short),n,fp_dest);
+		break;
       default:
-	printf("Data type error. Exiting\n");
-	return -1;
-	break;
+		printf("Data type error. Exiting\n");
+		return -1;
+		break;
       }
       fclose(fp_dest);
       printf("Backup %s created.\n",file_back);
@@ -362,7 +365,7 @@ int main(int argc, char **argv)
   for(i=0;i<6;i++) {
     *(header.polynom_coeff_x+i)=*(coef+i);
   }
-
+  
   // write to file
   if(overwrite==1)
     {
@@ -375,7 +378,7 @@ int main(int argc, char **argv)
     fwrite(data_float,sizeof(float),n,fp_dest);
     break;
   case 1:
-    fwrite(data_int,sizeof(int),n,fp_dest);
+    fwrite(data,sizeof(int),n,fp_dest);
     break;
   case 2:
     fwrite(data_short,sizeof(short),n,fp_dest);
@@ -388,7 +391,7 @@ int main(int argc, char **argv)
     return -1;
     break;
   }
-
+  
   fclose(fp_dest);
 
   switch(datatype) {
@@ -396,7 +399,8 @@ int main(int argc, char **argv)
     free(data_float);
     break;
   case 1:
-    free(data_int);
+	free(data);
+    /* free(data_int); */
     break;
   case 2:
     free(data_short);

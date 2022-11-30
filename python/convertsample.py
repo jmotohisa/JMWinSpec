@@ -17,7 +17,7 @@ flg = np.empty_like(wl_dest, dtype=np.int32)
 
 # print(wl_dest.dtype, spectrum_dest.dtype, flg.dtype)
 
-fname = '/Users/motohisa/Documents/experiment/20221125_okamoto/D1_a0_128.SPE'
+fname = '/Users/motohisa/Documents/experiment/20221125/a/mod/D1_a0_73.SPE'
 
 wl, spectrum, coef, numFrames, ydim = glue.readspe(fname)
 # print(numFrames, ydim)

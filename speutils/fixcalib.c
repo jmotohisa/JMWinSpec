@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 18:24:39 JST 2022>
+ *  fixcalib.c - Time-stamp: <Thu Dec 01 07:42:01 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -163,10 +163,7 @@ int main(int argc, char **argv)
   char file_ref[MAXLEN];
   char file_dest[MAXLEN];
   char file_back[MAXLEN];
-  float *data_float;
-  int *data_int;
-  short *data_short;
-  unsigned  short *data_ushort;
+  void *data;
   int datatype;
   double *coef;
   double SpecCenterWlNm_orig,SpecCenterWlNm_ref;
@@ -292,8 +289,8 @@ int main(int argc, char **argv)
   datatype=header.datatype;
   n=header.xdim*header.ydim*header.NumFrames;
   
-  printf("Opening %s\n",file_orig);
-  if((fp_orig=fopen(file_orig,"wb"))==NULL)
+  printf("Opening original file:%s\n",file_orig);
+  if((fp_orig=fopen(file_orig,"rb"))==NULL)
     {
       printf("cannot open file :%s\n",file_orig);
       return (-1);
@@ -301,22 +298,20 @@ int main(int argc, char **argv)
   fseek(fp_orig,sizeof(WINXHEADER_STRUCT),SEEK_SET);
   switch(datatype) {
   case 0:
-    data_float=(float *)malloc(sizeof(float)*n);
-    fread(data_float,sizeof(float),n,fp_orig);
+    data=(void *)malloc(sizeof(float)*n);
+    fread(data,sizeof(float),n,fp_orig);
     break;
   case 1:
-    data_int=(int *)malloc(sizeof(int)*n);
-    fread(data_int,sizeof(int),n,fp_orig);
-    for(i=0;i<n;i++)
-      printf("%d\n",*((int *) data+i));
+    data =(void *)malloc(sizeof(int)*n);
+    fread(data,sizeof(int),n,fp_orig);
     break;
   case 2:
-    data_short=(short *)malloc(sizeof(short)*n);
-    fread(data_short,sizeof(short),n,fp_orig);
+    data=(void *)malloc(sizeof(short)*n);
+    fread(data,sizeof(short),n,fp_orig);
     break;
   case 3:
-    data_short=(unsigned short *)malloc(sizeof(unsigned short)*n);
-    fread(data_ushort,sizeof(unsigned short),n,fp_orig);
+    data=(void *)malloc(sizeof(unsigned short)*n);
+    fread(data,sizeof(unsigned short),n,fp_orig);
     break;
   default:
     printf("Data type error. Exiting\n");
@@ -340,21 +335,21 @@ int main(int argc, char **argv)
       fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
       switch(datatype) {
       case 0:
-	fwrite(data_float,sizeof(float),n,fp_dest);
-	break;
+		fwrite(data,sizeof(float),n,fp_dest);
+		break;
       case 1:
-	fwrite(data_int,sizeof(int),n,fp_dest);
-	break;
+		fwrite(data,sizeof(int),n,fp_dest);
+		break;
       case 2:
-	fwrite(data_short,sizeof(short),n,fp_dest);
-	break;
+		fwrite(data,sizeof(short),n,fp_dest);
+		break;
       case 3:
-	fwrite(data_ushort,sizeof(unsigned short),n,fp_dest);
-	break;
+		fwrite(data,sizeof(unsigned short),n,fp_dest);
+		break;
       default:
-	printf("Data type error. Exiting\n");
-	return -1;
-	break;
+		printf("Data type error. Exiting\n");
+		return -1;
+		break;
       }
       fclose(fp_dest);
       printf("Backup %s created.\n",file_back);
@@ -364,7 +359,7 @@ int main(int argc, char **argv)
   for(i=0;i<6;i++) {
     *(header.polynom_coeff_x+i)=*(coef+i);
   }
-
+  
   // write to file
   if(overwrite==1)
     {
@@ -374,43 +369,25 @@ int main(int argc, char **argv)
   fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
   switch(datatype) {
   case 0:
-    fwrite(data_float,sizeof(float),n,fp_dest);
+    fwrite(data,sizeof(float),n,fp_dest);
     break;
   case 1:
-    fwrite(data_int,sizeof(int),n,fp_dest);
+    fwrite(data,sizeof(int),n,fp_dest);
     break;
   case 2:
-    fwrite(data_short,sizeof(short),n,fp_dest);
+    fwrite(data,sizeof(short),n,fp_dest);
     break;
   case 3:
-    fwrite(data_ushort,sizeof(unsigned short),n,fp_dest);
+    fwrite(data,sizeof(unsigned short),n,fp_dest);
     break;
   default:
     printf("Data type error. Exiting\n");
     return -1;
     break;
   }
-
+  
   fclose(fp_dest);
-
-  switch(datatype) {
-  case 0:
-    free(data_float);
-    break;
-  case 1:
-    free(data_int);
-    break;
-  case 2:
-    free(data_short);
-    break;
-  case 3:
-    free(data_ushort);
-    break;
-  default:
-    printf("Data type error. Exiting\n");
-    return -1;
-    break;
-  }
+  free(data);
   printf("Calibration data of %s was successfully fixed using %s and written to %s\n",
 		 file_orig,file_ref,file_dest);
   free(coef);

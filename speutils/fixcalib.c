@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 12:41:40 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Nov 30 13:35:30 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -46,6 +46,10 @@
 
 #include "WinSpecHeader25.h"
 #include "readspe.h"
+
+#define STR_ALLOC_COPY(dest,orig) \\
+  dest = (char *) malloc(sizeof(char)*(strlen(orig)+1));\\
+  strcpy(dest,orig);
 
 #define TRUE 1
 #define FALSE 0
@@ -138,6 +142,8 @@ void usage(FILE *f)
 		  "         -c : check only\n"
 		  "   -r <ref> : reference file (required)\n"
 		  "   -o <out> : output file (required)\n"
+		  "         -O : overwite input file\n"
+		  "         -B : DO NOT create backup\n"
 		  );
 }
 
@@ -147,6 +153,7 @@ int main(int argc, char **argv)
   char file_orig[MAXLEN];
   char file_ref[MAXLEN];
   char file_dest[MAXLEN];
+  char file_back[MAXLEN];
   float *data_float;
   int *data_int;
   short *data_short;
@@ -163,9 +170,11 @@ int main(int argc, char **argv)
   int checkonly = 0;
   int write_calib=0;
   int calibdata_ref=0;
+  int overwrite=0;
+  int backup=1;
   int calibration_orig_correct,calibration_ref_correct;
 
-  while ((c = getopt(argc, argv, "hvcr:o:")) != -1)
+  while ((c = getopt(argc, argv, "hvcr:o:O")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -198,6 +207,12 @@ int main(int argc, char **argv)
 	/* case 'f':  */
 	/*   calibdata_ref=1; // read calibration data from file (not SPE) */
 	/*   break; */
+	case 'O':
+	  overwrite=1;
+	  break;
+	case 'B':
+	  backup=0;
+	  break;
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
 	  usage(stderr);
@@ -256,7 +271,7 @@ int main(int argc, char **argv)
 
   //   double  polynom_coeff_x[6]      ;//      3263  polynom COEFFICIENTS            
 
-  // read data
+  // read data from original
   read_spe_header(file_orig, &header);
   datatype=header.datatype;
   n=header.xdim*header.ydim*header.NumFrames;
@@ -287,12 +302,44 @@ int main(int argc, char **argv)
   }
   fclose(fp_orig);
 
+  // create backup
+  if(overwrite==1 && backup==1)
+    {
+      strcpy(file_back,file_orig);
+      strcat(file_back,".bak");
+      fp_dest=fopen(file_back,"wb");
+      fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
+      switch(datatype) {
+      case 0:
+	fwrite(data_float,sizeof(float),n,fp_dest);
+	break;
+      case 1:
+	fwrite(data_int,sizeof(int),n,fp_dest);
+	break;
+      case 2:
+	fwrite(data_short,sizeof(short),n,fp_dest);
+	break;
+      case 3:
+	fwrite(data_ushort,sizeof(unsigned short),n,fp_dest);
+	break;
+      default:
+	printf("Data type error. Exiting\n");
+	return 0;
+	break;
+      }
+      fclose(fp_dest);
+    }
+  
   // replace coefficients
   for(i=0;i<6;i++) {
     *(header.polynom_coeff_x+i)=*(coef+i);
   }
 
   // write to file
+  if(overwrite==1)
+    {
+      strcpy(file_dest,file_orig);
+    }
   fp_dest=fopen(file_dest,"wb");
   fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
   switch(datatype) {
@@ -313,6 +360,7 @@ int main(int argc, char **argv)
     return 0;
     break;
   }
+
   fclose(fp_dest);
 
   switch(datatype) {

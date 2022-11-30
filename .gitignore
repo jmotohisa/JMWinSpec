@@ -1,4 +1,4 @@
-.DS_Store
+	.DS_Store
 *.o
 *.a
 *~
@@ -69,3 +69,5 @@ stamp-h1
 *.so
 python/glue_wrap.c
 convertspe.dSYM/
+fixcalib
+convertspe

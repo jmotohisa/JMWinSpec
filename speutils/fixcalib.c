@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 17:39:28 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Nov 30 18:24:39 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -307,6 +307,8 @@ int main(int argc, char **argv)
   case 1:
     data_int=(int *)malloc(sizeof(int)*n);
     fread(data_int,sizeof(int),n,fp_orig);
+    for(i=0;i<n;i++)
+      printf("%d\n",*((int *) data+i));
     break;
   case 2:
     data_short=(short *)malloc(sizeof(short)*n);

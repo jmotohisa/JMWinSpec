@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 13:35:30 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Nov 30 17:39:28 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -71,7 +71,8 @@ double wl_center(int xDimDet,double *coef)
   return(poly0((1+xDimDet)/2.,6,coef));
 }
 
-int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0)
+int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0,
+	       int verbose)
 {
   WINXHEADER_STRUCT header;
   double *wl;
@@ -82,12 +83,17 @@ int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0)
   double wlcen_ref,wlcen_orig;
   double SpecCenterWlNm_ref,SpecCenterWlNm_orig;
 
+  /* printf("%s\n",fname); */
   if((err = read_spe_header(fname,&header))>0)
     {
       wl=(double *) malloc(sizeof(double)*header.xdim);
-    } else {
-  }
-  
+    }
+  else
+    {
+      printf("cannot open %s. Exiting.\n",fname);
+      return EXIT_FAILURE;
+    }
+
   poly((int) header.xdim, wl, 6, header.polynom_coeff_x);
   for(i=0;i<6;i++)
     {
@@ -96,7 +102,10 @@ int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0)
   
   wlcen= *SpecCenterWlNm = header.SpecCenterWlNm;
   wlcen2 =*wlcen0 = wl_center(header.xDimDet,header.polynom_coeff_x);
-
+  if(verbose==1) {
+    printf("%s: SpecCenterWlNm=%lf, wlcen=%lf\n",fname,wlcen,wlcen2);
+  }
+  
   if(fabs(wlcen-wlcen2)>1)
     return TRUE;
   else
@@ -173,6 +182,7 @@ int main(int argc, char **argv)
   int overwrite=0;
   int backup=1;
   int calibration_orig_correct,calibration_ref_correct;
+  int with_reference=0,with_output=0;
 
   while ((c = getopt(argc, argv, "hvcr:o:O")) != -1)
 	switch (c) {
@@ -181,7 +191,7 @@ int main(int argc, char **argv)
 	  return EXIT_SUCCESS;
 	case 'v':
 	  verbose=1;
-	  return EXIT_SUCCESS;
+	  break;
 	case 'c':
 	  checkonly = 1; // check only (both orig and reference SPE file)
 	  break;
@@ -189,17 +199,19 @@ int main(int argc, char **argv)
 	  //	  file_ref=optarg; // reference file (SPE or calib)
 	  strcpy(file_ref,optarg);
 	  if(strlen(file_ref)<=0){
-	    printf("invalid reference\n");
-	    return 0;
+	    printf("Invalid reference file\n");
+	    return EXIT_FAILURE;
 	  }
+	  with_reference=1;
 	  break;
 	case 'o':
 	  //	  file_dest=optarg; // destination (SPE or calib)
 	  strcpy(file_dest,optarg);
 	  if(strlen(file_dest)<=0){
-	    printf("invalid destination\n");
-	    return 0;
+	    printf("Invalid output file\n");
+	    return EXIT_FAILURE;
 	  }
+	  with_output=1;
 	  break; 
 	/* case 'w': */
 	/*   write_calib=1; // write to calib file */
@@ -209,6 +221,7 @@ int main(int argc, char **argv)
 	/*   break; */
 	case 'O':
 	  overwrite=1;
+	  with_output=1;
 	  break;
 	case 'B':
 	  backup=0;
@@ -223,14 +236,18 @@ int main(int argc, char **argv)
 	usage(stderr);
 	return EXIT_FAILURE;
   }
+
+  if(with_output==0)
+    {
+      printf("No output file specified. Exiting.\n");
+      return EXIT_FAILURE;
+    }
+  
   strcpy(file_orig,argv[optind]);
   coef=(double *) malloc(sizeof(double)*6);
-  if(checkcalib(file_orig,coef,&SpecCenterWlNm_orig,&wlcen_orig)==FALSE) {
+  if(checkcalib(file_orig,coef,&SpecCenterWlNm_orig,&wlcen_orig,verbose)==FALSE) {
     calibration_orig_correct = TRUE;
-    printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_orig,wlcen_orig);
-    printf("Calibration in file %s is correct.\n",file_orig);
   } else {
-    printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_orig,wlcen_orig);
     printf("Calibration in file %s is incorrect.\n",file_orig);
     calibration_orig_correct = FALSE;
   }
@@ -244,13 +261,11 @@ int main(int argc, char **argv)
     calibration_ref_correct=TRUE;
   } else {
     // from SPE file:
-    if(checkcalib(file_ref,coef,&SpecCenterWlNm_ref,&wlcen_ref)==TRUE)
+    if(checkcalib(file_ref,coef,&SpecCenterWlNm_ref,&wlcen_ref,verbose)==TRUE)
     {
       calibration_ref_correct=FALSE;
-      printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_ref,wlcen_ref);
       printf("Calibration of the reference file %s is incorrect.\n",file_ref);
     } else {
-      printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_ref,wlcen_ref);
       printf("Calibration of the reference file %s is correct.\n",file_ref);
         calibration_ref_correct=TRUE;
     }
@@ -259,24 +274,30 @@ int main(int argc, char **argv)
   // check reference calibration is appropriate
   if(fabs(SpecCenterWlNm_orig-wlcen_ref)>1)
     {
-      printf("Calibration data of the reference file is inappropriate.\n");
-      return 0;
+      printf("Calibration data of the reference file is inappropriate. Exiting.\n");
+      return EXIT_FAILURE;
     }
   
   if(checkonly==1 || calibration_orig_correct==TRUE || calibration_ref_correct==FALSE)
     {
+      printf("Do nothing.\n");
       free(coef);
       return 0;
     }
 
-  //   double  polynom_coeff_x[6]      ;//      3263  polynom COEFFICIENTS            
+  // double  polynom_coeff_x[6]      ;//      3263  polynom COEFFICIENTS            
 
   // read data from original
   read_spe_header(file_orig, &header);
   datatype=header.datatype;
   n=header.xdim*header.ydim*header.NumFrames;
   
-  fp_orig=fopen(file_orig,"rb");
+  printf("Opening %s\n",file_orig);
+  if((fp_orig=fopen(file_orig,"wb"))==NULL)
+    {
+      printf("cannot open file :%s\n",file_orig);
+      return (-1);
+    }
   fseek(fp_orig,sizeof(WINXHEADER_STRUCT),SEEK_SET);
   switch(datatype) {
   case 0:
@@ -297,17 +318,23 @@ int main(int argc, char **argv)
     break;
   default:
     printf("Data type error. Exiting\n");
-    return 0;
+    return -1;
     break;
   }
   fclose(fp_orig);
+  printf("file %s closed\n",file_orig);
 
   // create backup
   if(overwrite==1 && backup==1)
     {
       strcpy(file_back,file_orig);
       strcat(file_back,".bak");
-      fp_dest=fopen(file_back,"wb");
+      
+      if((fp_dest=fopen(file_back,"wb"))==NULL)
+	{
+	  printf("cannot open file :%s\n",file_back);
+	  return(-1);
+	}
       fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
       switch(datatype) {
       case 0:
@@ -324,10 +351,11 @@ int main(int argc, char **argv)
 	break;
       default:
 	printf("Data type error. Exiting\n");
-	return 0;
+	return -1;
 	break;
       }
       fclose(fp_dest);
+      printf("Backup %s created.\n",file_back);
     }
   
   // replace coefficients
@@ -357,7 +385,7 @@ int main(int argc, char **argv)
     break;
   default:
     printf("Data type error. Exiting\n");
-    return 0;
+    return -1;
     break;
   }
 
@@ -378,10 +406,10 @@ int main(int argc, char **argv)
     break;
   default:
     printf("Data type error. Exiting\n");
-    return 0;
+    return -1;
     break;
   }
-  printf("Calibration data of %s was successfully fixed using %s and written to %s",
+  printf("Calibration data of %s was successfully fixed using %s and written to %s\n",
 		 file_orig,file_ref,file_dest);
   free(coef);
   return 0;

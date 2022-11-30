@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Nov 30 10:28:33 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Nov 30 12:41:40 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -131,11 +131,13 @@ int read_calibdata(char *fname,int *xDimDet,double *coef)
 
 void usage(FILE *f)
 {
-  fprintf(f, "Usage: fixcalib [options] [<filenames>]\n"
+  fprintf(f, "Usage: fixcalib [options] [<filename>]\n"
 		  "Options:\n"
 		  "         -h : this help message\n"
-		  "         -V : print version number and copyright\n"
-		  "         -w : just warn difference\n"
+		  "         -v : verbose\n"
+		  "         -c : check only\n"
+		  "   -r <ref> : reference file (required)\n"
+		  "   -o <out> : output file (required)\n"
 		  );
 }
 
@@ -163,8 +165,7 @@ int main(int argc, char **argv)
   int calibdata_ref=0;
   int calibration_orig_correct,calibration_ref_correct;
 
-
-  while ((c = getopt(argc, argv, "hvcr:o:c:w")) != -1)
+  while ((c = getopt(argc, argv, "hvcr:o:")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -177,7 +178,7 @@ int main(int argc, char **argv)
 	  break;
 	case 'r':
 	  //	  file_ref=optarg; // reference file (SPE or calib)
-	  strcpy(optarg,file_ref);
+	  strcpy(file_ref,optarg);
 	  if(strlen(file_ref)<=0){
 	    printf("invalid reference\n");
 	    return 0;
@@ -185,18 +186,18 @@ int main(int argc, char **argv)
 	  break;
 	case 'o':
 	  //	  file_dest=optarg; // destination (SPE or calib)
-	  strcpy(optarg,file_dest);
+	  strcpy(file_dest,optarg);
 	  if(strlen(file_dest)<=0){
 	    printf("invalid destination\n");
 	    return 0;
 	  }
 	  break; 
-	case 'w':
-	  write_calib=1; // write to calib file
-	  break;
-	case 'f': 
-	  calibdata_ref=1; // read calibration data from file (not SPE)
-	  break;
+	/* case 'w': */
+	/*   write_calib=1; // write to calib file */
+	/*   break; */
+	/* case 'f':  */
+	/*   calibdata_ref=1; // read calibration data from file (not SPE) */
+	/*   break; */
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
 	  usage(stderr);
@@ -207,13 +208,14 @@ int main(int argc, char **argv)
 	usage(stderr);
 	return EXIT_FAILURE;
   }
-  strcpy(argv[optind],file_orig);
+  strcpy(file_orig,argv[optind]);
   coef=(double *) malloc(sizeof(double)*6);
   if(checkcalib(file_orig,coef,&SpecCenterWlNm_orig,&wlcen_orig)==FALSE) {
     calibration_orig_correct = TRUE;
     printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_orig,wlcen_orig);
     printf("Calibration in file %s is correct.\n",file_orig);
   } else {
+    printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_orig,wlcen_orig);
     printf("Calibration in file %s is incorrect.\n",file_orig);
     calibration_orig_correct = FALSE;
   }
@@ -233,13 +235,14 @@ int main(int argc, char **argv)
       printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_ref,wlcen_ref);
       printf("Calibration of the reference file %s is incorrect.\n",file_ref);
     } else {
+      printf("ref: SpecCenterWlNm=%lf, wlcen=%lf\n",SpecCenterWlNm_ref,wlcen_ref);
       printf("Calibration of the reference file %s is correct.\n",file_ref);
         calibration_ref_correct=TRUE;
     }
   }
 
   // check reference calibration is appropriate
-  if(fabs(SpecCenterWlNm_orig-wlcen_ref)>DBL_EPSILON)
+  if(fabs(SpecCenterWlNm_orig-wlcen_ref)>1)
     {
       printf("Calibration data of the reference file is inappropriate.\n");
       return 0;
@@ -253,44 +256,28 @@ int main(int argc, char **argv)
 
   //   double  polynom_coeff_x[6]      ;//      3263  polynom COEFFICIENTS            
 
-  // read data and replace coefficients
+  // read data
   read_spe_header(file_orig, &header);
   datatype=header.datatype;
   n=header.xdim*header.ydim*header.NumFrames;
+  
+  fp_orig=fopen(file_orig,"rb");
+  fseek(fp_orig,sizeof(WINXHEADER_STRUCT),SEEK_SET);
   switch(datatype) {
   case 0:
     data_float=(float *)malloc(sizeof(float)*n);
-    break;
-  case 1:
-    data_int=(int *)malloc(sizeof(int)*n);
-    break;
-  case 2:
-    data_short=(short *)malloc(sizeof(short)*n);
-    break;
-  case 3:
-    data_short=(unsigned short *)malloc(sizeof(unsigned short)*n);
-    break;
-  default:
-    printf("Data type error. Exiting\n");
-    return 0;
-    break;
-  }
-
-  for(i=0;i<6;i++) {
-    *(header.polynom_coeff_x+i)=*(coef+i);
-  }
-  fp_orig=fopen(file_dest,"rb");
-  switch(datatype) {
-  case 0:
     fread(data_float,sizeof(float),n,fp_orig);
     break;
   case 1:
+    data_int=(int *)malloc(sizeof(int)*n);
     fread(data_int,sizeof(int),n,fp_orig);
     break;
   case 2:
+    data_short=(short *)malloc(sizeof(short)*n);
     fread(data_short,sizeof(short),n,fp_orig);
     break;
   case 3:
+    data_short=(unsigned short *)malloc(sizeof(unsigned short)*n);
     fread(data_ushort,sizeof(unsigned short),n,fp_orig);
     break;
   default:
@@ -299,6 +286,11 @@ int main(int argc, char **argv)
     break;
   }
   fclose(fp_orig);
+
+  // replace coefficients
+  for(i=0;i<6;i++) {
+    *(header.polynom_coeff_x+i)=*(coef+i);
+  }
 
   // write to file
   fp_dest=fopen(file_dest,"wb");
@@ -323,7 +315,6 @@ int main(int argc, char **argv)
   }
   fclose(fp_dest);
 
-  free(coef);
   switch(datatype) {
   case 0:
     free(data_float);
@@ -342,6 +333,8 @@ int main(int argc, char **argv)
     return 0;
     break;
   }
+  printf("Calibration data of %s was successfully fixed using %s and written to %s",
+		 file_orig,file_ref,file_dest);
   free(coef);
   return 0;
 }

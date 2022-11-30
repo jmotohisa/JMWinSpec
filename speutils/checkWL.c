@@ -1,5 +1,5 @@
 /*
- *  checkWL.c - Time-stamp: <Tue Nov 29 10:39:43 JST 2022>
+ *  checkWL.c - Time-stamp: <Wed Nov 30 12:31:08 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -66,6 +66,7 @@ void usage(FILE *f)
 		  "         -h : this help message\n"
 		  "         -V : print version number and copyright\n"
 		  "         -w : just warn difference\n"
+		  "         -c : dump coeffients\n"
 		  );
 }
 
@@ -74,12 +75,13 @@ int main(int argc, char **argv)
   WINXHEADER_STRUCT header;
   int c;
   int warn = 0;
+  int dump_coefs=0;
   int err;
   int ifile;
   long i,n;
   double *data,*x;
   
-  while ((c = getopt(argc, argv, "hVw")) != -1)
+  while ((c = getopt(argc, argv, "hVwc")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -90,6 +92,9 @@ int main(int argc, char **argv)
 	  return EXIT_SUCCESS;
 	case 'w':
 	  warn = 1;
+	  break;
+	case 'c':
+	  dump_coefs = 1;
 	  break;
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
@@ -117,6 +122,13 @@ int main(int argc, char **argv)
 	}
 	err = read_spe_data(argv[ifile],data,header);
 	poly((int) header.xdim, x, 6, header.polynom_coeff_x);
+	if(dump_coefs==1)
+	  {
+		printf("%s: Coefficients: ",argv[ifile]);
+		for(i=0;i<6;i++)
+		  printf("%le\t",*(header.polynom_coeff_x+i));
+		printf("\n");
+	  }
 
 	double wlcen=header.SpecCenterWlNm;
 	int xDimDet=header.xDimDet;

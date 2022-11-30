@@ -1,4 +1,6 @@
 
+#include "config.h"
+
 #ifdef HAS_PLPLOT
 #include <plplot.h>
 #include "plplotsubs0.h"

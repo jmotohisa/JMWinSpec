@@ -68,6 +68,7 @@ stamp-h1
 
 *.so
 python/glue_wrap.c
+python/glue.py
 convertspe.dSYM/
 fixcalib
 convertspe

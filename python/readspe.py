@@ -40,6 +40,10 @@ def get_args():
 
 
 def readspe(fn):
+    """
+    Read data in SPE file
+    Returns wavelength, spectrum (normalzied with exposure), coef, numFrames, ydim
+    """
     if os.path.splitext(fn)[1][1:].lower() == 'spe':
         with open(fn, 'rb') as f:
             exp_sec = read_float(f, 10)

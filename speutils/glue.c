@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Thu Dec 01 14:35:28 JST 2022>
+ *  glue.c - Time-stamp: <Thu Dec 01 21:55:18 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -67,6 +67,14 @@
 #define T31 31
 #define T32 32
 
+#define CHECK(cond, msg) { if (!(cond)) { fprintf(stderr, "glue error: %s\n", msg); exit(EXIT_FAILURE); } }
+
+#define CHK_MALLOC(p, t, n) {                                         \
+	size_t CHK_MALLOC_n_tmp = (n);									  \
+	(p) = (t *) malloc(sizeof(t) * CHK_MALLOC_n_tmp);				  \
+	CHECK((p) || CHK_MALLOC_n_tmp == 0, "out of memory!");			  \
+  }
+
 /*!
   @brief Calcuatate Calibrated wavlength from 
   @param[in] x: point number
@@ -125,27 +133,26 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
       pix_start=*(pixel_start+j);
       pix_end  =*(pixel_end+j);
       if(*(pixel_start+j)>=0 && *(pixel_end+j)>=0)
-	{
-	  *(flg+j)=TRUE;
-	  if(pix_start==pix_end) {
-		i=pix_start;
-	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
-	  } else {
-		i=pix_start;
-	    p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(w+i+1)-*(z+j));
-	    for(i=*(pixel_start+j)+1;i<*(pixel_end+j);i++)
-	      {
-		p+=*(spectrum_orig+i);
-	      }
-	    p+=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
-	  }
-	}
+		{
+		  *(flg+j)=TRUE;
+		  if(pix_start==pix_end) {
+			i=pix_start;
+			p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
+		  } else {
+			i=pix_start;
+			p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(w+i+1)-*(z+j));
+			for(i=*(pixel_start+j)+1;i<*(pixel_end+j);i++)
+			  {
+				p+=*(spectrum_orig+i);
+			  }
+			p+=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
+		  }
+		}
       else
-	{
-
-	  *(flg+j)=FALSE;
-	  p=0;
-	}
+		{
+		  *(flg+j)=FALSE;
+		  p=0;
+		}
       *(spectrum_dest+j)=p;
     }
   free(z);
@@ -280,7 +287,7 @@ void findstartendpoints(int n, int *flg,
   *nend=0;
   if(*flg==1) {
     *start=0;
-    *nstart++;
+    (*nstart)++;
   }
   for(i=1;i<n;i++)
     {
@@ -288,17 +295,17 @@ void findstartendpoints(int n, int *flg,
       if(dflg==1)
 	{
 	  *(start+*nstart)=i;
-	  *nstart++;
+	  (*nstart)++;
 	}
       if(dflg==-1)
 	{
 	  *(end+*nend)=i-1;
-	  *nend++;
+	  (*nend)++;
 	}
     }
   if(*(flg+n-1)==1) {
     *(end+*nend)=n-1;
-    *nend++;
+    (*nend)++;
   }
   return;
 }
@@ -326,7 +333,11 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
     *(spec_dest + i) = *(spec1+i)*(*(flg1+i)) + *(spec2+i)*(*(flg2+i));
     *(flg_dest + i) = *(flg1+i) || *(flg2+i);
  }
-  
+
+ CHK_MALLOC(start1,int,n);
+ CHK_MALLOC(end1,int,n);
+ CHK_MALLOC(start2,int,n);
+ CHK_MALLOC(end2,int,n);
   // find start and end points of the spectra
   findstartendpoints(n,flg1,&nstart1, start1, &nend1, end1);
   findstartendpoints(n,flg2,&nstart2, start2, &nend2, end2);
@@ -338,27 +349,27 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
   e1=*(end1+p1);
   s2=*(start2+p2);
   e2=*(end2+p2);
-  if(s1<=s2 && e1<=e2) {
+  if(s1<s2 && e1<e2) {
     ii=1;
     d=(e1-s2)+2;
-    for(i=s2;i<e1;i++) {
+    for(i=s2;i<=e1;i++) {
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*(1-(double )ii/d)
 	+ *(spec2+i)*(*(flg2+i)) *( (double ) ii/d);
       ii++;
     }
     p1++;
   }
-  if(s1>=s2 && e1>=e2) {
+  if(s1>s2 && e1>e2) {
     ii=1;
     d=(e2-s1)+2;
-    for(i=s1;i<e2;i++) {
+    for(i=s1;i<=e2;i++) {
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*((double )ii/d)
 	+ *(spec2+i)*(*(flg2+i)) *(1- (double ) ii/d);
       ii++;
     }
     p2++;
   }
-  if(s1<=s2 && e1<=e2) {
+  if(s1<=s2 && e1>=e2) {
     for(i=s1;i<e1;i++)
       {
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*0.5
@@ -367,7 +378,7 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
     p1++;
   }
   
-  if(s1>=s2 && e1>=e2) {
+  if(s1>=s2 && e1<=e2) {
     for(i=s2;i<e2;i++)
       {
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*0.5
@@ -377,6 +388,11 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
   }
   
   } while(p1<nstart1 && p2<nstart2);
+  free(start1);
+  free(end1);
+  free(start2);
+  free(end2);
+	
 }
 
 void check_pix_start_end(int n, int ss, int *flg, int *start, int *end)

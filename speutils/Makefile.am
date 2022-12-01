@@ -5,7 +5,7 @@ libspeutils_a_SOURCES = readspe.c glue.c readspe.h glue.h WinSpecHeader25.h
 
 LIBSPEUTILS = libspeutils.a
 
-bin_PROGRAMS = viewspe checkWL fixcalib
+bin_PROGRAMS = viewspe checkWL fixcalib glue2
 viewspe_SOURCES = viewspe.c plplotsubs0.c viewspe.h plplotsubs0.h
 viewspe_LDADD = $(LIBSPEUTILS)
 
@@ -14,6 +14,9 @@ checkWL_LDADD = $(LIBSPEUTILS)
 
 fixcalib_SOURCES = fixcalib.c
 fixcalib_LDADD = $(LIBSPEUTILS)
+
+glue2_SOURCES = glue2.c
+glue2_LDADD = $(LIBSPEUTILS)
 
 noinst_PROGRAMS = convertspe
 convertspe_SOURCES = convertspe.c convertspe.h

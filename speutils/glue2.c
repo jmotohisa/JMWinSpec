@@ -1,5 +1,5 @@
 /*
- *  glue2.c - Time-stamp: <Thu Dec 01 16:47:08 JST 2022>
+ *  glue2.c - Time-stamp: <Thu Dec 01 18:01:44 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -40,6 +40,10 @@
 #include <stdlib.h>
 #include <complex.h>
 #include <tgmath.h>
+#include <unistd.h>
+
+#include "WinSpecHeader25.h"
+#include "readspe.h"
 
 #define CHECK(cond, msg) { if (!(cond)) { fprintf(stderr, "glue2 error: %s\n", msg); exit(EXIT_FAILURE); } }
 
@@ -102,7 +106,7 @@ int getconveted(double *wl_dest, int n_dest,
 	wl=(double *) malloc(sizeof(double)*header.xdim);
       } else {
       *ierror = 1;
-      return;
+      return 1;
     }
     
     err = read_spe_data(fname,spectrum,header);
@@ -141,7 +145,7 @@ int getconveted(double *wl_dest, int n_dest,
     free(wl);
     free(spectrum);
 
-    return;
+    return 1;
 }
 
 
@@ -161,7 +165,11 @@ int main(int argc, char **argv)
   int istart=0,iend=0;
   int n_dest,*flg;
   int check_SpecCenterWlNm,dont_normalize_exp_sec;
-  
+  double *spectrum1,*spectrum2;
+  int *flg1,*flg2,*flg_dest;
+  int j;
+  int xdim,ydim,NumFrames,flag_wlcen,ierror;
+
   while ((c = getopt(argc, argv, "hvs:e:r:cn")) != -1)
 	switch (c) {
 	case 'h':
@@ -207,8 +215,8 @@ int main(int argc, char **argv)
   CHK_MALLOC(spectrum2,double,n_dest);
   CHK_MALLOC(flg2,int,n_dest);
 
-  for(j=0;j<*n_dest;j++) {
-    *(*wl_dest+j)=start+resolution*j;
+  for(j=0;j<n_dest;j++) {
+    *(wl_dest+j)=start+resolution*j;
   }
   getconveted(wl_dest, n_dest,
 	      spectrum1,n_dest,
@@ -247,4 +255,6 @@ int main(int argc, char **argv)
   CHK_MALLOC(flg_dest,int,n_dest);
   glue2(n_dest, wl_dest, spectrum1, flg1, spectrum2, flg2,
 	spectrum_dest, flg_dest);
+  dump_spectrum2(n_dest,flg_dest,wl_dest,spectrum_dest);
+  return EXIT_SUCCESS;
 }

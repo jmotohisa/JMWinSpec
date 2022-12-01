@@ -8,6 +8,9 @@
 #define	GLOBAL extern
 #endif
 
+#define TRUE 1
+#define FALSE 0
+
 GLOBAL int read_spe_header(char *, WINXHEADER_STRUCT *);
 GLOBAL int read_spe_data(char *, double *, WINXHEADER_STRUCT );
 GLOBAL int poly(int , double *, int , double *);

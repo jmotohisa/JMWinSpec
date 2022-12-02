@@ -1,5 +1,5 @@
 /*
- *  glue2.c - Time-stamp: <Thu Dec 01 18:01:44 JST 2022>
+ *  glue2.c - Time-stamp: <Fri Dec 02 19:42:47 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -112,7 +112,7 @@ int getconveted(double *wl_dest, int n_dest,
     err = read_spe_data(fname,spectrum,header);
     poly((int) header.xdim, wl, n_coef, header.polynom_coeff_x);
 
-    // Check if libration data and Center of the Spectrometer match
+    // Check if calibration data and Center of the Spectrometer match
     double wlcen=header.SpecCenterWlNm;
     int xDimDet=header.xDimDet;
     double wlcen2 = poly0((1+xDimDet)/2.,6,header.polynom_coeff_x);

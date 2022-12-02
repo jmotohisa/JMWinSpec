@@ -15,7 +15,7 @@ except AttributeError:
 
 # alloc extension module
 _glue = Extension("_glue",
-                  sources=["glue.i", "pyspeconvert.c"],
+                  sources=["glue.i", "pyspeconvert.c", "pyglue2.c"],
                   include_dirs=[numpy_include, '../speutils'],
                   libraries=['speutils'],
                   library_dirs=['../speutils'],

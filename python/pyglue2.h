@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.h - last saved: Time-stamp: <Fri Dec 02 15:57:50 JST 2022>
+ *  pyglue2.h - last saved: Time-stamp: <Fri Dec 02 16:09:28 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -26,17 +26,17 @@
  *   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- *  $Id: pyspeconvert.h 2022-11-29 12:08:43 jmotohisa $
+ *  $Id: pyglue2.h 2022-12-01 21:59:51 jmotohisa $
  */
 
 /*! 
-  @file pyspeconvert.h 
+  @file pyglue2.h 
   @brief 
   @author J. Motohisa
 */
 
-#ifndef _PYSPECONVERT_H
-#define _PYSPECONVERT_H
+#ifndef _PYGLUE2_H
+#define _PYGLUE2_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,20 +48,13 @@ extern "C" {
 #define	GLOBAL extern
 #endif
 
-  GLOBAL void pyspeconvert(double *wl_dest, int n_dest,
-			   double *spectrum_dest,int n_spectrum_dest,
-			   int *flg, int n_flg,
-			   char *fname, double start,double end,double resolution,
-			   int dont_normalize_exp_sec,
-			   int *xdim,int *ydim,int *NumFrames,
-			   int *flag_wlcen,int *ierror);
-
-  GLOBAL int pyspeconvert0(double *spectrum, int n_spectrum,
-  			   double *coef, int n_coef,
-			   double *wl_dest, int n_dest,
-			   double *spectrum_dest, int n_spectrum_dest,
-			   int *flg, int n_flg,
-			   double start,double end,double resolution);
+  GLOBAL void pyspeglue2(double *wl_dest, int n_dest,
+			 double *spectrum1_dest, int n_spectrum1_dest,
+			 int *flg1_dest, int n_flg1_dest,
+			 double *spectrum2_dest, int n_spectrum2_dest,
+			 int *flg2_dest, int n_flg2_dest,
+			 double *spectrum_2glued,int n_spectrum_2glued,
+			 int *flg_2glued, int n_flg_2glued);
 
 
 #undef GLOBAL_VALUE_DEFINE
@@ -71,4 +64,4 @@ extern "C" {
 }
 #endif
 
-#endif  // _PYSPECONVERT_H
+#endif  // _PYGLUE2_H

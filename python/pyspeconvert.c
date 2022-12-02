@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.c - Time-stamp: <Tue Nov 29 18:59:45 JST 2022>
+ *  pyspeconvert.c - Time-stamp: <Fri Dec 02 15:58:48 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -129,3 +129,17 @@ void pyspeconvert(double *wl_dest, int n_dest,
 
     return;
 }
+
+int pyspeconvert0(double *spectrum, int n_spectrum,
+		  double *coef, int n_coef,
+		  double *wl_dest, int n_dest,
+		  double *spectrum_dest, int n_spectrum_dest,
+		  int *flg, int n_flg,
+		  double start,double end,double resolution)
+{
+  convert0(coef, n_coef, spectrum, n_spectrum,
+	     start, end, resolution,
+	     wl_dest, n_dest, spectrum_dest,flg);
+  return 0;
+}
+

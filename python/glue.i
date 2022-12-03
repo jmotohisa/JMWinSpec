@@ -48,9 +48,17 @@
  }
 
 %pythoncode %{
-  from readspe import (
-			readspe,
-			checkspecalib,
-			readspecomments,
-			)
-    %}
+from readspe import (
+		     readspe,
+		     checkspecalib,
+		     readspecomments,
+		     printspespan,
+		     writespectrum_csv,
+		     )
+from glueprocs import (
+		       glue2spe,
+		       gluespe1,
+		       gluemultiplespe,
+		       )
+  %}
+

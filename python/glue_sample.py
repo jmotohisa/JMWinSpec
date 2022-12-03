@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 start = 800.
-end = 1000.
+end = 1100.
 resolution = 1.0
 
 wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
@@ -25,13 +25,16 @@ if ydim1 != 1 or ydim2 != 1 or numFrames1 != 1 or numFrames2 != 1:
     print("numFrames and ydim should be 1 in gluing spectra")
     exit
 
-if glue.checkspecalib(xdim1, coef1, SpecCenterWlNm1) == False:
+if glue.checkspecalib(xdim1, coef1, SpecCenterWlNm1, True) == False:
     print("Calibration error in ", fname1, ". Exiting.")
     exit
 
-if glue.checkspecalib(xdim2, coef2, SpecCenterWlNm2) == False:
+if glue.checkspecalib(xdim2, coef2, SpecCenterWlNm2, True) == False:
     print("Calibration error in ", fname2, ". Exiting.")
     exit
+
+glue.printspespan(fname1, xdim1, coef1)
+glue.printspespan(fname2, xdim2, coef2)
 
 spectrum1_dest = np.empty_like(wl_dest)
 flg1_dest = np.empty_like(flg)

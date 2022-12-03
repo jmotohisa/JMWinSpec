@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Fri Dec 02 20:06:31 JST 2022>
+ *  glue.c - Time-stamp: <Fri Dec 02 20:19:17 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -338,24 +338,25 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
  CHK_MALLOC(end1,int,n);
  CHK_MALLOC(start2,int,n);
  CHK_MALLOC(end2,int,n);
-  // find start and end points of the spectra
-  findstartendpoints(n,flg1,&nstart1, start1, &nend1, end1);
-  findstartendpoints(n,flg2,&nstart2, start2, &nend2, end2);
-  // debug
-  for(i=0;i<nstart1;i++)
-	{
-	  printf("(%d, %d) \t",*(start1+i),*(end1+i));
-	}
-  printf("\n");
-  for(i=0;i<nstart2;i++)
-	{
-	  printf("(%d, %d) \t",*(start2+i),*(end2+i));
-	}
-  printf("\n");
-  for(i=0;i<n;i++)
-	{
-	  printf("%d:%lf\t%d\t%lf\t%d\t%lf\n",i,*(wl+i),*(flg1+i),*(spec1+i),*(flg2+i),*(spec2+i));
-	}
+ // find start and end points of the spectra
+ findstartendpoints(n,flg1,&nstart1, start1, &nend1, end1);
+ findstartendpoints(n,flg2,&nstart2, start2, &nend2, end2);
+ 
+ // debug
+ /* for(i=0;i<nstart1;i++) */
+ /* 	{ */
+ /* 	  printf("(%d, %d) \t",*(start1+i),*(end1+i)); */
+ /* 	} */
+ /* printf("\n"); */
+ /* for(i=0;i<nstart2;i++) */
+ /* 	{ */
+ /* 	  printf("(%d, %d) \t",*(start2+i),*(end2+i)); */
+ /* 	} */
+ /* printf("\n"); */
+ /* for(i=0;i<n;i++) */
+ /* 	{ */
+ /* 	  printf("%d:%lf\t%d\t%lf\t%d\t%lf\n",i,*(wl+i),*(flg1+i),*(spec1+i),*(flg2+i),*(spec2+i)); */
+ /* 	} */
 
   p1=0;
   p2=0;
@@ -364,58 +365,59 @@ void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2
   e1=*(end1+p1);
   s2=*(start2+p2);
   e2=*(end2+p2);
-  printf("(%d, %d) - (%d, %d)\n",s1,e1,s2,e2);
+  /* printf("(%d, %d) - (%d, %d)\n",s1,e1,s2,e2); */
   if(s1<=s2 && e1<e2) {
     ii=1;
     d=(e1-s2)+2;
-	printf("s1(%d)-s2(%d)-e1(%d)-e2(%d)\n",s1,s2,e1,e2);
-	printf("delta=%f\n",d);
+    /* printf("s1(%d)-s2(%d)-e1(%d)-e2(%d)\n",s1,s2,e1,e2); */
+    /* printf("delta=%f\n",d); */
     for(i=s2;i<=e1;i++) {
-	  printf("weight1=%f\n",1-ii/d);
+      /* printf("weight1=%f\n",1-ii/d); */
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*(1-(double )ii/d)
 		+ *(spec2+i)*(*(flg2+i)) *( ((double ) ii/d));
       ii++;
     }
     p1++;
-	continue;
+    continue;
   }
   if(s1>=s2 && e1>e2) {
     ii=1;
     d=(e2-s1)+2;
-	printf("s2(%d)-s1(%d)-e2(%d)-e1(%d)\n",s2,s1,e2,e1);
-	printf("delta=%f\n",d);
+    /* printf("s2(%d)-s1(%d)-e2(%d)-e1(%d)\n",s2,s1,e2,e1); */
+    /* printf("delta=%f\n",d); */
     for(i=s1;i<=e2;i++) {
-	  printf("weight1=%f\n",ii/d);
+      /* printf("weight1=%f\n",ii/d); */
       *(spec_dest + i) = *(spec1+i)*(*(flg1+i))*((double )ii/d)
 	+ *(spec2+i)*(*(flg2+i)) *(1-(double ) ii/d);
       ii++;
     }
     p2++;
-	continue;
+    continue;
   }
   if(s1<s2 && e1>=e2) {
-	printf("s1(%d)-s2(%d)-e2(%d)-e1(%d)\n",s1,s2,e2,e1);
+    /* printf("s1(%d)-s2(%d)-e2(%d)-e1(%d)\n",s1,s2,e2,e1); */
     for(i=s1;i<e1;i++)
       {
-		*(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
-							+ *(spec2+i)*(*(flg2+i)))*0.5;
+	*(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
+			    + *(spec2+i)*(*(flg2+i)))*0.5;
       }
     p1++;
-	continue;
+    continue;
   }
   
   if(s1>s2 && e1<=e2) {
-	printf("s2(%d)-s1(%d)-e1(%d)-e2(%d)\n",s2,s1,e1,s2);
+    /* printf("s2(%d)-s1(%d)-e1(%d)-e2(%d)\n",s2,s1,e1,s2); */
     for(i=s2;i<e2;i++)
       {
-		*(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
-							+ *(spec2+i)*(*(flg2+i))) *0.5;
+	*(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
+			    + *(spec2+i)*(*(flg2+i))) *0.5;
       }
     p2++;
-	continue;
+    continue;
   }
   
   } while(p1<nstart1 && p2<nstart2);
+  
   free(start1);
   free(end1);
   free(start2);

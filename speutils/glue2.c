@@ -1,5 +1,5 @@
 /*
- *  glue2.c - Time-stamp: <Fri Dec 02 19:42:47 JST 2022>
+ *  glue2.c - Time-stamp: <Fri Dec 02 20:17:10 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -256,5 +256,16 @@ int main(int argc, char **argv)
   glue2(n_dest, wl_dest, spectrum1, flg1, spectrum2, flg2,
 	spectrum_dest, flg_dest);
   dump_spectrum2(n_dest,flg_dest,wl_dest,spectrum_dest);
+
+  free(spectrum1);
+  free(flg1);
+  free(spectrum2);
+  free(flg2);
+  
+  free(spectrum_dest);
+  free(flg_dest);
+  free(wl_dest);
+
+    
   return EXIT_SUCCESS;
 }

@@ -8,6 +8,7 @@ import sys
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def readspe(fn):
@@ -92,16 +93,28 @@ def readspe0(fn, sup):
         return wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
 
 
-def checkspecalib(xdim, coef, SpecCenterWlNm):
+def checkspecalib(xdim, coef, SpecCenterWlNm, verbose):
     """
     Check calibration and Centeral wavelength of the spectrometer
     """
     wl = np.polynomial.polynomial.polyval((xdim+1)/2., coef)
-    print("Spectrmeter Center: ", SpecCenterWlNm, ", Calibratied Center: ", wl)
+    if verbose == True:
+        print("Spectormeter Center: ", SpecCenterWlNm,
+              ", Calibratied Center: ", wl)
     if np.abs(wl-SpecCenterWlNm) < 1:
         return True
     else:
         return False
+
+
+def printspespan(fname, xdim, coef):
+    """
+    Print wavelength span
+    """
+    wlstart = np.polynomial.polynomial.polyval(1, coef)
+    wlend = np.polynomial.polynomial.polyval(xdim, coef)
+    print(fname, ": wavelength span (", wlstart, ", ", wlend, ")")
+    return
 
 
 def outputter(fn, fnflag, label, val):
@@ -124,6 +137,17 @@ def readspecomments(fn, sup):
             outputter(fn, sup, '3', read_string(f, start+length*2, length))
             outputter(fn, sup, '4', read_string(f, start+length*3, length))
             outputter(fn, sup, '5', read_string(f, start+length*4, length))
+
+
+def writespectrum_csv(fname, wl, spectrum):
+    """
+    Write spectrum into file
+    """
+    df = pd.DataFrame({'wavelength': wl,
+                       'intensity': spectrum,
+                       })
+    df.to_csv(fname)
+    return
 
 
 def get_args():

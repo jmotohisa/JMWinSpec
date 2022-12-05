@@ -12,8 +12,22 @@ AC_PROG_CC
 LT_INIT
 AC_CONFIG_MACRO_DIRS([m4])
 
+##############################################################################
+# Compiler flags
+
+AC_ARG_ENABLE(debug,
+              [AC_HELP_STRING([--enable-debug],[compile for debugging])],
+              enable_debug=$enableval, enable_debug=no)
+if test "$enable_debug" = "yes"; then
+        CFLAGS="-g -Wall -O0"
+        CXXFLAGS="-g -Wall -O0"
+        FFLAGS="-g -Wall -O0"
+        AC_DEFINE(DEBUG,1,[define to enable debugging code])
+fi
+
 # Checks for libraries.
 
+##############################################################################
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h unistd.h])
 

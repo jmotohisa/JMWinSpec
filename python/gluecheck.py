@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import matplotlib.pyplot as plt
 import glue
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +17,7 @@ def getspectra_sub(fname, norm_exp_sec):
     else:
         data = data.astype(np.float64)
 
-    return wl, data
+    return wl, data, coef
 
 
 start = 800.
@@ -42,43 +44,15 @@ print(fname_list)
 
 norm_exp_sec = True
 verbose = True
-edge_processing_mode = 2
 
 wl_list = []
 spectra_list = []
 
 for i, fname in enumerate(fname_list):
-    wl, spectrum = getspectra_sub(fname, norm_exp_sec)
-    wl_list.extend([wl])
-    spectra_list.extend([spectrum])
+    wl, spectrum, coef = getspectra_sub(fname, norm_exp_sec)
+    glue.pyspeconvert0(spectrum, coef, wl_dest, spectrum_dest,
+                       flg, start, end, resolution)
+    glue.writespectrum_csv('glued'+str(i)+'.csv', wl_dest, spectrum_dest)
 
-if(len(refspe) > 0):
-    wl_ref, spectrum_ref = getspectra_sub(refspe, norm_exp_sec)
-
-
-wl_dest, spectrum0, flg0 = glue.gluemultiplespe(
-    fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
-
-fig = plt.figure(figsize=(5, 5))
-fig.tight_layout()
-ax1 = fig.add_subplot(111)
-ax1.set_yscale('log')
-for i in np.arange(len(wl_list)):
-    ax1.plot(wl_list[i], spectra_list[i], color='red')
-
-ax2 = ax1.twinx()
-ax2.set_yscale('log')
-ax2.plot(wl_dest, spectrum0, color='black')
-
-if(len(refspe) > 0):
-    wl_ref, spectrum_ref = getspectra_sub(refspe, norm_exp_sec)
-    ax2.plot(wl_ref, spectrum_ref, color='blue', linestyle='--')
-
-plt.show()
-glue.writespectrum_csv('glued.csv', wl_dest, spectrum0)
+wl_ref, spectrum_ref, coef_ref = getspectra_sub(refspe, norm_exp_sec)
 glue.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)
-
-fig = plt.figure(figsize=(5, 5))
-ax1 = fig.add_subplot(111)
-ax1.plot(wl_dest, spectrum_ref/spectrum0-1)
-plt.show()

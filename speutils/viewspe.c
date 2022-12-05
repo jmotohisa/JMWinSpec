@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 	if (verbose) {
 	  printf("reading from \"%s\"", argv[ifile]);
 	}
-	if(err = read_spe_header(argv[ifile],&header)>0)
+	if((err = read_spe_header(argv[ifile],&header))>0)
 	  {
 	//malloc(sizeof(t) * CHK_MALLOC_n_tmp)
 	    n=header.xdim*header.ydim*header.NumFrames;
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
 	  *(data_+i)=*(data+i);
 	plsdev(TERM);
 	plinit();
-	if(header.ydim==1 & header.NumFrames==1)
+	if((header.ydim==1) && (header.NumFrames==1))
 	  plot1_plplot(header.xdim,x_,data_,argv[ifile]); // 1d plot
 	else
 	  {

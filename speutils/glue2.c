@@ -1,5 +1,5 @@
 /*
- *  glue2.c - Time-stamp: <Fri Dec 02 20:17:10 JST 2022>
+ *  glue2.c - Time-stamp: <Sun Dec 04 20:37:49 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -77,8 +77,8 @@ void usage(FILE *f)
 		  "         -e  <val> : ending waveleng\n"
 		  "         -r  <val> : resolution\n"
 		  "         -c : check wlcen\n"
-		  "         -n : dont normalize with exp_sec\n"
-		  
+		  "         -n : do not normalize with exp_sec\n"
+		  "         -p  <val> : edge processing mode (default 1)\n"
 		  );
 }
 
@@ -169,8 +169,9 @@ int main(int argc, char **argv)
   int *flg1,*flg2,*flg_dest;
   int j;
   int xdim,ydim,NumFrames,flag_wlcen,ierror;
+  int edge_processing_mode=1;
 
-  while ((c = getopt(argc, argv, "hvs:e:r:cn")) != -1)
+  while ((c = getopt(argc, argv, "hvs:e:r:cnp:")) != -1)
 	switch (c) {
 	case 'h':
 	  usage(stdout);
@@ -195,6 +196,8 @@ int main(int argc, char **argv)
 	case 'n':
 	  dont_normalize_exp_sec=TRUE;
 	  break;
+	case 'p':
+	  edge_processing_mode=atoi(optarg);
 	default:
 	  fprintf(stderr, "Invalid argument -%c\n", c);
 	  usage(stderr);
@@ -254,7 +257,7 @@ int main(int argc, char **argv)
   CHK_MALLOC(spectrum_dest,double,n_dest);
   CHK_MALLOC(flg_dest,int,n_dest);
   glue2(n_dest, wl_dest, spectrum1, flg1, spectrum2, flg2,
-	spectrum_dest, flg_dest);
+	spectrum_dest, flg_dest,edge_processing_mode);
   dump_spectrum2(n_dest,flg_dest,wl_dest,spectrum_dest);
 
   free(spectrum1);

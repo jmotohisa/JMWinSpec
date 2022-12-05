@@ -6,7 +6,7 @@ import numpy as np
 import glue
 
 
-def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, verbose):
+def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue spectrum of two SPE file
     """
@@ -19,11 +19,11 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, verbose):
         print("numFrames and ydim should be 1 in gluing spectra")
     exit
 
-    if readspe.checkspecalib(xdim1, coef1, SpecCenterWlNm1, verbose) == False:
+    if readspe.checkspecalib(fname1, xdim1, coef1, SpecCenterWlNm1, verbose) == False:
         print("Calibration error in ", fname1, ". Exiting.")
     exit
 
-    if readspe.checkspecalib(xdim2, coef2, SpecCenterWlNm2, verbose) == False:
+    if readspe.checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
         print("Calibration error in ", fname2, ". Exiting.")
     exit
 
@@ -54,12 +54,12 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, verbose):
     flg_2glued = np.empty_like(wl_dest, dtype=np.int32)
     glue.pyspeglue2(
         wl_dest, spectrum1_dest, flg1_dest, spectrum2_dest, flg2_dest,
-        spectrum_2glued, flg_2glued)
+        spectrum_2glued, flg_2glued, edge_processing_mode)
 
     return wl_dest, spectrum_2glued, flg_2glued
 
 
-def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, verbose):
+def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue converted spectrum (spectrum0) and Spectrum of SPE file
     """
@@ -74,7 +74,7 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, verbose):
         print("numFrames and ydim should be 1 in gluing spectra")
     exit
 
-    if readspe.checkspecalib(xdim2, coef2, SpecCenterWlNm2, verbose) == False:
+    if readspe.checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
         print("Calibration error in ", fname1, ". Exiting.")
     exit
 
@@ -96,21 +96,32 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, verbose):
     flg_2glued = np.empty_like(flg0)
     glue.pyspeglue2(
         wl_dest, spectrum0, flg0, spectrum2_dest, flg2_dest,
-        spectrum_2glued, flg_2glued)
+        spectrum_2glued, flg_2glued, edge_processing_mode)
 
     return wl_dest, spectrum_2glued, flg_2glued
 
 
-def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, verbose):
+def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue spectrum in the fname_list
     """
-    fname1 = fname_list.pop(0)
-    fname2 = fname_list.pop(1)
-    wl_dest, spectrum0, flg0 = glue2spe(
-        fname1, fname2, start, end, resolution, norm_exp_sec, verbose)
-    for fname2 in fname_list:
-        wl_dest, spectrum0, flg0 = gluespe1(
-            wl_dest, spectrum0, flg0, fname2, norm_exp_sec, verbose)
+    if len(fname_list) <= 1:
+        print("Error: fname_list should contain elements more than two")
+        exit
+
+    if len(fname_list) == 2:
+        fname1 = fname_list[0]
+        fname2 = fname_list[1]
+        wl_dest, spectrum0, flg0 = glue2spe(
+            fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
+    else:
+        fname1 = fname_list.pop(0)
+        fname2 = fname_list.pop(0)
+        print(fname1, fname2)
+        wl_dest, spectrum0, flg0 = glue2spe(
+            fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
+        for fname2 in fname_list:
+            wl_dest, spectrum0, flg0 = gluespe1(
+                wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mode, verbose)
 
     return wl_dest, spectrum0, flg0

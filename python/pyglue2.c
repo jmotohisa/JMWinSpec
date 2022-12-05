@@ -1,5 +1,5 @@
 /*
- *  pyglue2.c - Time-stamp: <Fri Dec 02 20:21:09 JST 2022>
+ *  pyglue2.c - Time-stamp: <Sun Dec 04 21:01:15 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -147,10 +147,11 @@ void pyspeglue2(double *wl_dest, int n_dest,
 		double *spectrum2_dest, int n_spectrum2_dest,
 		int *flg2_dest, int n_flg2_dest,
 		double *spectrum_2glued,int n_spectrum_2glued,
-		int *flg_2glued, int n_flg_2glued)
+		int *flg_2glued, int n_flg_2glued,
+		int edge_processing_mode)
 {
   glue2(n_dest, wl_dest, spectrum1_dest, flg1_dest, spectrum2_dest, flg2_dest,
-	spectrum_2glued, flg_2glued);
+	spectrum_2glued, flg_2glued,edge_processing_mode);
   /* dump_spectrum2(n_dest,flg_2glued,wl_dest,spectrum_2glued); */
   return;
 }

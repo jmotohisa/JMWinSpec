@@ -64,6 +64,8 @@ def readspe0(fn, sup):
             outputter(fn, sup, 'exp_sec', exp_sec)
             xdim = read_WORD(f, 42)
             outputter(fn, sup, 'xdim', xdim)
+            SpecCenterWlNm = read_float(f, 72)
+            outputter(fn, sup, 'SpecCenterWlNm', SpecCenterWlNm)
             datatype = read_WORD(f, 108)
             outputter(fn, sup, 'datatype', datatype)
             ydim = read_WORD(f, 656)
@@ -93,7 +95,7 @@ def readspe0(fn, sup):
         return wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
 
 
-def checkspecalib(xdim, coef, SpecCenterWlNm, verbose):
+def checkspecalib(fname, xdim, coef, SpecCenterWlNm, verbose):
     """
     Check calibration and Centeral wavelength of the spectrometer
     """

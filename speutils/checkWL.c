@@ -1,5 +1,5 @@
 /*
- *  checkWL.c - Time-stamp: <Wed Nov 30 12:31:08 JST 2022>
+ *  checkWL.c - Time-stamp: <Sun Dec 04 20:46:26 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
 	/* if (verbose) { */
 	/*   printf("reading from \"%s\"", argv[ifile]); */
 	/* } */
-	if(err = read_spe_header(argv[ifile],&header)>0)
+    if((err = read_spe_header(argv[ifile],&header))>0)
 	  {
 	    n=header.xdim*header.ydim*header.NumFrames;
 	    data = (double *) malloc(sizeof(double)*n);

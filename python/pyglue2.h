@@ -1,5 +1,5 @@
 /*
- *  pyglue2.h - last saved: Time-stamp: <Fri Dec 02 16:09:28 JST 2022>
+ *  pyglue2.h - last saved: Time-stamp: <Sun Dec 04 21:01:37 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -54,7 +54,8 @@ extern "C" {
 			 double *spectrum2_dest, int n_spectrum2_dest,
 			 int *flg2_dest, int n_flg2_dest,
 			 double *spectrum_2glued,int n_spectrum_2glued,
-			 int *flg_2glued, int n_flg_2glued);
+			 int *flg_2glued, int n_flg_2glued,
+			 int edge_processing_mode);
 
 
 #undef GLOBAL_VALUE_DEFINE

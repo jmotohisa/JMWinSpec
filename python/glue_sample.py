@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 start = 800.
 end = 1100.
 resolution = 1.0
+edge_processing_mode = 0
 
 wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
 spectrum_dest = np.empty_like(wl_dest)
@@ -68,7 +69,8 @@ spectrum_2glued = np.empty_like(wl_dest)
 flg_2glued = np.empty_like(wl_dest, dtype=np.int32)
 glue.pyspeglue2(
     wl_dest, spectrum1_dest, flg1_dest, spectrum2_dest, flg2_dest,
-    spectrum_2glued, flg_2glued)
+    spectrum_2glued, flg_2glued,
+    edge_processing_mode)
 
 fig = plt.figure(figsize=(5, 5))
 fig.tight_layout()

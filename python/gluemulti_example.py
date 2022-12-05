@@ -19,7 +19,7 @@ def getspectra_sub(fname, norm_exp_sec):
 
 
 start = 800.
-end = 1000.
+end = 1100.
 resolution = 1.0
 
 wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
@@ -28,11 +28,11 @@ flg = np.empty_like(wl_dest, dtype=np.int32)
 
 bdir = '/Users/motohisa/Documents/experiment/20221125/a'
 bname = 'D1_a0'
-refspe = '/Users/motohisa/Documents/experiment/20221125/gluetest/glued/g01.SPE'
+refspe = '/Users/motohisa/Documents/experiment/20221125/gluetest/glued/g02.SPE'
 
 startindex = 120
-nfiles = 2
-skip = 1
+nfiles = 3
+skip = 2
 
 fname_list = []
 for i in np.arange(0, nfiles, skip):
@@ -80,5 +80,5 @@ glue.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)
 
 fig = plt.figure(figsize=(5, 5))
 ax1 = fig.add_subplot(111)
-ax1.plot(wl_dest, spectrum_ref/spectrum0-1)
+ax1.plot(wl_ref, spectrum_ref/spectrum0-1)
 plt.show()

@@ -1,5 +1,5 @@
 /*
- *  pyglue2.c - Time-stamp: <Sun Dec 04 21:01:15 JST 2022>
+ *  pyglue2.c - Time-stamp: <Mon Dec 05 12:13:57 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *

@@ -113,9 +113,16 @@ def printspespan(fname, xdim, coef):
     """
     Print wavelength span
     """
+    wlstart1 = np.polynomial.polynomial.polyval(0.5, coef)
     wlstart = np.polynomial.polynomial.polyval(1, coef)
+    wlstart2 = np.polynomial.polynomial.polyval(1.5, coef)
+    wlend1 = np.polynomial.polynomial.polyval(xdim-0.5, coef)
     wlend = np.polynomial.polynomial.polyval(xdim, coef)
-    print(fname, ": wavelength span (", wlstart, ", ", wlend, ")")
+    wlend2 = np.polynomial.polynomial.polyval(xdim+0.5, coef)
+    print(fname, ": wavelength span [",
+          wlstart,"(",wlstart1," ,",wlstart2,"), ",
+          wlend, "(",wlend1," ,",wlend2,")]")
+    
     return
 
 

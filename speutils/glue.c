@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Sun Dec 04 20:57:53 JST 2022>
+ *  glue.c - Time-stamp: <Mon Dec 05 12:13:45 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -40,6 +40,8 @@
 #include <stdlib.h>
 #include <complex.h>
 #include <tgmath.h>
+
+#include "config.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "glue.h"
@@ -327,6 +329,7 @@ void glue_process1(int n, double *wl, double *spec1, int *flg1, double *spec2, i
     s2=*(start2+p2);
     e2=*(end2+p2);
     #ifdef DEBUG
+    printf("Using glue process 1\n");
     printf("(%d, %d) - (%d, %d)\n",s1,e1,s2,e2);
     #endif
     if(s1<=s2 && e1<e2) { // !! difference from glue process 2
@@ -369,7 +372,7 @@ void glue_process1(int n, double *wl, double *spec1, int *flg1, double *spec2, i
 #ifdef DEBUG
       printf("s1(%d)<s2(%d) < e2(%d)<=e1(%d)\n",s1,s2,e2,e1);
 #endif
-      for(i=s1;i<e1;i++)
+      for(i=s1;i<=e2;i++)
 	{
 	  *(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
 			      + *(spec2+i)*(*(flg2+i)))*0.5;
@@ -382,7 +385,7 @@ void glue_process1(int n, double *wl, double *spec1, int *flg1, double *spec2, i
 #ifdef DEBUG
       printf("s2(%d)<=s1(%d) < e1(%d)<=e2(%d)\n",s2,s1,e1,s2);
 #endif
-      for(i=s2;i<e2;i++)
+      for(i=s2;i<=e1;i++)
 	{
 	  *(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
 			      + *(spec2+i)*(*(flg2+i))) *0.5;
@@ -414,6 +417,7 @@ void glue_process2(int n, double *wl, double *spec1, int *flg1, double *spec2, i
     s2=*(start2+p2);
     e2=*(end2+p2);
     #ifdef DEBUG
+    printf("Using glue process 2\n");
     printf("(%d, %d) - (%d, %d)\n",s1,e1,s2,e2);
     #endif
     if(s1<s2 && e1<e2) { // !! difference from glue_process 1
@@ -456,7 +460,7 @@ void glue_process2(int n, double *wl, double *spec1, int *flg1, double *spec2, i
 #ifdef DEBUG
       printf("s1(%d)<=s2(%d) < e2(%d)<=e1(%d)\n",s1,s2,e2,e1);
 #endif
-      for(i=s1;i<e1;i++)
+      for(i=s1;i<=e2;i++)
 	{
 	  *(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
 			      + *(spec2+i)*(*(flg2+i)))*0.5;
@@ -469,7 +473,7 @@ void glue_process2(int n, double *wl, double *spec1, int *flg1, double *spec2, i
 #ifdef DEBUG
       printf("s2(%d)<=s1(%d) < e1(%d) <=e2(%d)\n",s2,s1,e1,s2);
 #endif
-      for(i=s2;i<e2;i++)
+      for(i=s2;i<=e1;i++)
 	{
 	  *(spec_dest + i) = (*(spec1+i)*(*(flg1+i))
 			      + *(spec2+i)*(*(flg2+i))) *0.5;

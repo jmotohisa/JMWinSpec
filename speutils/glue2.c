@@ -1,5 +1,5 @@
 /*
- *  glue2.c - Time-stamp: <Sun Dec 04 20:37:49 JST 2022>
+ *  glue2.c - Time-stamp: <Tue Dec 06 22:05:03 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -256,8 +256,8 @@ int main(int argc, char **argv)
   
   CHK_MALLOC(spectrum_dest,double,n_dest);
   CHK_MALLOC(flg_dest,int,n_dest);
-  glue2(n_dest, wl_dest, spectrum1, flg1, spectrum2, flg2,
-	spectrum_dest, flg_dest,edge_processing_mode);
+  glue_2spectra(n_dest, wl_dest, spectrum1, flg1, spectrum2, flg2,
+		spectrum_dest, flg_dest,edge_processing_mode);
   dump_spectrum2(n_dest,flg_dest,wl_dest,spectrum_dest);
 
   free(spectrum1);

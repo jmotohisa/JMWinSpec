@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Thu Dec 01 07:42:01 JST 2022>
+ *  fixcalib.c - Time-stamp: <Tue Dec 06 22:01:38 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -78,10 +78,10 @@ int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0,
   double *wl;
   int i,err;
   double wlcen;
-  int xDimDet;
+  //  int xDimDet;
   double wlcen2;
-  double wlcen_ref,wlcen_orig;
-  double SpecCenterWlNm_ref,SpecCenterWlNm_orig;
+  //  double wlcen_ref,wlcen_orig;
+  //  double SpecCenterWlNm_ref,SpecCenterWlNm_orig;
 
   /* printf("%s\n",fname); */
   if((err = read_spe_header(fname,&header))>0)
@@ -112,12 +112,13 @@ int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0,
     return FALSE;
 }
 
-int write_calibdata(char *fname,int xDimDet,double *coef)
+int write_calibdata(char *fname,double wlcen,int xDimDet,double *coef)
 {
   FILE *fp;
   int i;
   fp=fopen(fname,"w");
 
+  fprintf(fp,"%lf\n",wlcen);
   fprintf(fp,"%d\n",xDimDet);
   for(i=0;i<6;i++)
     {
@@ -127,12 +128,13 @@ int write_calibdata(char *fname,int xDimDet,double *coef)
   return 1;
 }
 
-int read_calibdata(char *fname,int *xDimDet,double *coef)
+int read_calibdata(char *fname,double *wlcen, int *xDimDet,double *coef)
 {
   FILE *fp;
   int i;
   fp=fopen(fname,"r");
-  
+
+  fscanf(fp,"%lf",wlcen);
   fscanf(fp,"%d",xDimDet);
   for(i=0;i<6;i++)
     {
@@ -151,6 +153,7 @@ void usage(FILE *f)
 		  "         -c : check only\n"
 		  "   -r <ref> : reference file (required)\n"
 		  "   -o <out> : output file (required)\n"
+		  "   -w <out> : write calibration data to <out>\n"
 		  "         -O : overwite input file\n"
 		  "         -B : DO NOT create backup\n"
 		  );
@@ -163,6 +166,7 @@ int main(int argc, char **argv)
   char file_ref[MAXLEN];
   char file_dest[MAXLEN];
   char file_back[MAXLEN];
+  char file_calib[MAXLEN];
   void *data;
   int datatype;
   double *coef;
@@ -179,55 +183,58 @@ int main(int argc, char **argv)
   int overwrite=0;
   int backup=1;
   int calibration_orig_correct,calibration_ref_correct;
-  int with_reference=0,with_output=0;
+  int with_output=0;
 
-  while ((c = getopt(argc, argv, "hvcr:o:O")) != -1)
-	switch (c) {
-	case 'h':
-	  usage(stdout);
-	  return EXIT_SUCCESS;
-	case 'v':
-	  verbose=1;
-	  break;
-	case 'c':
-	  checkonly = 1; // check only (both orig and reference SPE file)
-	  break;
-	case 'r':
-	  //	  file_ref=optarg; // reference file (SPE or calib)
-	  strcpy(file_ref,optarg);
-	  if(strlen(file_ref)<=0){
-	    printf("Invalid reference file\n");
-	    return EXIT_FAILURE;
-	  }
-	  with_reference=1;
-	  break;
-	case 'o':
-	  //	  file_dest=optarg; // destination (SPE or calib)
-	  strcpy(file_dest,optarg);
-	  if(strlen(file_dest)<=0){
-	    printf("Invalid output file\n");
-	    return EXIT_FAILURE;
-	  }
-	  with_output=1;
-	  break; 
-	/* case 'w': */
-	/*   write_calib=1; // write to calib file */
-	/*   break; */
-	/* case 'f':  */
-	/*   calibdata_ref=1; // read calibration data from file (not SPE) */
-	/*   break; */
-	case 'O':
-	  overwrite=1;
-	  with_output=1;
-	  break;
-	case 'B':
-	  backup=0;
-	  break;
-	default:
-	  fprintf(stderr, "Invalid argument -%c\n", c);
-	  usage(stderr);
+  while ((c = getopt(argc, argv, "hvcr:o:w:O")) != -1)
+    switch (c) {
+    case 'h':
+      usage(stdout);
+      return EXIT_SUCCESS;
+    case 'v':
+      verbose=1;
+      break;
+    case 'c':
+      checkonly = 1; // check only (both orig and reference SPE file)
+      break;
+    case 'r':
+      strcpy(file_ref,optarg); // reference file (SPE or calib)
+      if(strlen(file_ref)<=0){
+	printf("Invalid reference file\n");
+	return EXIT_FAILURE;
+      }
+      break;
+    case 'o':
+      strcpy(file_dest,optarg); // destination (SPE or calib)
+      if(strlen(file_dest)<=0)
+	{
+	  printf("Invalid output file\n");
 	  return EXIT_FAILURE;
 	}
+      with_output=1;
+      break;
+    case 'w':
+      write_calib=1; // write to calib file
+      strcpy(file_calib,optarg);
+      if(strlen(file_calib)<=0){
+	printf("Invalid output for calibration data\n");
+	return EXIT_FAILURE;
+      }
+      break;
+    case 'f':
+      calibdata_ref=1; // read calibration data from file (not SPE)
+      break;
+    case 'O':
+      overwrite=1;
+      with_output=1;
+      break;
+    case 'B':
+      backup=0;
+      break;
+    default:
+      fprintf(stderr, "Invalid argument -%c\n", c);
+      usage(stderr);
+      return EXIT_FAILURE;
+    }
   
   if (optind == argc) {  /* no parameters left */
 	usage(stderr);
@@ -253,9 +260,16 @@ int main(int argc, char **argv)
   if(calibdata_ref==1) {
     // or from calibration data file
     printf("Reading calibration from file %s.\n",file_ref);
-    read_calibdata(file_ref,&xDimDet,coef);
+    read_calibdata(file_ref,&SpecCenterWlNm_ref,&xDimDet,coef);
     wlcen_ref=wl_center(xDimDet,coef);
-    calibration_ref_correct=TRUE;
+    if((fabs(SpecCenterWlNm_ref-wlcen_ref))<1)
+      {
+	calibration_ref_correct=TRUE;
+      }
+    else
+      {
+	calibration_ref_correct=FALSE;
+      }	 
   } else {
     // from SPE file:
     if(checkcalib(file_ref,coef,&SpecCenterWlNm_ref,&wlcen_ref,verbose)==TRUE)
@@ -282,6 +296,9 @@ int main(int argc, char **argv)
       return 0;
     }
 
+  if(write_calib==1) {
+    write_calibdata(file_calib,SpecCenterWlNm_ref,xDimDet,coef);
+  }    
   // double  polynom_coeff_x[6]      ;//      3263  polynom COEFFICIENTS            
 
   // read data from original

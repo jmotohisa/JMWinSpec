@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Mon Dec 05 12:13:45 JST 2022>
+ *  glue.c - Time-stamp: <Tue Dec 06 22:04:51 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -487,8 +487,8 @@ void glue_process2(int n, double *wl, double *spec1, int *flg1, double *spec2, i
   return;
 }
 
-void glue2(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2,
-	   double *spec_dest, int *flg_dest, int edge_processing_mode)
+void glue_2spectra(int n, double *wl, double *spec1, int *flg1, double *spec2, int *flg2,
+		   double *spec_dest, int *flg_dest, int edge_processing_mode)
 {
   int i;
   int *start1,*end1, *start2, *end2;

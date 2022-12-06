@@ -1,4 +1,4 @@
-%module(docstring="glue spectra") glue
+%module(docstring="JM pyspe package") jmpyspe
 
 %{
   #define SWIG_FILE_WITH_INIT

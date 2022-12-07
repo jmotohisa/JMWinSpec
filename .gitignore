@@ -73,7 +73,7 @@ m4/
 py-compile
 
 __pycache__/
-python/jmpyspe/Makefile
+python/Makefile
 python/glue_wrap.c
 python/glue.py
 python/jmpyspe.py
@@ -81,4 +81,6 @@ python/jmpyspe_wrap.c
 python/jmpyspe.egg-info
 python/dist
 python/Makefile
-__init.py__
+python/jmpyspe
+python/jmpyspe.c
+__init__.py

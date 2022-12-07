@@ -2,15 +2,15 @@
 
 BUILT_SOURCES = jmpyspe.c __init__.py
 EXTRA_DIST = $(BUILT_SOURCES)
-CLEANFILES = $(BUILT_SOURCES) jmppyspe.py
+CLEANFILES = $(BUILT_SOURCES) jmpyspe.py
 
-AM_CPPFLAGS = -I$(top_srcdir)               \
+AM_CPPFLAGS = -I$(top_srcdir)/               \
               -I$(top_builddir)/speutils # for config.h
 
-LIBSPEUTILS = $(top_buliddier)/speutils/libspeutils.la
+LIBSPEUTILS = $(top_builddir)/speutils/libspeutils.la
 
 _jmpyspe_la_SOURCES = jmpyspe.c pyglue2.c pyspeconvert.c
-_jmpyspe_la_LIBADD = $(LIBJMPYSPE) $(PYTHON_LIBS)
+_jmpyspe_la_LIBADD = $(LIBSPEUTILS) $(PYTHON_LIBS)
 _jmpyspe_la_LDFLAGS = -module -version-info @SHARED_VERSION_INFO@
 # _jmpyspe_la_LDFLAGS = -module -version-info @SHARED_VERSION_INFO@ -export-symbols-regex initmyext
 _jmpyspe_la_CPPFLAGS = $(PYTHON_INCLUDES) $(AM_CPPFLAGS)

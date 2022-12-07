@@ -48,14 +48,14 @@
  }
 
 %pythoncode %{
-from readspe import (
+from .readspe import (
 		     readspe,
 		     checkspecalib,
 		     readspecomments,
 		     printspespan,
 		     writespectrum_csv,
 		     )
-from glueprocs import (
+from .glueprocs import (
 		       glue2spe,
 		       gluespe1,
 		       gluemultiplespe,

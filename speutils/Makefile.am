@@ -18,9 +18,11 @@ fixcalib_LDADD = $(LIBSPEUTILS)
 glue2_SOURCES = glue2.c
 glue2_LDADD = $(LIBSPEUTILS)
 
-noinst_PROGRAMS = convertspe
+noinst_PROGRAMS = convertspe headertest
 convertspe_SOURCES = convertspe.c convertspe.h
 convertspe_LDADD = $(LIBSPEUTILS)
+
+headertest_SOURCES = headertest.c
 
 AM_CFLAGS = @PLPLOT_CFLAGS@
 AM_LDFLAGS =  @PLPLOT_LIBS@

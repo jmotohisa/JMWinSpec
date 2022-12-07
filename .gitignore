@@ -3,12 +3,10 @@
 *.a
 *~
 *.lo
-headertest
-.libs/
 *.la
-libtool
-ltmain.sh
-m4/
+*.so
+
+headertest
 
 # Xcode
 #
@@ -42,18 +40,22 @@ DerivedData/
 *.lvlps
 LabView/builds
 
-speutils/viewspe
 speutils/Makefile
+speutils/viewspe
 speutils/convertspe
 speutils/checkWL
+speutils/glue2
+speutils/fixcalib
+
+convertspe.dSYM/
 
 autom4te.cache/
-__pycache__/
 config.status
 config.guess
 config.sub
 config.log
 configure
+Makefile
 Makefile.in
 aclocal.m4
 .deps/
@@ -63,13 +65,20 @@ config.h
 depcomp
 install-sh
 missing
-glue/Makefile
 stamp-h1
+.libs/
+libtool
+ltmain.sh
+m4/
+py-compile
 
-*.so
+__pycache__/
+python/jmpyspe/Makefile
 python/glue_wrap.c
 python/glue.py
-convertspe.dSYM/
-fixcalib
-convertspe
-glue2
+python/jmpyspe.py
+python/jmpyspe_wrap.c
+python/jmpyspe.egg-info
+python/dist
+python/Makefile
+__init.py__

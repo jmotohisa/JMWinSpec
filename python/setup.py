@@ -13,8 +13,8 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 # alloc extension module
-ext_glue = Extension('_glue',
-                     sources=['glue.i', 'pyspeconvert.c', 'pyglue2.c'],
+ext_jmpyspe = Extension('_jmpyspe',
+                     sources=['jmpyspe.i', 'pyspeconvert.c', 'pyglue2.c'],
                      include_dirs=[numpy_include, '../speutils'],
                      libraries=['speutils'],
                      library_dirs=['../speutils'],
@@ -23,11 +23,12 @@ ext_glue = Extension('_glue',
 
 if __name__ == '__main__':
     setup(
-        name='glue',
-        description='Glue Spectra',
+        name='jmpyspe',
+        description='JM python binding for SPE file',
         author='Junichi Motohisa',
         version='0.0.0',
-        ext_modules=[ext_glue],
+        ext_modules=[ext_jmpyspe],
         install_requires=['numpy', 'matplotlib', 'pandas'],
-        py_modules=['glue']
+        py_modules=['jmpyspe'],
+        packages=['jmpyspe'],        
     )

@@ -12,10 +12,12 @@ AC_CONFIG_MACRO_DIRS([m4])
 AC_SUBST(SHARED_VERSION_INFO)
 
 AM_INIT_AUTOMAKE
+LT_INIT
 
 # Checks for programs.
 AC_PROG_CC
-LT_INIT
+AC_PROG_CXX
+AC_PROG_INSTALL
 
 ##############################################################################
 # Compiler flags

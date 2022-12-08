@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import glue
 import numpy as np
 import matplotlib.pyplot as plt
-import readspe
+import speutils
 
 
 def getspectra_sub(fname, norm_exp_sec):
-    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = glue.readspe(
+    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
         fname)
     if norm_exp_sec == True:
         data = data.astype(np.float64)/exp_sec
@@ -56,7 +55,7 @@ if(len(refspe) > 0):
     wl_ref, spectrum_ref = getspectra_sub(refspe, norm_exp_sec)
 
 
-wl_dest, spectrum0, flg0 = glue.gluemultiplespe(
+wl_dest, spectrum0, flg0 = speutils.gluemultiplespe(
     fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
 
 fig = plt.figure(figsize=(5, 5))
@@ -75,8 +74,8 @@ if(len(refspe) > 0):
     ax2.plot(wl_ref, spectrum_ref, color='blue', linestyle='--')
 
 plt.show()
-glue.writespectrum_csv('glued.csv', wl_dest, spectrum0)
-glue.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)
+speutils.writespectrum_csv('glued.csv', wl_dest, spectrum0)
+speutils.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)
 
 fig = plt.figure(figsize=(5, 5))
 ax1 = fig.add_subplot(111)

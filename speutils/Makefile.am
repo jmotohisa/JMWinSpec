@@ -1,5 +1,3 @@
-ACLOCAL_AMFLAGS = -I m4
-
 lib_LTLIBRARIES = libspeutils.la
 libspeutils_la_SOURCES = readspe.c glue.c readspe.h glue.h WinSpecHeader25.h
 

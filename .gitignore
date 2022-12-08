@@ -76,11 +76,11 @@ __pycache__/
 python/Makefile
 python/glue_wrap.c
 python/glue.py
-python/jmpyspe.py
-python/jmpyspe_wrap.c
+python/speutils.py
+python/yspe_wrap.c
 python/jmpyspe.egg-info
 python/dist
 python/Makefile
-python/jmpyspe
-python/jmpyspe.c
+python/speutils
+python/speutils.c
 __init__.py

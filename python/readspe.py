@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from binread import *
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from .binread import *
 
 
 def readspe(fn):

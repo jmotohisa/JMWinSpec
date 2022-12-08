@@ -1,4 +1,4 @@
-%module(docstring="JM pyspe package") jmpyspe
+%module(docstring="JM speutils package") speutils
 
 %{
   #define SWIG_FILE_WITH_INIT

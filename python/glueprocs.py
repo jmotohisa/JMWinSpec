@@ -88,12 +88,12 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
 
     spectrum2_dest = np.empty_like(wl_dest)
     flg2_dest = np.empty_like(flg0)
-    glue.pyspeconvert0(spectrum2, coef2, wl_dest, spectrum2_dest,
+    speutils.pyspeconvert0(spectrum2, coef2, wl_dest, spectrum2_dest,
                        flg2_dest, start, end, resolution)
 
     spectrum_2glued = np.empty_like(wl_dest)
     flg_2glued = np.empty_like(flg0)
-    glue.pyspeglue2(
+    speutils.pyspeglue2(
         wl_dest, spectrum0, flg0, spectrum2_dest, flg2_dest,
         spectrum_2glued, flg_2glued, edge_processing_mode)
 

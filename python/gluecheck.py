@@ -3,14 +3,14 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import glue
+import speutils
 import numpy as np
 import matplotlib.pyplot as plt
 import readspe
 
 
 def getspectra_sub(fname, norm_exp_sec):
-    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = glue.readspe(
+    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
         fname)
     if norm_exp_sec == True:
         data = data.astype(np.float64)/exp_sec
@@ -50,9 +50,9 @@ spectra_list = []
 
 for i, fname in enumerate(fname_list):
     wl, spectrum, coef = getspectra_sub(fname, norm_exp_sec)
-    glue.pyspeconvert0(spectrum, coef, wl_dest, spectrum_dest,
+    speutils.pyspeconvert0(spectrum, coef, wl_dest, spectrum_dest,
                        flg, start, end, resolution)
-    glue.writespectrum_csv('glued'+str(i)+'.csv', wl_dest, spectrum_dest)
+    speutils.writespectrum_csv('glued'+str(i)+'.csv', wl_dest, spectrum_dest)
 
 wl_ref, spectrum_ref, coef_ref = getspectra_sub(refspe, norm_exp_sec)
-glue.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)
+speutils.writespectrum_csv('ref.csv', wl_ref, spectrum_ref)

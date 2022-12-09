@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.c - Time-stamp: <Fri Dec 02 15:58:48 JST 2022>
+ *  pyspeconvert.c - Time-stamp: <Sat Dec 10 08:17:05 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -41,10 +41,9 @@
 #include <complex.h>
 #include <tgmath.h>
 
-#include "../speutils/WinSpecHeader25.h"
-#include "../speutils/readspe.h"
-#include "../speutils/glue.h"
-#include "../speutils/convertspe.h"
+#include "WinSpecHeader25.h"
+#include "readspe.h"
+#include "glue.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "pyspeconvert.h"

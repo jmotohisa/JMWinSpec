@@ -46,19 +46,3 @@
                 SWIG_fail;
         }
  }
-
-%pythoncode %{
-from .readspe import (
-		     readspe,
-		     checkspecalib,
-		     readspecomments,
-		     printspespan,
-		     writespectrum_csv,
-		     )
-from .glueprocs import (
-		       glue2spe,
-		       gluespe1,
-		       gluemultiplespe,
-		       )
-  %}
-

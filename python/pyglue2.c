@@ -1,5 +1,5 @@
 /*
- *  pyglue2.c - Time-stamp: <Tue Dec 06 22:17:39 JST 2022>
+ *  pyglue2.c - Time-stamp: <Sat Dec 10 08:17:57 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -41,10 +41,9 @@
 #include <complex.h>
 #include <tgmath.h>
 
-#include "../speutils/WinSpecHeader25.h"
-#include "../speutils/readspe.h"
-#include "../speutils/glue.h"
-#include "../speutils/convertspe.h"
+#include "WinSpecHeader25.h"
+#include "readspe.h"
+#include "glue.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "pyglue2.h"

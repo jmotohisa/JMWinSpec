@@ -1,3 +1,4 @@
+# gitignore with setup.py
 .DS_Store
 *.o
 *.a
@@ -75,8 +76,6 @@ py-compile
 __pycache__/
 python/Makefile
 python/speutils.py
+python/speutils_wrap.c
 python/dist
 python/Makefile
-python/speutils
-python/speutils.c
-__init__.py

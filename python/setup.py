@@ -13,22 +13,21 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 # alloc extension module
-ext_jmpyspe = Extension('_jmpyspe',
-                     sources=['jmpyspe.i', 'pyspeconvert.c', 'pyglue2.c'],
-                     include_dirs=[numpy_include, '../speutils'],
-                     libraries=['speutils'],
-                     library_dirs=['../speutils'],
-                     extra_compile_args=['--verbose'],
-                     )
+ext_speutils = Extension('_speutils',
+                         sources=['speutils.i', 'pyspeconvert.c', 'pyglue2.c',
+                                  'glue.c', 'readspe.c'],
+                         include_dirs=[numpy_include],
+                         extra_compile_args=['--verbose'],
+                         )
 
 if __name__ == '__main__':
     setup(
-        name='jmpyspe',
-        description='JM python binding for SPE file',
+        name='speutils',
+        description='JM python binding for SPE utilites',
         author='Junichi Motohisa',
         version='0.0.0',
-        ext_modules=[ext_jmpyspe],
+        ext_modules=[ext_speutils],
         install_requires=['numpy', 'matplotlib', 'pandas'],
-        py_modules=['jmpyspe'],
-        packages=['jmpyspe'],        
+        py_modules=['speutils'],
+        packages=['speutils'],
     )

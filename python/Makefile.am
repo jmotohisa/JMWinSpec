@@ -1,7 +1,7 @@
 # Makefile.am
 
 BUILT_SOURCES = speutils.c __init__.py
-EXTRA_DIST = $(BUILT_SOURCES)
+EXTRA_DIST = $(BUILT_SOURCES) example
 CLEANFILES = $(BUILT_SOURCES) speutils.py
 
 AM_CPPFLAGS = -I$(top_srcdir)/               \
@@ -24,7 +24,6 @@ SPEUTILS_SWIG_SRC = speutils.i numpy.i
 SPEUTILS_SWIG_HDRS =             \
   $(top_srcdir)/speutils/WinSpecHeader25.h \
   $(top_srcdir)/speutils/readspe.h	\
-  $(top_srcdir)/speutils/glue.h	 	\
   $(top_srcdir)/speutils/convertspe.h	
 
 speutils.c: $(SPEUTILS_SWIG_SRC) $(SPEUTILS_SWIG_HDRS)
@@ -52,8 +51,7 @@ HL_IFACE = binread.py \
   glueprocs.py	\
   readspe_sample.py \
   dumpspe.py	\
-  readcomments.py \
-  glue.py
+  readcomments.py
 
 pkgpython_PYTHON = __init__.py $(HL_IFACE)
 
@@ -65,7 +63,9 @@ PY_PKG_FILES = $(INIT_PY) $(HL_IFACE) .libs/_speutils.so
 
 speutils: _speutils.la __init__.py $(HL_IFACE)
 	mkdir -p speutils
+	mkdir -p speutils/example
 	cp $(PY_PKG_FILES) speutils
+	cp -r example sputils/example
 
 all-local: speutils
 

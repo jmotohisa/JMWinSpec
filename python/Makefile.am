@@ -65,7 +65,7 @@ speutils: _speutils.la __init__.py $(HL_IFACE)
 	mkdir -p speutils
 	mkdir -p speutils/example
 	cp $(PY_PKG_FILES) speutils
-	cp -r example sputils/example
+	cp -r example speutils/example
 
 all-local: speutils
 

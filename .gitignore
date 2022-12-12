@@ -49,6 +49,8 @@ speutils/fixcalib
 
 convertspe.dSYM/
 
+INSTALL
+COPYING
 autom4te.cache/
 config.status
 config.guess

@@ -50,6 +50,7 @@
 %pythoncode %{
 from .readspe import (
 		     readspe,
+		     readspe_simple,
 		     checkspecalib,
 		     readspecomments,
 		     printspespan,

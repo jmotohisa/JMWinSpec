@@ -61,11 +61,17 @@ def get_args():
                         help='plot original and glued spectra')
     parser.add_argument('-o', '--out', type=str,
                         nargs='?',
-                        help="output csv fiile name")
+                        help="output csv file name")
     parser.add_argument('-d', '--directory', type=str,  # argparse.FileType('r'),
                         nargs='?',
                         help="directory",
                         default='./')
+    parser.add_argument('-a', '--autosave',
+                        action="store_true",
+                        help="automatically save graph")
+    parser.add_argument('--log',
+                        action="store_true",
+                        help="logscale")
     parser.add_argument('basename', type=str,
                         help="base name")
     parser.add_argument('-v', '--verbose',
@@ -91,6 +97,8 @@ if __name__ == '__main__':
     dump = args.dump
     verbose = args.verbose
     graph = args.graph
+    autosave = args.autosave
+    logscale = args.log
 
     norm_exp_sec = True
     edge_processing_mode = 2
@@ -124,7 +132,7 @@ if __name__ == '__main__':
     spectra_list = []
 
     for i, fname in enumerate(fname_list):
-        wl, spectrum = getspectra_sub(fname, norm_exp_sec)
+        wl, spectrum = speutils.readspe_simple(fname, norm_exp_sec)
         wl_list.extend([wl])
         spectra_list.extend([spectrum])
 
@@ -132,18 +140,22 @@ if __name__ == '__main__':
         fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
 
     if(graph):
-
         fig = plt.figure(figsize=(5, 5))
         fig.tight_layout()
         ax1 = fig.add_subplot(111)
-        ax1.set_yscale('log')
+        if(logscale):
+            ax1.set_yscale('log')
         for i in np.arange(len(wl_list)):
             ax1.plot(wl_list[i], spectra_list[i], color='red')
 
         ax2 = ax1.twinx()
-        ax2.set_yscale('log')
+        if(logscale):
+            ax2.set_yscale('log')
         ax2.plot(wl_dest, spectrum0, color='black')
 
+        if(autosave):
+            if(len(out) > 0):
+                plt.savefig(out+'.png')
         plt.show()
 
         # fig = plt.figure(figsize=(5, 5))

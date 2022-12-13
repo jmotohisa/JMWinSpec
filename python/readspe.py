@@ -41,6 +41,21 @@ def readspe(fn):
         return
 
 
+def readspe_simple(fname, norm_exp_sec):
+    """
+    Read data in SPE file (simplified version)
+    Returns wl, spectrum
+    """
+    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
+        fname)
+    if norm_exp_sec == True:
+        data = data.astype(np.float64)/exp_sec
+    else:
+        data = data.astype(np.float64)
+
+    return wl, data
+
+
 def readspe0(fn, sup):
     if os.path.splitext(fn)[1][1:].lower() == 'spe':
         with open(fn, 'rb') as f:
@@ -117,9 +132,9 @@ def printspespan(fname, xdim, coef):
     wlend = np.polynomial.polynomial.polyval(xdim, coef)
     wlend2 = np.polynomial.polynomial.polyval(xdim+0.5, coef)
     print(fname, ": wavelength span [",
-          wlstart,"(",wlstart1," ,",wlstart2,"), ",
-          wlend, "(",wlend1," ,",wlend2,")]")
-    
+          wlstart, "(", wlstart1, " ,", wlstart2, "), ",
+          wlend, "(", wlend1, " ,", wlend2, ")]")
+
     return
 
 

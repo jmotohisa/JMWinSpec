@@ -74,7 +74,7 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
     exit
 
     if checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
-        print("Calibration error in ", fname1, ". Exiting.")
+        print("Calibration error in ", fname2, ". Exiting.")
     exit
 
     if verbose == True:

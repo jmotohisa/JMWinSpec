@@ -61,11 +61,11 @@ pkgpython_PYTHON = __init__.py $(HL_IFACE)
 ######################################################################
 PY_PKG_FILES = $(INIT_PY) $(HL_IFACE) .libs/_speutils.so
 
-speutils: _speutils.la __init__.py $(HL_IFACE)
+speutils: _speutils.la __init__.py $(HL_IFACE) example
 	mkdir -p speutils
 	mkdir -p speutils/example
 	cp $(PY_PKG_FILES) speutils
-	cp -r example speutils/example
+	cp -r example/*.py speutils/example
 
 all-local: speutils
 

@@ -46,7 +46,7 @@ def readspe_simple(fname, norm_exp_sec):
     Read data in SPE file (simplified version)
     Returns wl, spectrum
     """
-    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
+    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = readspe(
         fname)
     if norm_exp_sec == True:
         data = data.astype(np.float64)/exp_sec

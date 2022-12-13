@@ -55,6 +55,7 @@ from .readspe import (
 		     readspecomments,
 		     printspespan,
 		     writespectrum_csv,
+		     outputter,
 		     )
 from .glueprocs import (
 		       glue2spe,

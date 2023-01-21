@@ -5,6 +5,7 @@
 *.lo
 *.la
 *.so
+*.exe
 
 headertest
 
@@ -81,4 +82,5 @@ python/dist
 python/Makefile
 python/speutils
 python/speutils.c
+python/speutils_wrap.c
 __init__.py

@@ -34,72 +34,6 @@ fi
 
 # Checks for libraries.
 
-# checks for python
-##############################################################################
-AC_ARG_WITH(python,
-	[AS_HELP_STRING([--without-python],[compile without Python interface])],
-        with_python=$withval,with_python=yes)
-
-if test "x$with_python" = xno; then
-  have_python=no
-else
-  dnl if test "x$have_libctlgeom" = xno; then
-  dnl   AC_MSG_ERROR([libctlgeom was not found, is required for Python interface])
-  dnl fi
-
-  if test "$enable_shared" = no; then
-     AC_MSG_WARN([Python interface requires --enable-shared; disabling])
-     have_python=no
-  else
-
-    AM_PATH_PYTHON([],[have_python=yes],[have_python=no])
-    if test $have_python = yes; then
-
-      AC_MSG_CHECKING([for Python include directory])
-      pinc=`echo "import distutils.sysconfig; print (distutils.sysconfig.get_python_inc())" | $PYTHON - 2>/dev/null`
-      AC_MSG_RESULT([${pinc:-unknown}])
-      test -n "$pinc" && PYTHON_INCLUDES="-I$pinc"
-      save_CPPFLAGS=$CPPFLAGS
-      CPPFLAGS="$CPPFLAGS $PYTHON_INCLUDES"
-      AC_CHECK_HEADER([Python.h], [], [AC_MSG_WARN([disabling Python wrappers])
-                                       have_python=no])
-
-      if test $have_python = yes; then
-        AC_MSG_CHECKING([for Numpy include directory])
-        pinc=`echo "import numpy; print (numpy.get_include())" | $PYTHON - 2>/dev/null`
-        AC_MSG_RESULT([${pinc:-unknown}])
-        test -n "$pinc" && PYTHON_INCLUDES="$PYTHON_INCLUDES -I$pinc"
-        CPPFLAGS="$save_CPPFLAGS $PYTHON_INCLUDES"
-        AC_CHECK_HEADER([numpy/arrayobject.h],[],[
-          AC_MSG_WARN([disabling Python wrappers])
-          have_python=no],[#include <Python.h>])
-
-        AC_MSG_CHECKING([for coverage module])
-        $PYTHON -c 'import coverage' 2>/dev/null
-        if test $? = 0; then
-          AC_MSG_RESULT([yes])
-          have_coverage=yes
-        else
-          AC_MSG_RESULT([no])
-          have_coverage=no
-        fi
-      fi
-
-      CPPFLAGS=$save_CPPFLAGS
-###	jm test
-	  dnl PY_PREFIX=`$PYTHON -c 'import sys ; print(sys.prefix)'`
-	  dnl PYTHON_LIBS="-lpython$PYTHON_VERSION"
-	  dnl PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
-	dnl pythondir=`echo "$pythondir" | sed "s,$PYTHON_PREFIX,$myown_pfx,"` 
-### 
-    fi # have_python
-
-  fi # enabled_shared
-fi # with_python
-
-AC_SUBST(PYTHON_INCLUDES)
-AM_CONDITIONAL(WITH_PYTHON, test x"$have_python" = "xyes")
-AM_CONDITIONAL(WITH_COVERAGE, test x"$have_coverage" = "xyes")
 
 ##############################################################################
 # Checks for SWIG
@@ -138,8 +72,5 @@ AC_CHECK_SIZEOF([WINXHEADER_STRUCT], [], [#include "WinSpecHeader25.h"])
 AC_FUNC_MALLOC
 
 AC_CONFIG_FILES([Makefile speutils/Makefile])
-if test "x$with_python" = xyes; then
-   AC_CONFIG_FILES([python/Makefile])
-fi
 
 AC_OUTPUT

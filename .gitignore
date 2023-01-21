@@ -6,6 +6,7 @@
 *.lo
 *.la
 *.so
+*.exe
 
 headertest
 

@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Tue Dec 06 22:01:38 JST 2022>
+ *  fixcalib.c - Time-stamp: <Sat Dec 10 09:07:40 JST 2022>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -339,44 +339,25 @@ int main(int argc, char **argv)
   printf("file %s closed\n",file_orig);
 
   // create backup
-  if(overwrite==1 && backup==1)
+  if(backup==1)
     {
       strcpy(file_back,file_orig);
       strcat(file_back,".bak");
-      
-      if((fp_dest=fopen(file_back,"wb"))==NULL)
+      if(rename(file_orig,file_back)!=0)
 	{
-	  printf("cannot open file :%s\n",file_back);
-	  return(-1);
+	  printf("Bckup file creation failed. Exiting\n");
+	  return EXIT_FAILURE;
 	}
-      fwrite(&header, sizeof(WINXHEADER_STRUCT), 1, fp_dest);
-      switch(datatype) {
-      case 0:
-		fwrite(data,sizeof(float),n,fp_dest);
-		break;
-      case 1:
-		fwrite(data,sizeof(int),n,fp_dest);
-		break;
-      case 2:
-		fwrite(data,sizeof(short),n,fp_dest);
-		break;
-      case 3:
-		fwrite(data,sizeof(unsigned short),n,fp_dest);
-		break;
-      default:
-		printf("Data type error. Exiting\n");
-		return -1;
-		break;
-      }
-      fclose(fp_dest);
-      printf("Backup %s created.\n",file_back);
+      else
+	{
+	  printf("Backup %s created.\n",file_back);
+	}
     }
   
   // replace coefficients
   for(i=0;i<6;i++) {
     *(header.polynom_coeff_x+i)=*(coef+i);
   }
-  
   // write to file
   if(overwrite==1)
     {
@@ -408,6 +389,6 @@ int main(int argc, char **argv)
   printf("Calibration data of %s was successfully fixed using %s and written to %s\n",
 		 file_orig,file_ref,file_dest);
   free(coef);
-  return 0;
+  return EXIT_SUCCESS;
 }
 

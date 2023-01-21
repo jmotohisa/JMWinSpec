@@ -76,6 +76,7 @@ py-compile
 
 __pycache__/
 python/Makefile
+python/speutils.c
 python/speutils.py
 python/speutils_wrap.c
 python/dist

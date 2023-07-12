@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Sat Dec 10 09:07:40 JST 2022>
+ *  fixcalib.c - Time-stamp: <Wed Jul 12 14:42:42 JST 2023>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -152,7 +152,7 @@ void usage(FILE *f)
 		  "         -v : verbose\n"
 		  "         -c : check only\n"
 		  "   -r <ref> : reference file (required)\n"
-		  "   -o <out> : output file (required)\n"
+		  "   -o <out> : output file (required unless -O option)\n"
 		  "   -w <out> : write calibration data to <out>\n"
 		  "         -O : overwite input file\n"
 		  "         -B : DO NOT create backup\n"
@@ -264,10 +264,12 @@ int main(int argc, char **argv)
     wlcen_ref=wl_center(xDimDet,coef);
     if((fabs(SpecCenterWlNm_ref-wlcen_ref))<1)
       {
+	printf("Calibration of the reference file %s is correct.\n",file_ref);
 	calibration_ref_correct=TRUE;
       }
     else
       {
+	printf("Calibration of the reference file %s is incorrect.\n",file_ref);
 	calibration_ref_correct=FALSE;
       }	 
   } else {

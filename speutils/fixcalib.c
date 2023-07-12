@@ -1,5 +1,5 @@
 /*
- *  fixcalib.c - Time-stamp: <Wed Jul 12 14:42:42 JST 2023>
+ *  fixcalib.c - Time-stamp: <Wed Jul 12 15:44:27 JST 2023>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -46,6 +46,7 @@
 
 #include "WinSpecHeader25.h"
 #include "readspe.h"
+#include "calib_util.h"
 
 #define STR_ALLOC_COPY(dest,orig) \\
   dest = (char *) malloc(sizeof(char)*(strlen(orig)+1));\\
@@ -65,84 +66,6 @@
   @param[in,out]
   @return
 */
-
-double wl_center(int xDimDet,double *coef)
-{
-  return(poly0((1+xDimDet)/2.,6,coef));
-}
-
-int checkcalib(char *fname,double *coef, double *SpecCenterWlNm, double *wlcen0,
-	       int verbose)
-{
-  WINXHEADER_STRUCT header;
-  double *wl;
-  int i,err;
-  double wlcen;
-  //  int xDimDet;
-  double wlcen2;
-  //  double wlcen_ref,wlcen_orig;
-  //  double SpecCenterWlNm_ref,SpecCenterWlNm_orig;
-
-  /* printf("%s\n",fname); */
-  if((err = read_spe_header(fname,&header))>0)
-    {
-      wl=(double *) malloc(sizeof(double)*header.xdim);
-    }
-  else
-    {
-      printf("cannot open %s. Exiting.\n",fname);
-      return EXIT_FAILURE;
-    }
-
-  poly((int) header.xdim, wl, 6, header.polynom_coeff_x);
-  for(i=0;i<6;i++)
-    {
-      *(coef+i)=*(header.polynom_coeff_x+i);
-    }
-  
-  wlcen= *SpecCenterWlNm = header.SpecCenterWlNm;
-  wlcen2 =*wlcen0 = wl_center(header.xDimDet,header.polynom_coeff_x);
-  if(verbose==1) {
-    printf("%s: SpecCenterWlNm=%lf, wlcen=%lf\n",fname,wlcen,wlcen2);
-  }
-  
-  if(fabs(wlcen-wlcen2)>1)
-    return TRUE;
-  else
-    return FALSE;
-}
-
-int write_calibdata(char *fname,double wlcen,int xDimDet,double *coef)
-{
-  FILE *fp;
-  int i;
-  fp=fopen(fname,"w");
-
-  fprintf(fp,"%lf\n",wlcen);
-  fprintf(fp,"%d\n",xDimDet);
-  for(i=0;i<6;i++)
-    {
-      fprintf(fp,"%lf\n",*(coef+i));
-    }
-  fclose(fp);
-  return 1;
-}
-
-int read_calibdata(char *fname,double *wlcen, int *xDimDet,double *coef)
-{
-  FILE *fp;
-  int i;
-  fp=fopen(fname,"r");
-
-  fscanf(fp,"%lf",wlcen);
-  fscanf(fp,"%d",xDimDet);
-  for(i=0;i<6;i++)
-    {
-      fscanf(fp,"%lf",coef+i);
-    }
-  fclose(fp);
-  return 1;
-}
 
 void usage(FILE *f)
 {

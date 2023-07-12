@@ -47,6 +47,8 @@ speutils/convertspe
 speutils/checkWL
 speutils/glue2
 speutils/fixcalib
+speutils/autocalib
+
 
 convertspe.dSYM/
 

@@ -49,7 +49,7 @@ def readspe_simple(fname, norm_exp_sec):
     wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = readspe(
         fname)
     if norm_exp_sec == True:
-        data = data.astype(np.float64)/exp_sec
+        data = data.astype(np.float64)/(exp_sec*lavgexp)
     else:
         data = data.astype(np.float64)
 

@@ -48,8 +48,7 @@ HL_IFACE = binread.py \
   gluecheck.py \
   readspe.py	\
   compareconvert.py	\
-  glueprocs.py	\
-  dumpspe.py
+  glueprocs.py
 
 pkgpython_PYTHON = __init__.py $(HL_IFACE)
 

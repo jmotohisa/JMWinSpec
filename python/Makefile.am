@@ -46,7 +46,7 @@ INIT_PY = __init__.py
 ######################################################################
 HL_IFACE = binread.py \
   gluecheck.py \
-  readspe.py	\
+  readspe_module.py	\
   compareconvert.py	\
   glueprocs.py
 

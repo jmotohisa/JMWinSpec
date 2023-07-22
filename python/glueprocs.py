@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from .readspe import *
+from .readspe_module import *
 import speutils
 
 

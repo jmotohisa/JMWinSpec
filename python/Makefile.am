@@ -49,9 +49,7 @@ HL_IFACE = binread.py \
   readspe.py	\
   compareconvert.py	\
   glueprocs.py	\
-  readspe_sample.py \
-  dumpspe.py	\
-  readcomments.py
+  dumpspe.py
 
 pkgpython_PYTHON = __init__.py $(HL_IFACE)
 

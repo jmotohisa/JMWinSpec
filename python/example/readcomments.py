@@ -54,12 +54,37 @@ if __name__ == '__main__':
                 with open(fn, 'rb') as f:
                     if not args.none:
                         speutils.outputter(
+                            fn, sup, 'exp_sec', read_float(f, 10))
+                        speutils.outputter(fn, sup, 'xDimDet', read_WORD(f, 6))
+                        speutils.outputter(
+                            fn, sup, 'yDimDet', read_WORD(f, 18))
+                        speutils.outputter(
+                            fn, sup, 'date', read_string(f, 20, 10))  # date
+                        speutils.outputter(
+                            fn, sup, 'xdim', read_WORD(f, 42))  # xdim
+                        speutils.outputter(fn, sup, 'ydim', read_WORD(f, 656))
+                        speutils.outputter(
+                            fn, sup, 'NumFrames', read_WORD(f, 1446))
+                        speutils.outputter(
+                            fn, sup, 'SpecCenterWlNm', read_float(f, 72))
+                        speutils.outputter(
                             fn, sup, '1', rd.read_string(f, start, length))
-                        speutils.outputter(fn, sup, '2', rd.read_string(
-                            f, start+length, length))
+                        speutils.outputter(
+                            fn, sup, '2', rd.read_string(f, start+length, length))
                         speutils.outputter(fn, sup, '3', rd.read_string(
                             f, start+length*2, length))
                         speutils.outputter(fn, sup, '4', rd.read_string(
                             f, start+length*3, length))
                         speutils.outputter(fn, sup, '5', rd.read_string(
                             f, start+length*4, length))
+
+                        speutils.outputter(
+                            fn, sup, 'lnoscan', read_LONG(f, 664))  # lnoscan
+                        speutils.outputter(
+                            fn, sup, 'lavgexp', read_LONG(f, 668))  # lavgexp
+                        speutils.outputter(
+                            fn, sup, 'NumFrames', read_LONG(f, 1446))  # NumFrames
+                        speutils.outputter(
+                            fn, sup, 'file_header_ver', read_float(f, 1992))
+                        speutils.outputter(
+                            fn, sup, 'offset_x', read_double(f, 3000))

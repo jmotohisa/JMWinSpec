@@ -2,16 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import os
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
 import speutils
 
+#  short   SpecGlueFlag     ;//             76  T/F File is Glued
+
 
 def get_args():
     parser = argparse.ArgumentParser(
-        description='view SPE spectra')
+        description='check if glued')
     parser.add_argument('fname', help='dat file name', type=str, nargs='+')
     parser.add_argument('--log',
                         action="store_true",
@@ -21,7 +22,7 @@ def get_args():
                         help="automatically save graph")
     parser.add_argument('-s', '--separate',
                         action="store_true",
-                        help="separate display")
+                        help="separete graph")
 
     args = parser.parse_args()
 
@@ -41,11 +42,14 @@ if __name__ == '__main__':
 
     wl_list = []
     spectra_list = []
-    
+
     for i, fname in enumerate(fnames):
-        wl, spectrum = speutils.readspe_simple(fname, norm_exp_sec)
-        wl_list.extend([wl])
-        spectra_list.extend([spectrum])
+        with open(fname, 'rb') as f:
+            if(speutils.binread.read_short(f, 76)):
+                print(fname, ' glued.')
+                wl, spectrum = speutils.readspe_simple(fname, norm_exp_sec)
+                wl_list.extend([wl])
+                spectra_list.extend([spectrum])
 
     if(separate == False):
         fig = plt.figure(figsize=(5, 5))
@@ -54,21 +58,14 @@ if __name__ == '__main__':
         if(logscale):
             ax1.set_yscale('log')
         for i in np.arange(len(wl_list)):
-            ax1.plot(wl_list[i], spectra_list[i],
-                     label=os.path.splitext(os.path.basename(fnames[i]))[0])
-        plt.legend(loc='best')
+            ax1.plot(wl_list[i], spectra_list[i], color='red')
         plt.show()
     else:
         for i in np.arange(len(wl_list)):
             fig = plt.figure(figsize=(5, 5))
             fig.tight_layout()
             ax1 = fig.add_subplot(111)
-            ax1.plot(wl_list[i], spectra_list[i], color='red',
-                                 label=os.path.splitext(os.path.basename(fnames[i]))[0])
-            
+            ax1.plot(wl_list[i], spectra_list[i], color='red')
             if(logscale):
                 ax1.set_yscale('log')
-
-            plt.title(os.path.split(fnames[i])[0])
-            plt.legend(loc='best')
             plt.show()

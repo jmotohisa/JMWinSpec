@@ -44,6 +44,9 @@ def get_args():
                         nargs='?',
                         type=int,
                         help='starting index')
+    parser.add_argument('-u', '--underscore',
+                        action="store_true",
+                        help='with underscore in file name')
     parser.add_argument('-n', '--num',
                         nargs='?',
                         type=int,
@@ -99,6 +102,7 @@ if __name__ == '__main__':
     graph = args.graph
     autosave = args.autosave
     logscale = args.log
+    underscore = args.underscore
 
     norm_exp_sec = True
     edge_processing_mode = 2
@@ -124,7 +128,10 @@ if __name__ == '__main__':
 
     fname_list = []
     for i in np.arange(0, nfiles, skip):
-        fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.SPE'])
+        if(underscore):
+            fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.SPE'])
+        else:
+            fname_list.extend([bdir+'/'+bname+str(i+startindex)+'.SPE'])
 
     print(fname_list)
 

@@ -1,9 +1,9 @@
 lib_LTLIBRARIES = libspeutils.la
-libspeutils_la_SOURCES = readspe.c glue.c readspe.h glue.h WinSpecHeader25.h
+libspeutils_la_SOURCES = readspe.c calib_util.c glue.c readspe.h calib_util.h glue.h WinSpecHeader25.h
 
 LIBSPEUTILS = libspeutils.la
 
-bin_PROGRAMS = viewspe checkWL fixcalib glue2
+bin_PROGRAMS = viewspe checkWL fixcalib glue2 autocalib
 
 viewspe_SOURCES = viewspe.c plplotsubs0.c viewspe.h plplotsubs0.h
 viewspe_LDADD = $(LIBSPEUTILS)
@@ -18,6 +18,9 @@ fixcalib_LDADD = $(LIBSPEUTILS)
 
 glue2_SOURCES = glue2.c
 glue2_LDADD = $(LIBSPEUTILS)
+
+autocalib_SOURCES = autocalib.c
+autocalib_LDADD = $(LIBSPEUTILS)
 
 noinst_PROGRAMS = convertspe headertest
 convertspe_SOURCES = convertspe.c convertspe.h

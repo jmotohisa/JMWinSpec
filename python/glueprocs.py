@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from .readspe import *
+from .readspe_module import *
 import speutils
+
 
 def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue spectrum of two SPE file
+    Returns wl_dest, spectrum_2glued, flg_2glued
     """
     wl1, spectrum1, coef1, numFrames1, xdim1, ydim1, exp_sec1, lavgexp1, SpecCenterWlNm1 = readspe(
         fname1)
@@ -29,7 +31,7 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
     if verbose == True:
         printspespan(fname1, xdim1, coef1)
         printspespan(fname2, xdim2, coef2)
-        
+
     if norm_exp_sec == True:
         spectrum1 = spectrum1.astype(np.float64)/exp_sec1
         spectrum2 = spectrum2.astype(np.float64)/exp_sec2
@@ -45,9 +47,9 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
     flg2_dest = np.empty_like(flg)
 
     speutils.pyspeconvert0(spectrum1.astype(np.float64), coef1, wl_dest, spectrum1_dest,
-                       flg1_dest, start, end, resolution)
+                           flg1_dest, start, end, resolution)
     speutils.pyspeconvert0(spectrum2.astype(np.float64), coef2, wl_dest, spectrum2_dest,
-                       flg2_dest, start, end, resolution)
+                           flg2_dest, start, end, resolution)
 
     spectrum_2glued = np.empty_like(wl_dest)
     flg_2glued = np.empty_like(wl_dest, dtype=np.int32)
@@ -61,6 +63,8 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
 def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue converted spectrum (spectrum0) and Spectrum of SPE file
+    Returns wl_dest, spectrum_2glued, flg_2glued
+
     """
     start = wl_dest[0]
     end = wl_dest[wl_dest.shape[0]-1]
@@ -89,7 +93,7 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
     spectrum2_dest = np.empty_like(wl_dest)
     flg2_dest = np.empty_like(flg0)
     speutils.pyspeconvert0(spectrum2, coef2, wl_dest, spectrum2_dest,
-                       flg2_dest, start, end, resolution)
+                           flg2_dest, start, end, resolution)
 
     spectrum_2glued = np.empty_like(wl_dest)
     flg_2glued = np.empty_like(flg0)
@@ -103,6 +107,7 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
 def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
     """
     Glue spectrum in the fname_list
+    Returns wl_dest, spectrum0, flg0
     """
     if len(fname_list) <= 1:
         print("Error: fname_list should contain elements more than two")

@@ -26,6 +26,9 @@ def get_args():
     parser.add_argument('-s', '--sup',
                         action="store_true",
                         help='suppress filename output')
+    parser.add_argument('-c', '--comment',
+                        action="store_true",
+                        help='comment only')
     # parser.add_argument('-r', '--rangey',\
     #                     nargs='?',\
     #                     type=float,\
@@ -42,6 +45,7 @@ if __name__ == '__main__':
 
     args = get_args()
     fnames = args.fnames
+    comment = args.comment
     sup = args.sup
 
     start = 200
@@ -53,13 +57,41 @@ if __name__ == '__main__':
             if os.path.splitext(fn)[1][1:].lower() == 'spe':
                 with open(fn, 'rb') as f:
                     if not args.none:
+                        if not comment:
+                            speutils.outputter(
+                                fn, sup, 'exp_sec', rd.read_float(f, 10))
+                            speutils.outputter(fn, sup, 'xDimDet', rd.read_WORD(f, 6))
+                            speutils.outputter(
+                                fn, sup, 'yDimDet', rd.read_WORD(f, 18))
+                            speutils.outputter(
+                                fn, sup, 'date', rd.read_string(f, 20, 10))  # date
+                            speutils.outputter(
+                                fn, sup, 'xdim', rd.read_WORD(f, 42))  # xdim
+                            speutils.outputter(fn, sup, 'ydim', rd.read_WORD(f, 656))
+                            speutils.outputter(
+                                fn, sup, 'NumFrames', rd.read_WORD(f, 1446))
+                            speutils.outputter(
+                                fn, sup, 'SpecCenterWlNm', rd.read_float(f, 72))
+                        
                         speutils.outputter(
                             fn, sup, '1', rd.read_string(f, start, length))
-                        speutils.outputter(fn, sup, '2', rd.read_string(
-                            f, start+length, length))
+                        speutils.outputter(
+                            fn, sup, '2', rd.read_string(f, start+length, length))
                         speutils.outputter(fn, sup, '3', rd.read_string(
                             f, start+length*2, length))
                         speutils.outputter(fn, sup, '4', rd.read_string(
                             f, start+length*3, length))
                         speutils.outputter(fn, sup, '5', rd.read_string(
                             f, start+length*4, length))
+
+                        if not comment:
+                            speutils.outputter(
+                                fn, sup, 'lnoscan', rd.read_LONG(f, 664))  # lnoscan
+                            speutils.outputter(
+                                fn, sup, 'lavgexp', rd.read_LONG(f, 668))  # lavgexp
+                            speutils.outputter(
+                                fn, sup, 'NumFrames', rd.read_LONG(f, 1446))  # NumFrames
+                            speutils.outputter(
+                                fn, sup, 'file_header_ver', rd.read_float(f, 1992))
+                            speutils.outputter(
+                                fn, sup, 'offset_x', rd.read_double(f, 3000))

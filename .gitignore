@@ -5,6 +5,7 @@
 *.lo
 *.la
 *.so
+*.exe
 
 headertest
 
@@ -46,6 +47,8 @@ speutils/convertspe
 speutils/checkWL
 speutils/glue2
 speutils/fixcalib
+speutils/autocalib
+
 
 convertspe.dSYM/
 
@@ -81,4 +84,5 @@ python/dist
 python/Makefile
 python/speutils
 python/speutils.c
+python/speutils_wrap.c
 __init__.py

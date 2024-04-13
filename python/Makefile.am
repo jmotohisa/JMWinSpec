@@ -45,13 +45,8 @@ INIT_PY = __init__.py
 # specification of python source files to be byte-compiled at installation
 ######################################################################
 HL_IFACE = binread.py \
-  gluecheck.py \
-  readspe.py	\
-  compareconvert.py	\
-  glueprocs.py	\
-  readspe_sample.py \
-  dumpspe.py	\
-  readcomments.py
+  readspe_module.py	\
+  glueprocs.py
 
 pkgpython_PYTHON = __init__.py $(HL_IFACE)
 

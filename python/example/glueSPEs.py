@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# python glues.py -s 800 -e 1700 -i 120 -n 9 -o glue120 -g [spefiles]
+# python glueSPEs.py -s 800 -e 1700 -o glue120 -g [spefiles]
 
 import argparse
-import globs
+import glob
 import numpy as np
 import matplotlib.pyplot as plt
 import speutils
@@ -24,7 +24,7 @@ def getspectra_sub(fname, norm_exp_sec):
 def get_args():
     # 準備
     parser = argparse.ArgumentParser(
-        description='Glue SPE spectra with name: dir/basename_index:')
+        description='Glue SPE spectra')
     # 標準入力以外の場合
     # if sys.stdin.isatty():
     #     parser.add_argument('basefname', help='base file name', type=str)
@@ -41,19 +41,6 @@ def get_args():
                         type=float,
                         default=1,
                         help='resolution')
-    parser.add_argument('-i', '--index',
-                        nargs='?',
-                        type=int,
-                        help='starting index')
-    parser.add_argument('-n', '--num',
-                        nargs='?',
-                        type=int,
-                        default=1,
-                        help='number of files')
-    parser.add_argument('--skip',
-                        nargs='?',
-                        type=int,
-                        help='skips (default=1)', default=1)
     parser.add_argument('--dump',
                         action="store_true",
                         help='dump glued spectra')
@@ -86,9 +73,6 @@ if __name__ == '__main__':
     start = args.start
     end = args.end
     resolution = args.res
-    startindex = args.index
-    nfiles = args.num
-    skip = args.skip
     out = args.out
     dump = args.dump
     verbose = args.verbose
@@ -100,21 +84,6 @@ if __name__ == '__main__':
     norm_exp_sec = True
     edge_processing_mode = 2
 
-    # print(fnames)
-    # fn='/Users/motohisa/Documents/experiment/20200124/W001.spe'
-
-    # bdir = '/Users/motohisa/Documents/experiment/20221125/a'
-    # bname = 'D1_a0'
-    # refspe = '/Users/motohisa/Documents/experiment/20221125/gluetest/glued/g02.SPE'
-
-    # start = 800.
-    # end = 1100.
-    # resolution = 1.0
-
-    # startindex = 120
-    # nfiles = 3
-    # skip = 2
-
     wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
     spectrum_dest = np.empty_like(wl_dest)
     flg = np.empty_like(wl_dest, dtype=np.int32)
@@ -122,11 +91,9 @@ if __name__ == '__main__':
     fname_list = []
     for fn0 in fnames:
         fnames2 = glob.glob(fn0)
-        for fn in fnames2:
-            fname_list.extend(fn)
-        # print(fn,os.path.splitext(fn)[1][1:].lower())
-    # for i in np.arange(0, nfiles, skip):
-    #     fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.SPE'])
+        # print(fnames2)
+        # for fn in fnames2:
+        fname_list.extend(fnames2)
 
     print(fname_list)
 

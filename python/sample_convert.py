@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import glue
+import speutils
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -19,12 +19,13 @@ flg = np.empty_like(wl_dest, dtype=np.int32)
 
 fname = '/Users/motohisa/Documents/experiment/20221125/a/mod/D1_a0_73.SPE'
 
-wl, spectrum, coef, numFrames, ydim = glue.readspe(fname)
+wl, spectrum, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
+    fname)
 # print(numFrames, ydim)
 # fig = plt.plot(wl, spectrum)
 # plt.show()
 
-xdim, ydim, NumFrames, flag_wlcen, ierror = glue.pyspeconvert(
+xdim, ydim, NumFrames, flag_wlcen, ierror = speutils.pyspeconvert(
     wl_dest, spectrum_dest, flg, fname, start, end, resolution, 0)
 # print(xdim, ydim, NumFrames, flag_wlcen, ierror)
 # print(spectrum_dest)

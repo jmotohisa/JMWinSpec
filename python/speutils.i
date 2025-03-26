@@ -48,7 +48,7 @@
  }
 
 %pythoncode %{
-from .readspe import (
+from .readspe_module import (
 		     readspe,
 		     readspe_simple,
 		     checkspecalib,

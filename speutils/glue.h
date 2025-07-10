@@ -1,5 +1,5 @@
 /*
- *  glue.h - last saved: Time-stamp: <Tue Dec 06 22:05:38 JST 2022>
+ *  glue.h - last saved: Time-stamp: <Thu Jul 10 14:41:01 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -53,10 +53,17 @@ GLOBAL void getspe(char *fname, double **coef, double **wl, double **spectrum,
 GLOBAL void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
 		    double start, double end, double resolution,
 		    double **spectrum_dest,int **flg, double **wl_dest, int *n_dest);
+GLOBAL void convert_wl(double *wl_orig, double *spectrum_orig, int xdim,
+		       double start, double end, double resolution,
+		       double **spectrum_dest,int **flg, double **wl_dest, int *n_dest);
 GLOBAL void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 		     double start, double end, double resolution,
 		     double *wl_dest,int n_dest,
 		     double *spectrum_dest,int *flg);
+GLOBAL void convert00(double *wl_orig, double *spectrum_orig, int xdim,
+		      double start, double end, double resolution,
+		      double *wl_dest,int n_dest,
+		      double *spectrum_dest,int *flg);
 
 GLOBAL void check_pix_start_end(int n, int ss, int *flg, int *start, int *end);
   

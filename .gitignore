@@ -84,5 +84,6 @@ python/dist
 python/Makefile
 python/speutils
 python/speutils.c
+python/__init__.py.bak
 python/speutils_wrap.c
 __init__.py

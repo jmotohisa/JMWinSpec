@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([speutils/readspe.c])
 SHARED_VERSION_INFO="0:0:0" # CURRENT:REVISION:AGE
 
 AC_CONFIG_HEADERS(speutils/config.h)
-AC_CONFIG_MACRO_DIRS([m4])
+AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(SHARED_VERSION_INFO)
 
 AM_INIT_AUTOMAKE
@@ -115,7 +115,7 @@ fi
 # check for plplot
 PKG_CHECK_MODULES(PLPLOT,plplot,
   [AC_DEFINE(HAS_PLPLOT, 1, [If plplot has been installed, define this])],
-    [PKG_CHECK_MODULES(PLPLOTD, plplotd,[AC_DEFINE(HAS_PLPLOT, 1,
+    [PKG_CHECK_MODULES(PLPLOT, plplotd,[AC_DEFINE(HAS_PLPLOT, 1,
       [If plplot has been installed, define this])],
         [AC_MSG_WARN([no plplot found])])])
 

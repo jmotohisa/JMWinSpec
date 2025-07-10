@@ -65,7 +65,7 @@ def get_args():
 
     args = parser.parse_args()
 
-    return(args)
+    return (args)
 
 
 if __name__ == '__main__':
@@ -108,29 +108,29 @@ if __name__ == '__main__':
     wl_dest, spectrum0, flg0 = speutils.gluemultiplespe(
         fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
 
-    if(len(out) > 0):
+    if (len(out) > 0):
         speutils.writespectrum_csv(out + '.csv', wl_dest, spectrum0)
 
-    if(dump):
+    if (dump):
         for i, wl0 in enumerate(wl_ref):
             print(wl0, spectrum0[i])
 
-    if(graph):
+    if (graph):
         fig = plt.figure(figsize=(5, 5))
         fig.tight_layout()
         ax1 = fig.add_subplot(111)
-        if(logscale):
+        if (logscale):
             ax1.set_yscale('log')
         for i in np.arange(len(wl_list)):
             ax1.plot(wl_list[i], spectra_list[i], color='red')
 
         ax2 = ax1.twinx()
-        if(logscale):
+        if (logscale):
             ax2.set_yscale('log')
         ax2.plot(wl_dest, spectrum0, color='black')
 
-        if(autosave):
-            if(len(out) > 0):
+        if (autosave):
+            if (len(out) > 0):
                 plt.savefig(out+'.png')
         plt.show()
 

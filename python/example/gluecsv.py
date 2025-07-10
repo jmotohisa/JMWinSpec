@@ -3,24 +3,13 @@
 
 # glue_csv.py
 
-# python glue.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
-# python glue.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
+# python gluecsv.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
+# python gluecsv.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
 
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import speutils
-
-
-def getspectra_sub(fname, norm_exp_sec):
-    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
-        fname)
-    if norm_exp_sec == True:
-        data = data.astype(np.float64)/(exp_sec*lavgexp)
-    else:
-        data = data.astype(np.float64)
-
-    return wl, data
 
 
 def get_args():
@@ -43,9 +32,10 @@ def get_args():
                         type=float,
                         default=1,
                         help='resolution')
-    parser.add_argument('-H', '--header',
-                        action="store_true",
-                        help='read header in csv file'),
+    parser.add_argument('-H', '--header', type=int,
+                        nargs='?',
+                        default=0,
+                        help='header in csv file 0:no header (default) 1:skip'),
     parser.add_argument('-i', '--index',
                         nargs='?',
                         type=int,
@@ -109,6 +99,7 @@ if __name__ == '__main__':
     autosave = args.autosave
     logscale = args.log
     underscore = args.underscore
+    flag_header = args.header
 
     norm_exp_sec = True
     edge_processing_mode = 2
@@ -144,12 +135,12 @@ if __name__ == '__main__':
     wl_list = []
     spectra_list = []
     for i, fname in enumerate(fname_list):
-        wl, spectrum = speutils.readspectrum_csv(fname)
+        wl, spectrum = speutils.readspectrum_csv(fname, flag_header)
         wl_list.extend([wl])
         spectra_list.extend([spectrum])
 
     wl_dest, spectrum0, flg0 = speutils.gluemultiplecsv(
-        fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
+        fname_list, start, end, resolution, edge_processing_mode, verbose, flag_header)
 
     if (graph):
         fig = plt.figure(figsize=(5, 5))

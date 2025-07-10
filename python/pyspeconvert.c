@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.c - Time-stamp: <Thu Jul 10 15:01:44 JST 2025>
+ *  pyspeconvert.c - Time-stamp: <Thu Jul 10 19:16:26 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -143,7 +143,8 @@ int pyspeconvert0(double *spectrum, int n_spectrum,
   return 0;
 }
 
-void pycsvconvert(double *wl_orig,double *spectrum_orig,int n_orig,
+void pycsvconvert(double *wl_orig,int n_wl_orig,
+		  double *spectrum_orig,int n_orig,
 		  double *wl_dest, int n_dest,
 		  double *spectrum_dest,int n_spectrum_dest,
 		  int *flg, int n_flg,
@@ -172,12 +173,11 @@ void pycsvconvert(double *wl_orig,double *spectrum_orig,int n_orig,
     return;
 }
 
-int pycsvconvert0(double *wl, double *spectrum, int n_spectrum,
-		 double *coef, int n_coef,
-		 double *wl_dest, int n_dest,
-		 double *spectrum_dest, int n_spectrum_dest,
-		 int *flg, int n_flg,
-		 double start,double end,double resolution)
+int pycsvconvert0(double *wl, int n_wl, double *spectrum, int n_spectrum,
+		  double *wl_dest, int n_dest,
+		  double *spectrum_dest, int n_spectrum_dest,
+		  int *flg, int n_flg,
+		  double start,double end,double resolution)
 {
   convert00(wl, spectrum, n_spectrum,
 	   start, end, resolution,

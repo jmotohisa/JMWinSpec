@@ -16,6 +16,7 @@
 
 %apply (double *INPLACE_ARRAY1, int DIM1) {(double *spectrum, int n_spectrum)}
 %apply (double *INPLACE_ARRAY1, int DIM1) {(double *coef, int n_coef)}
+%apply (double *INPLACE_ARRAY1, int DIM1) {(double *wl, int n_wl)}
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double *wl_dest, int n_dest)}
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double *spectrum_dest,int n_spectrum_dest)}
 %apply (int* INPLACE_ARRAY1, int DIM1) {(int *flg, int n_flg)}
@@ -61,6 +62,10 @@ from .glueprocs import (
 		       glue2spe,
 		       gluespe1,
 		       gluemultiplespe,
+		       glue2csv,
+		       gluecsv1,
+		       gluemultiplecsv,
+		       readspectrum_csv
 		       )
   %}
 

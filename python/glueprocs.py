@@ -4,6 +4,7 @@
 import numpy as np
 from .readspe_module import *
 import speutils
+import pandas as pd
 
 
 def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
@@ -131,25 +132,26 @@ def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_proce
     return wl_dest, spectrum0, flg0
 
 
-def glue2csv(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose,
-             readheader):
+def glue2csv(fname1, fname2, start, end, resolution, edge_processing_mode, verbose, flag_header):
     """
     Glue spectrum of two CSV file
     Returns wl_dest, spectrum_2glued, flg_2glued
     """
-    wl1, spectrum1 = readspectrum_csv(fname1, read_header)
-    wl2, spectrum2 = readspectrum_csv(fname2, read_header)
+    wl1, spectrum1 = readspectrum_csv(fname1, flag_header)
+    wl2, spectrum2 = readspectrum_csv(fname2, flag_header)
 
-    wl_dest = np.arange(start, end+resolution, resolution)
+    wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
     flg = np.empty_like(wl_dest, dtype=np.int32)
     spectrum1_dest = np.empty_like(wl_dest)
     flg1_dest = np.empty_like(flg)
     spectrum2_dest = np.empty_like(wl_dest)
     flg2_dest = np.empty_like(flg)
 
-    speutils.pyspeconvert0(spectrum1.astype(np.float64), coef1, wl_dest, spectrum1_dest,
+    speutils.pycsvconvert0(wl1.astype(np.float64), spectrum1.astype(np.float64),
+                           wl_dest, spectrum1_dest,
                            flg1_dest, start, end, resolution)
-    speutils.pyspeconvert0(spectrum2.astype(np.float64), coef2, wl_dest, spectrum2_dest,
+    speutils.pycsvconvert0(wl2.astype(np.float64), spectrum2.astype(np.float64),
+                           wl_dest, spectrum2_dest,
                            flg2_dest, start, end, resolution)
 
     spectrum_2glued = np.empty_like(wl_dest)
@@ -161,7 +163,7 @@ def glue2csv(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
     return wl_dest, spectrum_2glued, flg_2glued
 
 
-def gluecsv1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mode, verbose):
+def gluecsv1(wl_dest, spectrum0, flg0, fname2, edge_processing_mode, verbose, flag_header):
     """
     Glue converted spectrum (spectrum0) and Spectrum of SPE file
     Returns wl_dest, spectrum_2glued, flg_2glued
@@ -171,29 +173,16 @@ def gluecsv1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
     end = wl_dest[wl_dest.shape[0]-1]
     resolution = wl_dest[1]-wl_dest[0]
 
-    wl2, spectrum2, coef2, numFrames2, xdim2, ydim2, exp_sec2, lavgexp2, SpecCenterWlNm2 = readspe(
-        fname2)
-
-    if ydim2 != 1 or numFrames2 != 1:
-        print("numFrames and ydim should be 1 in gluing spectra")
-    exit
-
-    if checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
-        print("Calibration error in ", fname2, ". Exiting.")
-    exit
+    wl2, spectrum2 = speutils.readspectrum_csv(fname2, flag_header)
 
     if verbose == True:
         print("Start, end, resution=", start, end, resolution)
-        printspespan(fname2, xdim2, coef2)
-
-    if norm_exp_sec == True:
-        spectrum2 = spectrum2.astype(np.float64)/exp_sec2
-    else:
-        spectrum2 = spectrum2.astype(np.float64)
+        # printspespan(fname2, xdim2, coef2)
 
     spectrum2_dest = np.empty_like(wl_dest)
     flg2_dest = np.empty_like(flg0)
-    speutils.pyspeconvert0(spectrum2, coef2, wl_dest, spectrum2_dest,
+    speutils.pycsvconvert0(wl2.astype(np.float64), spectrum2.astype(np.float64),
+                           wl_dest, spectrum2_dest,
                            flg2_dest, start, end, resolution)
 
     spectrum_2glued = np.empty_like(wl_dest)
@@ -205,7 +194,7 @@ def gluecsv1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
     return wl_dest, spectrum_2glued, flg_2glued
 
 
-def gluemultiplecsv(fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
+def gluemultiplecsv(fname_list, start, end, resolution, edge_processing_mode, verbose, flag_header):
     """
     Glue spectrum in the fname_list
     Returns wl_dest, spectrum0, flg0
@@ -218,26 +207,31 @@ def gluemultiplecsv(fname_list, start, end, resolution, norm_exp_sec, edge_proce
         fname1 = fname_list[0]
         fname2 = fname_list[1]
         wl_dest, spectrum0, flg0 = glue2csv(
-            fname1, fname2, start, end, resolution, edge_processing_mode, verbose)
+            fname1, fname2, start, end, resolution, edge_processing_mode, verbose, flag_header)
     else:
         fname1 = fname_list.pop(0)
         fname2 = fname_list.pop(0)
         print(fname1, fname2)
         wl_dest, spectrum0, flg0 = glue2csv(
-            fname1, fname2, start, end, resolution, edge_processing_mode, verbose)
+            fname1, fname2, start, end, resolution, edge_processing_mode, verbose, flag_header)
         for fname2 in fname_list:
             wl_dest, spectrum0, flg0 = gluecsv1(
-                wl_dest, spectrum0, flg0, fname2, edge_processing_mode, verbose)
+                wl_dest, spectrum0, flg0, fname2, edge_processing_mode, verbose, flag_header)
 
     return wl_dest, spectrum0, flg0
 
 
-def readspectrum_csv(fname, readheader):
-    with open(fname, 'r') as f:
-        if (readheader):
-            wl = f['wavelenvghth']
-            spectrum = f['intensity']
-        else:
-            wl = f[0]
-            spectrum = f[1]
+def readspectrum_csv(fname, flag_header):
+    if (flag_header == 0):
+        df = pd.read_csv(fname, header=None, skiprows=1,
+                         names=['wavelength', 'intensity'])
+    elif (flag_header == 1):
+        df = pd.read_csv(fname, header=0,
+                         names=['wavelength', 'intensity'])
+    else:
+        df = pd.read_csv(fname, header=None,
+                         names=['wavelength', 'intensity'])
+
+    wl = np.array(df['wavelength'])
+    spectrum = np.array(df['intensity'])
     return wl, spectrum

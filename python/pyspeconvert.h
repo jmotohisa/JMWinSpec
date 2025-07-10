@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.h - last saved: Time-stamp: <Thu Jul 10 14:38:56 JST 2025>
+ *  pyspeconvert.h - last saved: Time-stamp: <Thu Jul 10 18:54:50 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -63,8 +63,7 @@ GLOBAL int pyspeconvert0(double *spectrum, int n_spectrum,
 			 int *flg, int n_flg,
 			 double start,double end,double resolution);
 
-GLOBAL  int pycsvconvert0(double *wl, double *spectrum, int n_spectrum,
-			  double *coef, int n_coef,
+GLOBAL  int pycsvconvert0(double *wl, int n_wl,double *spectrum, int n_spectrum,
 			  double *wl_dest, int n_dest,
 			  double *spectrum_dest, int n_spectrum_dest,
 			  int *flg, int n_flg,

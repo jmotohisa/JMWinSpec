@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.h - last saved: Time-stamp: <Fri Dec 02 15:57:50 JST 2022>
+ *  pyspeconvert.h - last saved: Time-stamp: <Thu Jul 10 14:38:56 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -48,21 +48,27 @@ extern "C" {
 #define	GLOBAL extern
 #endif
 
-  GLOBAL void pyspeconvert(double *wl_dest, int n_dest,
-			   double *spectrum_dest,int n_spectrum_dest,
-			   int *flg, int n_flg,
-			   char *fname, double start,double end,double resolution,
-			   int dont_normalize_exp_sec,
-			   int *xdim,int *ydim,int *NumFrames,
-			   int *flag_wlcen,int *ierror);
+GLOBAL void pyspeconvert(double *wl_dest, int n_dest,
+			 double *spectrum_dest,int n_spectrum_dest,
+			 int *flg, int n_flg,
+			 char *fname, double start,double end,double resolution,
+			 int dont_normalize_exp_sec,
+			 int *xdim,int *ydim,int *NumFrames,
+			 int *flag_wlcen,int *ierror);
 
-  GLOBAL int pyspeconvert0(double *spectrum, int n_spectrum,
-  			   double *coef, int n_coef,
-			   double *wl_dest, int n_dest,
-			   double *spectrum_dest, int n_spectrum_dest,
-			   int *flg, int n_flg,
-			   double start,double end,double resolution);
+GLOBAL int pyspeconvert0(double *spectrum, int n_spectrum,
+			 double *coef, int n_coef,
+			 double *wl_dest, int n_dest,
+			 double *spectrum_dest, int n_spectrum_dest,
+			 int *flg, int n_flg,
+			 double start,double end,double resolution);
 
+GLOBAL  int pycsvconvert0(double *wl, double *spectrum, int n_spectrum,
+			  double *coef, int n_coef,
+			  double *wl_dest, int n_dest,
+			  double *spectrum_dest, int n_spectrum_dest,
+			  int *flg, int n_flg,
+			  double start,double end,double resolution);
 
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL

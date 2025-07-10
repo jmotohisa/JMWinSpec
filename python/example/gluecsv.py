@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# glue_csv.py
+
 # python glue.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
 # python glue.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
 
@@ -24,7 +26,7 @@ def getspectra_sub(fname, norm_exp_sec):
 def get_args():
     # 準備
     parser = argparse.ArgumentParser(
-        description='Glue SPE spectra with name: dir/basename_index:')
+        description='Glue csv files (wavelength,intensity format) with name: dir/basename_index:')
     # 標準入力以外の場合
     # if sys.stdin.isatty():
     #     parser.add_argument('basefname', help='base file name', type=str)
@@ -41,6 +43,9 @@ def get_args():
                         type=float,
                         default=1,
                         help='resolution')
+    parser.add_argument('-H', '--header',
+                        action="store_true",
+                        help='read header in csv file'),
     parser.add_argument('-i', '--index',
                         nargs='?',
                         type=int,
@@ -130,21 +135,20 @@ if __name__ == '__main__':
     fname_list = []
     for i in np.arange(0, nfiles, skip):
         if (underscore):
-            fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.SPE'])
+            fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.csv'])
         else:
-            fname_list.extend([bdir+'/'+bname+str(i+startindex)+'.SPE'])
+            fname_list.extend([bdir+'/'+bname+str(i+startindex)+'.csv'])
 
     print(fname_list)
 
     wl_list = []
     spectra_list = []
-
     for i, fname in enumerate(fname_list):
-        wl, spectrum = speutils.readspe_simple(fname, norm_exp_sec)
+        wl, spectrum = speutils.readspectrum_csv(fname)
         wl_list.extend([wl])
         spectra_list.extend([spectrum])
 
-    wl_dest, spectrum0, flg0 = speutils.gluemultiplespe(
+    wl_dest, spectrum0, flg0 = speutils.gluemultiplecsv(
         fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
 
     if (graph):

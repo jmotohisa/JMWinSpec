@@ -1,5 +1,5 @@
 /*
- *  pyspeconvert.c - Time-stamp: <Fri Dec 02 15:58:48 JST 2022>
+ *  pyspeconvert.c - Time-stamp: <Thu Jul 10 15:01:44 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -140,6 +140,48 @@ int pyspeconvert0(double *spectrum, int n_spectrum,
   convert0(coef, n_coef, spectrum, n_spectrum,
 	     start, end, resolution,
 	     wl_dest, n_dest, spectrum_dest,flg);
+  return 0;
+}
+
+void pycsvconvert(double *wl_orig,double *spectrum_orig,int n_orig,
+		  double *wl_dest, int n_dest,
+		  double *spectrum_dest,int n_spectrum_dest,
+		  int *flg, int n_flg,
+		  char *fname, double start,double end,double resolution,
+		  int dont_normalize_exp_sec,
+  		  int *xdim,int *ydim,int *NumFrames,
+		  int *flag_wlcen,int *ierror)
+{
+    int i,n,err;
+
+    if(start<=0)
+      start=*(wl_orig);
+    if(end<=0)
+      end=*(wl_orig+n_orig-1);
+    if(resolution<=0)
+      resolution=1;
+
+    convert00(wl_orig,spectrum_orig, n_orig,
+	      start, end, resolution,
+	      wl_dest, n_dest,spectrum_dest,flg);
+    //    dump_spectrum("",n_dest,wl_dest,spectrum_dest);
+    /* dump_spectrum2(n_dest, flg, wl_dest, spectrum_dest); */
+    
+    *ierror=0;
+
+    return;
+}
+
+int pycsvconvert0(double *wl, double *spectrum, int n_spectrum,
+		 double *coef, int n_coef,
+		 double *wl_dest, int n_dest,
+		 double *spectrum_dest, int n_spectrum_dest,
+		 int *flg, int n_flg,
+		 double start,double end,double resolution)
+{
+  convert00(wl, spectrum, n_spectrum,
+	   start, end, resolution,
+	   wl_dest, n_dest, spectrum_dest,flg);
   return 0;
 }
 

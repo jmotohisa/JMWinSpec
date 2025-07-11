@@ -65,7 +65,9 @@ from .glueprocs import (
 		       glue2csv,
 		       gluecsv1,
 		       gluemultiplecsv,
-		       readspectrum_csv
+		       readspectrum_csv,
+		       savecsv,
+		       spe2csv,
 		       )
   %}
 

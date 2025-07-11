@@ -59,8 +59,9 @@ if __name__ == '__main__':
         for fn in fname2:
             wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe0(
                 fn, sup)
-            dim2list = []
-            if (index_fist > 0):
+            if(norm_exp_sec):
+                data=data/exp_sec
+            if (index_first > 0):
                 range1 = index_first
             else:
                 range1 = 0
@@ -69,14 +70,11 @@ if __name__ == '__main__':
             else:
                 range2 = len(wl)
 
-            for i in range([range1, range2]):
-                dim2list = dim2list.append([wl[i], data[i]])
-            df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
             basename_without_ext = os.path.splitext(os.path.basename(fn))[0]
             fname_out = dirname(fn)+"/"+basename_without_ext+".csv"
-
-            df.save_csv(fname_out, index=False, header=True)
-
+            
+            wl,data=speutils.savecsv(fname_out,wl,data,range1=range1,range2=range2)
+                
             if (flag_plot):
                 plt.plot(wl, data)
                 if (range1 > 0 or range2 > 0):

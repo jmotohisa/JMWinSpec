@@ -57,6 +57,9 @@ from .readspe_module import (
 		     printspespan,
 		     writespectrum_csv,
 		     outputter,
+		     readspectrum_csv,
+		     savecsv,
+		     spe2csv,
 		     )
 from .glueprocs import (
 		       glue2spe,
@@ -65,9 +68,6 @@ from .glueprocs import (
 		       glue2csv,
 		       gluecsv1,
 		       gluemultiplecsv,
-		       readspectrum_csv,
-		       savecsv,
-		       spe2csv,
 		       )
   %}
 

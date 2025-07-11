@@ -238,6 +238,9 @@ def readspectrum_csv(fname, flag_header):
 
 
 def savecsv(fname_out,wl,data,range1=0,range2=0):
+    """
+    save to csv file fname_out
+    """
     dim2list = []
     if(range2<=0):
         range2=len(wl)
@@ -245,17 +248,23 @@ def savecsv(fname_out,wl,data,range1=0,range2=0):
         dim2list = dim2list.append([wl[i], data[i]])
     df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
     df.save_csv(fname_out, index=False, header=True)
-    return wl,data
+    return
+
 
 def spe2csv(fname,norm_exp_sec=True,fname_out='',range1=0,range2=0):
+    """
+    convert spe file fname to CSV file fname_out
+    Returns wl,spectrum
+    """
     wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe0(
         fn, sup)
     
     if(norm_exp_sec):
         data=data/exp_sec
-        
-    basename_without_ext = os.path.splitext(os.path.basename(fname))[0]
-    fname_out = dirname(fname)+"/"+basename_without_ext+".csv"
+
+    if(len(fname_out)<=0):
+        basename_without_ext = os.path.splitext(os.path.basename(fname))[0]
+        fname_out = dirname(fname)+"/"+basename_without_ext+".csv"
 
     savecsv(fname_out,wl,data,range1=range1,range2=range2)
     return wl,data

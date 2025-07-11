@@ -73,7 +73,7 @@ if __name__ == '__main__':
             basename_without_ext = os.path.splitext(os.path.basename(fn))[0]
             fname_out = dirname(fn)+"/"+basename_without_ext+".csv"
             
-            wl,data=speutils.savecsv(fname_out,wl,data,range1=range1,range2=range2)
+            speutils.savecsv(fname_out,wl,data,range1=range1,range2=range2)
                 
             if (flag_plot):
                 plt.plot(wl, data)

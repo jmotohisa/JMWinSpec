@@ -19,15 +19,15 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
 
     if ydim1 != 1 or ydim2 != 1 or numFrames1 != 1 or numFrames2 != 1:
         print("numFrames and ydim should be 1 in gluing spectra")
-    exit
+        exit()
 
     if checkspecalib(fname1, xdim1, coef1, SpecCenterWlNm1, verbose) == False:
         print("Calibration error in ", fname1, ". Exiting.")
-    exit
+        exit()
 
     if checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
         print("Calibration error in ", fname2, ". Exiting.")
-    exit
+        exit()
 
     if verbose == True:
         printspespan(fname1, xdim1, coef1)
@@ -76,11 +76,11 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
 
     if ydim2 != 1 or numFrames2 != 1:
         print("numFrames and ydim should be 1 in gluing spectra")
-    exit
+        exit()
 
     if checkspecalib(fname2, xdim2, coef2, SpecCenterWlNm2, verbose) == False:
         print("Calibration error in ", fname2, ". Exiting.")
-    exit
+        exit()
 
     if verbose == True:
         print("Start, end, resution=", start, end, resolution)
@@ -112,7 +112,7 @@ def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_proce
     """
     if len(fname_list) <= 1:
         print("Error: fname_list should contain elements more than two")
-        exit
+        exit()
 
     if len(fname_list) == 2:
         fname1 = fname_list[0]
@@ -201,7 +201,7 @@ def gluemultiplecsv(fname_list, start, end, resolution, edge_processing_mode, ve
     """
     if len(fname_list) <= 1:
         print("Error: fname_list should contain elements more than two")
-        exit
+        exit()
 
     if len(fname_list) == 2:
         fname1 = fname_list[0]

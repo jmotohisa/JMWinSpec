@@ -204,7 +204,7 @@ def savecsv(fname_out, wl, data, range1=0, range2=0):
     for i in range(range1, range2):
         dim2list.append([wl[i], data[i]])
     df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
-    df.to_csv(fname_out, index=False, header=True)
+    df.to_csv(fname_out, index=True, header=True)
     return
 
 

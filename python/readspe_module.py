@@ -197,14 +197,16 @@ def savecsv(fname_out, wl, data, range1=0, range2=0):
     """
     save to csv file fname_out
     """
-    dim2list = []
+    # dim2list = []
     if (range2 <= 0):
         range2 = len(wl)
-#    print(range1,range2)
-    for i in range(range1, range2):
-        dim2list.append([wl[i], data[i]])
-    df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
-    df.to_csv(fname_out, index=True, header=True)
+    #  print(range1,range2)
+
+    writespectrum_csv(fname, wl[range1,range2], spectrum[range1,range2])
+    #     for i in range(range1, range2):
+    #        dim2list.append([wl[i], data[i]])
+    #    df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
+    #    df.to_csv(fname_out, index=True, header=True)to
     return
 
 

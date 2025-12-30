@@ -8,8 +8,12 @@ import pandas as pd
 
 
 def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
-    """
-    Glue spectrum of two SPE file
+    """ Glue spectrum of two SPE file
+    fname1, fname2 : file names of two files
+    start, end, resolution : start, ending, and step wavelength
+    norm_exp_sec (boolean) : normalize intensity with exposure time
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     Returns wl_dest, spectrum_2glued, flg_2glued
     """
     wl1, spectrum1, coef1, numFrames1, xdim1, ydim1, exp_sec1, lavgexp1, SpecCenterWlNm1 = readspe(
@@ -62,10 +66,15 @@ def glue2spe(fname1, fname2, start, end, resolution, norm_exp_sec, edge_processi
 
 
 def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mode, verbose):
-    """
-    Glue converted spectrum (spectrum0) and Spectrum of SPE file
+    """ Glue converted spectrum (spectrum0) and Spectrum of SPE file
+    wl_dest: destination wavelength
+    spectrum0 : glued spectrum
+    flg0
+    fname2: file name of spectrum to glue
+    norm_exp_sec (boolean) : normalize intensity with exposure time
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     Returns wl_dest, spectrum_2glued, flg_2glued
-
     """
     start = wl_dest[0]
     end = wl_dest[wl_dest.shape[0]-1]
@@ -106,8 +115,11 @@ def gluespe1(wl_dest, spectrum0, flg0, fname2, norm_exp_sec, edge_processing_mod
 
 
 def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose):
-    """
-    Glue spectrum in the fname_list
+    """ Glue spectra in the fname_list
+    start, end, resolution : start, ending, and step wavelength
+    norm_exp_sec (boolean) : normalize intensity with exposure time
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     Returns wl_dest, spectrum0, flg0
     """
     if len(fname_list) <= 1:
@@ -133,8 +145,11 @@ def gluemultiplespe(fname_list, start, end, resolution, norm_exp_sec, edge_proce
 
 
 def glue2csv(fname1, fname2, start, end, resolution, edge_processing_mode, verbose, flag_header):
-    """
-    Glue spectrum of two CSV file
+    """ Glue spectrum of two CSV file
+    fname1, fname2: file names of CSV files to glue
+    start, end, resolution : start, ending, and step wavelength
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     Returns wl_dest, spectrum_2glued, flg_2glued
     """
     wl1, spectrum1 = readspectrum_csv(fname1, flag_header)
@@ -164,10 +179,12 @@ def glue2csv(fname1, fname2, start, end, resolution, edge_processing_mode, verbo
 
 
 def gluecsv1(wl_dest, spectrum0, flg0, fname2, edge_processing_mode, verbose, flag_header):
-    """
-    Glue converted spectrum (spectrum0) and Spectrum of SPE file
+    """ Glue converted spectrum (spectrum0) and Spectrum of SPE file
     Returns wl_dest, spectrum_2glued, flg_2glued
 
+    norm_exp_sec (boolean) : normalize intensity with exposure time
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     """
     start = wl_dest[0]
     end = wl_dest[wl_dest.shape[0]-1]
@@ -195,8 +212,11 @@ def gluecsv1(wl_dest, spectrum0, flg0, fname2, edge_processing_mode, verbose, fl
 
 
 def gluemultiplecsv(fname_list, start, end, resolution, edge_processing_mode, verbose, flag_header):
-    """
-    Glue spectrum in the fname_list
+    """ Glue spectrum in the fname_list (csv files)
+    fname_list : list of csv file name to glue
+    start, end, resolution : start, ending, and step wavelength
+    edge_processing_mode (boolean) : 
+    verbose: (boolean) verbose mode
     Returns wl_dest, spectrum0, flg0
     """
     if len(fname_list) <= 1:

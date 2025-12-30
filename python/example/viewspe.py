@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""" Example: view SPE file """
 
 import argparse
 import os

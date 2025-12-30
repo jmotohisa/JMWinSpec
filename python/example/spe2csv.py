@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Example of speutils: convert SPE file to CSV file """
+
 import os
 import argparse
 import numpy as np

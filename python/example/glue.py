@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Example (and main) procedure to glue multiple spectra in SPE files """
+
 # python glue.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
 # python glue.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
 

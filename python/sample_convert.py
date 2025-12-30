@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Example for convert SPE files """
+
 import speutils
 import numpy as np
 import matplotlib.pyplot as plt

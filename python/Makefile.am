@@ -26,6 +26,15 @@ SPEUTILS_SWIG_HDRS =             \
   $(top_srcdir)/speutils/readspe.h	\
   $(top_srcdir)/speutils/convertspe.h	
 
+speutilsdir = $(sysconfdir)/speutils
+
+install-data-local:
+	$(MKDIR_P) "$(DESTDIR)$(speutilsdir)"
+	cp -pR $(srcdir)/example "$(DESTDIR)$(speutilsdir)/"
+
+uninstall-local:
+	rm -rf "$(DESTDIR)$(speutilsdir)/example"
+
 speutils.c: $(SPEUTILS_SWIG_SRC) $(SPEUTILS_SWIG_HDRS)
 	$(SWIG) -Wextra $(AM_CPPFLAGS) -outdir $(builddir) -nofastunpack -python -o $@ $(srcdir)/speutils.i
 

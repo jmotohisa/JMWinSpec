@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Procedures to read/write data in SPE and CSV files """
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,8 +11,8 @@ from .binread import *
 
 
 def readspe(fn):
-    """
-    Read data in SPE file
+    """  Read data in SPE file
+    fn : file name
     Returns wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
     """
     if os.path.splitext(fn)[1][1:].lower() == 'spe':
@@ -27,13 +29,13 @@ def readspe(fn):
                 coef[i] = read_double(f, 3263+i*8)
             wl = np.polynomial.polynomial.polyval(
                 np.arange(1, xdim+1, 1), coef)
-            if(datatype == 0):  # 0 floating point
+            if (datatype == 0):  # 0 floating point
                 data = read_float_array(f, 4100, xdim*ydim*numFrames)
             elif (datatype == 1):
                 data = read_LONG_array(f, 4100, xdim*ydim*numFrames)
-            elif(datatype == 2):
+            elif (datatype == 2):
                 data = read_short_array(f, 4100, xdim*ydim*numFrames)
-            elif(datatype == 3):
+            elif (datatype == 3):
                 data = read_ushort_array(f, 4100, xdim*ydim*numFrames)
         return wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
     else:
@@ -42,8 +44,9 @@ def readspe(fn):
 
 
 def readspe_simple(fname, norm_exp_sec):
-    """
-    Read data in SPE file (simplified version)
+    """ Read data in SPE file (simplified version)
+    fname: file name
+    norm_exp_sec (boolean) : normalize intensity with exposure time
     Returns wl, spectrum
     """
     wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = readspe(
@@ -57,6 +60,11 @@ def readspe_simple(fname, norm_exp_sec):
 
 
 def readspe0(fn, sup):
+    """ Read data in a SPE file
+    fn: file name
+    sup:
+    return wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
+    """
     if os.path.splitext(fn)[1][1:].lower() == 'spe':
         with open(fn, 'rb') as f:
 
@@ -96,13 +104,13 @@ def readspe0(fn, sup):
             wl = np.polynomial.polynomial.polyval(
                 np.arange(1, xdim+1, 1), coef)
             # print(wl)
-            if(datatype == 0):  # 0 floating point
+            if (datatype == 0):  # 0 floating point
                 data = read_float_array(f, 4100, xdim*ydim*numFrames)
             elif (datatype == 1):
                 data = read_LONG_array(f, 4100, xdim*ydim*numFrames)
-            elif(datatype == 2):
+            elif (datatype == 2):
                 data = read_short_array(f, 4100, xdim*ydim*numFrames)
-            elif(datatype == 3):
+            elif (datatype == 3):
                 data = read_ushort_array(f, 4100, xdim*ydim*numFrames)
         return wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm
 
@@ -139,15 +147,22 @@ def printspespan(fname, xdim, coef):
 
 
 def outputter(fn, fnflag, label, val):
-    if(not fnflag):
+    """ output
+    fn
+    fnflag
+    label
+    val
+    """
+    if (not fnflag):
         print(fn, ':', label, ':', val)
     else:
         print(label, ':', val)
 
 
 def readspecomments(fn, sup):
-    """
-    Read commments in SPE files
+    """ Read commments in SPE files
+    fn: file name
+    sup: 
     """
     start = 200
     length = 80
@@ -161,11 +176,73 @@ def readspecomments(fn, sup):
 
 
 def writespectrum_csv(fname, wl, spectrum):
-    """
-    Write spectrum into file
+    """ Write spectrum into a csv file
+    fname: file name to write file
+    wl, spaeturm : 
     """
     df = pd.DataFrame({'wavelength': wl,
                        'intensity': spectrum,
                        })
     df.to_csv(fname)
     return
+
+
+def readspectrum_csv(fname, flag_header):
+    """ Read spectrum (wavelength/intensity) data from a CSV file
+    fname: CSV file name
+    flag_header: True: skip header, false: no header
+    """
+    if (flag_header == 0):
+        df = pd.read_csv(fname, header=None, skiprows=1,
+                         names=['wavelength', 'intensity'])
+    elif (flag_header == 1):
+        df = pd.read_csv(fname, header=0,
+                         names=['wavelength', 'intensity'])
+    else:
+        df = pd.read_csv(fname, header=None,
+                         names=['wavelength', 'intensity'])
+
+    wl = np.array(df['wavelength'])
+    spectrum = np.array(df['intensity'])
+    return wl, spectrum
+
+
+def savecsv(fname_out, wl, data, range1=0, range2=0):
+    """ Save to csv file in
+    fname_out: csv file name
+    wl,data: specturm data
+    range1, range2: wavelength range to output (default full range)
+    """
+    # dim2list = []
+    if (range2 <= 0):
+        range2 = len(wl)
+    #  print(range1,range2)
+
+    writespectrum_csv(fname, wl[range1,range2], spectrum[range1,range2])
+    #     for i in range(range1, range2):
+    #        dim2list.append([wl[i], data[i]])
+    #    df = pd.DataFrame(dim2list, columns=['wavelength', 'intensity'])
+    #    df.to_csv(fname_out, index=True, header=True)to
+    return
+
+
+def spe2csv(fname, norm_exp_sec=True, fname_out='', range1=0, range2=0):
+    """ Convert SPE file fname to CSV file fname_out
+    fname: SPE file name
+    norm_exp_sec (boolean) : normalize intensity with exposure time (default True)
+    fname_out : OUTPUT file name (default "fname.split[1].csv")
+    range1, range2: wavelength range to output (default full range)
+    Returns wl,spectrum
+    """
+    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe0(
+        fn, sup)
+
+    if (norm_exp_sec):
+        data = data/exp_sec
+
+    if (len(fname_out) <= 0):
+        basename_without_ext = os.path.splitext(os.path.basename(fname))[0]
+        fname_out = dirname(fname)+"/"+basename_without_ext+".csv"
+
+    savecsv(fname_out, wl, data, range1=range1, range2=range2)
+    return wl, data

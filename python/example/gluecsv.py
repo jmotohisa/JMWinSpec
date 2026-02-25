@@ -1,30 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# python glueSPEs.py -s 800 -e 1700 -o glue120 -g [spefiles]
+# glue_csv.py
+
+# python gluecsv.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
+# python gluecsv.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
 
 import argparse
-import glob
 import numpy as np
 import matplotlib.pyplot as plt
 import speutils
 
 
-def getspectra_sub(fname, norm_exp_sec):
-    wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
-        fname)
-    if norm_exp_sec == True:
-        data = data.astype(np.float64)/exp_sec
-    else:
-        data = data.astype(np.float64)
-
-    return wl, data
-
-
 def get_args():
     # 準備
     parser = argparse.ArgumentParser(
-        description='Glue SPE spectra')
+        description='Glue csv files (wavelength,intensity format) with name: dir/basename_index:')
     # 標準入力以外の場合
     # if sys.stdin.isatty():
     #     parser.add_argument('basefname', help='base file name', type=str)
@@ -41,6 +32,26 @@ def get_args():
                         type=float,
                         default=1,
                         help='resolution')
+    parser.add_argument('-H', '--header', type=int,
+                        nargs='?',
+                        default=0,
+                        help='header in csv file 0:no header (default) 1:skip'),
+    parser.add_argument('-i', '--index',
+                        nargs='?',
+                        type=int,
+                        help='starting index')
+    parser.add_argument('-u', '--underscore',
+                        action="store_true",
+                        help='with underscore in file name')
+    parser.add_argument('-n', '--num',
+                        nargs='?',
+                        type=int,
+                        default=1,
+                        help='number of files')
+    parser.add_argument('--skip',
+                        nargs='?',
+                        type=int,
+                        help='skips (default=1)', default=1)
     parser.add_argument('--dump',
                         action="store_true",
                         help='dump glued spectra')
@@ -49,16 +60,19 @@ def get_args():
                         help='plot original and glued spectra')
     parser.add_argument('-o', '--out', type=str,
                         nargs='?',
-                        help="output csv fiile name")
-    parser.add_argument('fnames', type=str,
-                        nargs='+',
-                        help="SPE fiile name")
-    parser.add_argument('--log',
-                        action="store_true",
-                        help='plot logarizmic scale')
+                        help="output csv file name")
+    parser.add_argument('-d', '--directory', type=str,  # argparse.FileType('r'),
+                        nargs='?',
+                        help="directory",
+                        default='./')
     parser.add_argument('-a', '--autosave',
                         action="store_true",
                         help="automatically save graph")
+    parser.add_argument('--log',
+                        action="store_true",
+                        help="logscale")
+    parser.add_argument('basename', type=str,
+                        help="base name")
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='verbose')
@@ -70,50 +84,63 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
+    bdir = args.directory
+    bname = args.basename
     start = args.start
     end = args.end
     resolution = args.res
+    startindex = args.index
+    nfiles = args.num
+    skip = args.skip
     out = args.out
     dump = args.dump
     verbose = args.verbose
     graph = args.graph
-    fnames = args.fnames
     autosave = args.autosave
     logscale = args.log
+    underscore = args.underscore
+    flag_header = args.header
 
     norm_exp_sec = True
     edge_processing_mode = 2
+
+    # print(fnames)
+    # fn='/Users/motohisa/Documents/experiment/20200124/W001.spe'
+
+    # bdir = '/Users/motohisa/Documents/experiment/20221125/a'
+    # bname = 'D1_a0'
+    # refspe = '/Users/motohisa/Documents/experiment/20221125/gluetest/glued/g02.SPE'
+
+    # start = 800.
+    # end = 1100.
+    # resolution = 1.0
+
+    # startindex = 120
+    # nfiles = 3
+    # skip = 2
 
     wl_dest = np.arange(start, end+resolution, resolution, dtype=np.float64)
     spectrum_dest = np.empty_like(wl_dest)
     flg = np.empty_like(wl_dest, dtype=np.int32)
 
     fname_list = []
-    for fn0 in fnames:
-        fnames2 = glob.glob(fn0)
-        # print(fnames2)
-        # for fn in fnames2:
-        fname_list.extend(fnames2)
+    for i in np.arange(0, nfiles, skip):
+        if (underscore):
+            fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.csv'])
+        else:
+            fname_list.extend([bdir+'/'+bname+str(i+startindex)+'.csv'])
 
     print(fname_list)
 
     wl_list = []
     spectra_list = []
-
     for i, fname in enumerate(fname_list):
-        wl, spectrum = getspectra_sub(fname, norm_exp_sec)
+        wl, spectrum = speutils.readspectrum_csv(fname, flag_header)
         wl_list.extend([wl])
         spectra_list.extend([spectrum])
 
-    wl_dest, spectrum0, flg0 = speutils.gluemultiplespe(
-        fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
-
-    if (len(out) > 0):
-        speutils.writespectrum_csv(out + '.csv', wl_dest, spectrum0)
-
-    if (dump):
-        for i, wl0 in enumerate(wl_ref):
-            print(wl0, spectrum0[i])
+    wl_dest, spectrum0, flg0 = speutils.gluemultiplecsv(
+        fname_list, start, end, resolution, edge_processing_mode, verbose, flag_header)
 
     if (graph):
         fig = plt.figure(figsize=(5, 5))
@@ -138,3 +165,10 @@ if __name__ == '__main__':
         # ax1 = fig.add_subplot(111)
         # ax1.plot(wl_ref, spectrum_ref/spectrum0-1)
         # plt.show()
+
+    if (len(out) > 0):
+        speutils.writespectrum_csv(out + '.csv', wl_dest, spectrum0)
+
+    if (dump):
+        for i, wl0 in enumerate(wl_ref):
+            print(wl0, spectrum0[i])

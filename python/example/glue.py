@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Example (and main) procedure to glue multiple spectra in SPE files """
+
 # python glue.py -s 800 -e 1700 -d a -i 120 -n 9 -o glue120 -g D1_a0
+# python glue.py -s 800 -e 1700 -d ~/Documents/experiment/20221125_orig/h -i 110 -n 10 -o glue_h110 -g D1_h
 
 import argparse
 import numpy as np
@@ -83,7 +86,7 @@ def get_args():
 
     args = parser.parse_args()
 
-    return(args)
+    return (args)
 
 
 if __name__ == '__main__':
@@ -128,7 +131,7 @@ if __name__ == '__main__':
 
     fname_list = []
     for i in np.arange(0, nfiles, skip):
-        if(underscore):
+        if (underscore):
             fname_list.extend([bdir+'/'+bname+'_'+str(i+startindex)+'.SPE'])
         else:
             fname_list.extend([bdir+'/'+bname+str(i+startindex)+'.SPE'])
@@ -146,22 +149,22 @@ if __name__ == '__main__':
     wl_dest, spectrum0, flg0 = speutils.gluemultiplespe(
         fname_list, start, end, resolution, norm_exp_sec, edge_processing_mode, verbose)
 
-    if(graph):
+    if (graph):
         fig = plt.figure(figsize=(5, 5))
         fig.tight_layout()
         ax1 = fig.add_subplot(111)
-        if(logscale):
+        if (logscale):
             ax1.set_yscale('log')
         for i in np.arange(len(wl_list)):
             ax1.plot(wl_list[i], spectra_list[i], color='red')
 
         ax2 = ax1.twinx()
-        if(logscale):
+        if (logscale):
             ax2.set_yscale('log')
         ax2.plot(wl_dest, spectrum0, color='black')
 
-        if(autosave):
-            if(len(out) > 0):
+        if (autosave):
+            if (len(out) > 0):
                 plt.savefig(out+'.png')
         plt.show()
 
@@ -170,9 +173,9 @@ if __name__ == '__main__':
         # ax1.plot(wl_ref, spectrum_ref/spectrum0-1)
         # plt.show()
 
-    if(len(out) > 0):
+    if (len(out) > 0):
         speutils.writespectrum_csv(out + '.csv', wl_dest, spectrum0)
 
-    if(dump):
+    if (dump):
         for i, wl0 in enumerate(wl_ref):
             print(wl0, spectrum0[i])

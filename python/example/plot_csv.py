@@ -5,12 +5,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import argparse
+import glob
+import os
 
 
 def get_args():
     # 準備
     parser = argparse.ArgumentParser(
         description='plot CSV')
+    parser.add_argument('fname', help='csv file name', type=str, nargs='+')
     # 標準入力以外の場合
     # if sys.stdin.isatty():
     #     parser.add_argument('basefname', help='base file name', type=str)
@@ -62,8 +65,8 @@ def get_args():
     # parser.add_argument('--log',
     #                     action="store_true",
     #                     help="logscale")
-    parser.add_argument('fname', type=str,
-                        help="csv file name")
+    # parser.add_argument('fname', type=str,
+    #                     help="csv file name")
     # parser.add_argument('-v', '--verbose',
     #                     action="store_true",
     #                     help='verbose')
@@ -75,7 +78,21 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
-    fname = args.fname
-    f = pd.read_csv(fname)
-    plt.plot(f['wavelength'], f['intensity'])
+    fnames = []
+
+    for arg in args.fname:
+        fnames += glob.glob(arg)
+
+    fig = plt.figure(figsize=(5,5))
+    fig.tight_layout()
+    ax1 = fig.add_subplot(111)
+    for fname in fnames:
+        print(fname)
+        f = pd.read_csv(fname)
+        ax1.plot(f['wavelength'], f['intensity'],
+                 label=os.path.splitext(os.path.basename(fname))[0])
+        # if(logscale):
+        #     ax1.set_yscale('log')
+    
+    plt.legend(loc='best')
     plt.show()

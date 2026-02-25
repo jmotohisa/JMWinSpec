@@ -1,5 +1,5 @@
 /*
- *  glue.c - Time-stamp: <Tue Dec 06 22:04:51 JST 2022>
+ *  glue.c - Time-stamp: <Thu Jul 10 14:34:48 JST 2025>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -82,24 +82,17 @@
   @param[in] x: point number
   @return calibraated wavelength value
 */
-
-void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
-	      double start, double end, double resolution,
-	      double *wl_dest,int n_dest,
-	      double *spectrum_dest,int *flg)
+void convert00(double *wl_orig, double *spectrum_orig, int xdim,
+	       double start, double end, double resolution,
+	       double *wl_dest,int n_dest,
+	       double *spectrum_dest,int *flg)
 {
   int i,j;
-  double *w, *z;
+  double *z;
   double zLj,zRj,wLi,wRi,p;
   int *pixel_start,*pixel_end,pix_start,pix_end;
+  // original data is : wl_orig and, spectrum_orig)
   
-  // original data (w, spectrum_orig)
-  w=(double *) malloc(sizeof(double)*(xdim+1)); //  *(w+i-1/2)
-  for(i=0;i<=xdim;i++)
-    {
-      *(w+i)=  poly0(i+0.5, 6, coef); // NOTE:
-    }
-
   // output data (z,spectrum_dest)
   z=(double *) malloc(sizeof(double)*(n_dest+1));  // *(z+j-1/2)
   pixel_start = (int *) malloc(sizeof(int)*n_dest);
@@ -120,8 +113,8 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
       *(pixel_end+j)=-1;
       for(i=0;i<xdim;i++)
 	{
-	  wLi=*(w+i);
-	  wRi=*(w+i+1);
+	  wLi=*(wl_orig+i);
+	  wRi=*(wl_orig+i+1);
 	  if(zLj>wLi && zLj<wRi)
 	    *(pixel_start+j)=i;
 	  if(zRj>wLi && zRj<wRi)
@@ -138,15 +131,15 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
 		  *(flg+j)=TRUE;
 		  if(pix_start==pix_end) {
 			i=pix_start;
-			p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(z+j));
+			p=*(spectrum_orig+i)/(*(wl_orig+i+1)-*(wl_orig+i))*(*(z+j+1)-*(z+j));
 		  } else {
 			i=pix_start;
-			p=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(w+i+1)-*(z+j));
+			p=*(spectrum_orig+i)/(*(wl_orig+i+1)-*(wl_orig+i))*(*(wl_orig+i+1)-*(z+j));
 			for(i=*(pixel_start+j)+1;i<*(pixel_end+j);i++)
 			  {
 				p+=*(spectrum_orig+i);
 			  }
-			p+=*(spectrum_orig+i)/(*(w+i+1)-*(w+i))*(*(z+j+1)-*(w+i));
+			p+=*(spectrum_orig+i)/(*(wl_orig+i+1)-*(wl_orig+i))*(*(z+j+1)-*(wl_orig+i));
 		  }
 		}
       else
@@ -157,9 +150,32 @@ void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
       *(spectrum_dest+j)=p;
     }
   free(z);
-  free(w);
   free(pixel_start);
   free(pixel_end);
+}
+
+/*!
+  @brief Calcuatate Calibrated wavlength from 
+  @param[in] x: point number
+  @return calibraated wavelength value
+*/
+void convert0(double *coef, int n_coef, double *spectrum_orig, int xdim,
+	      double start, double end, double resolution,
+	      double *wl_dest,int n_dest,
+	      double *spectrum_dest,int *flg)
+{
+  int i;
+  double *wl_orig;
+  // original data (wl_orig, spectrum_orig)
+  wl_orig=(double *) malloc(sizeof(double)*(xdim+1)); //  *(wl_orig+i-1/2)
+  for(i=0;i<=xdim;i++)
+    {
+      *(wl_orig+i)=  poly0(i+0.5, 6, coef); // NOTE:
+    }
+  convert00(wl_orig, spectrum_orig, xdim,
+	    start, end, resolution,
+	    wl_dest,n_dest,spectrum_dest,flg);
+  free(wl_orig);
 }
 
 /*!
@@ -189,6 +205,27 @@ void convert(double *coef, int n_coef, double *spectrum_orig, int xdim,
     *(*wl_dest+j)=start+resolution*j;
   }
   convert0(coef, n_coef, spectrum_orig, xdim,
+	   start, end, resolution,
+	   *wl_dest,*n_dest,*spectrum_dest,*flg);
+  return;
+  
+}
+
+void convert_wl(double *wl_orig, double *spectrum_orig, int xdim,
+	     double start, double end, double resolution,
+	     double **spectrum_dest,int **flg, double **wl_dest, int *n_dest)
+{
+  int j;
+  
+  *n_dest=(end-start)/resolution+1;
+  *wl_dest=(double *) malloc(sizeof(double)*(*n_dest));
+  *spectrum_dest = (double *) malloc(sizeof(double)*(*n_dest));
+  *flg = (int *) malloc(sizeof(int)*(*n_dest));
+  
+  for(j=0;j<*n_dest;j++) {
+    *(*wl_dest+j)=start+resolution*j;
+  }
+  convert00(wl_orig, spectrum_orig, xdim,
 	   start, end, resolution,
 	   *wl_dest,*n_dest,*spectrum_dest,*flg);
   return;

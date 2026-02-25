@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Example of speutils: convert SPE file to png image """
+
 import os
 import argparse
 import glob

@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+""" Exapmle of glue multiple spectra """
+
 import numpy as np
 import matplotlib.pyplot as plt
 import speutils
 
 
 def getspectra_sub(fname, norm_exp_sec):
+    """ Get spectrum data from a file
+    fname: SPE file name
+    norm_exp_sec (boolean) : normalize intensity with exposure time
+    """
     wl, data, coef, numFrames, xdim, ydim, exp_sec, lavgexp, SpecCenterWlNm = speutils.readspe(
         fname)
     if norm_exp_sec == True:

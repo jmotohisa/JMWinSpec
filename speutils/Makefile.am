@@ -1,5 +1,6 @@
 lib_LTLIBRARIES = libspeutils.la
 libspeutils_la_SOURCES = readspe.c calib_util.c glue.c readspe.h calib_util.h glue.h WinSpecHeader25.h
+libspeutils_la_LDFLAGS = -no-undefined -shared
 
 LIBSPEUTILS = libspeutils.la
 

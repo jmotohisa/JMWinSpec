@@ -4,6 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([speutils],[0.1],[motohisa@ist.hokudai.ac.jp])
 AC_CONFIG_SRCDIR([speutils/readspe.c])
+AC_CANONICAL_HOST
 
 SHARED_VERSION_INFO="0:0:0" # CURRENT:REVISION:AGE
 
@@ -12,7 +13,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(SHARED_VERSION_INFO)
 
 AM_INIT_AUTOMAKE
-LT_INIT
+LT_INIT([disable-static])
+# AC_LIBTOOL_FLAGS([no-undefined])
 
 # Checks for programs.
 AC_PROG_CC
@@ -59,6 +61,22 @@ else
       pinc=`echo "import distutils.sysconfig; print (distutils.sysconfig.get_python_inc())" | $PYTHON - 2>/dev/null`
       AC_MSG_RESULT([${pinc:-unknown}])
       test -n "$pinc" && PYTHON_INCLUDES="-I$pinc"
+      case "$host_os" in
+	*cygwin*)
+	  upinc=`cygpath -u "$pinc" | tr -d '\r' | sed 's/ /\\ /g'`
+	  PYTHON_INCLUDES="-I\"$upinc\""
+		;;
+	*mingw32*)
+#	  PYTHON_INCLUDES="-I\"/$pinc\""
+	  PYTHON_INCLUDES="-I/$pinc"
+		;;
+	*)
+	  PYTHON_INCLUDES="-I$pinc"
+	  ;;
+      esac
+
+      AC_MSG_NOTICE([resolved Python include path: $PYTHON_INCLUDES])
+
       save_CPPFLAGS=$CPPFLAGS
       CPPFLAGS="$CPPFLAGS $PYTHON_INCLUDES"
       AC_CHECK_HEADER([Python.h], [], [AC_MSG_WARN([disabling Python wrappers])

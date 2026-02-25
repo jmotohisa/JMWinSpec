@@ -11,7 +11,7 @@ LIBSPEUTILS = $(top_builddir)/speutils/libspeutils.la
 
 _speutils_la_SOURCES = speutils.c pyglue2.c pyspeconvert.c
 _speutils_la_LIBADD = $(LIBSPEUTILS) $(PYTHON_LIBS)
-_speutils_la_LDFLAGS = -module -version-info @SHARED_VERSION_INFO@
+_speutils_la_LDFLAGS = -module -no-undefined -version-info @SHARED_VERSION_INFO@
 # _speutils_la_LDFLAGS = -module -version-info @SHARED_VERSION_INFO@ -export-symbols-regex initmyext
 _speutils_la_CPPFLAGS = $(PYTHON_INCLUDES) $(AM_CPPFLAGS)
 

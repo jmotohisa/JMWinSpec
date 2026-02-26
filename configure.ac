@@ -45,10 +45,6 @@ AC_ARG_WITH(python,
 if test "x$with_python" = xno; then
   have_python=no
 else
-  dnl if test "x$have_libctlgeom" = xno; then
-  dnl   AC_MSG_ERROR([libctlgeom was not found, is required for Python interface])
-  dnl fi
-
   if test "$enable_shared" = no; then
      AC_MSG_WARN([Python interface requires --enable-shared; disabling])
      have_python=no
@@ -104,6 +100,15 @@ else
       fi
 
       CPPFLAGS=$save_CPPFLAGS
+      
+      AC_PATH_PROG([PYTHON_CONFIG], [python3-config])
+      if test -z "$PYTHON_CONFIG"; then
+         AC_MSG_ERROR([python3-config not found])
+      fi
+
+      PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags`
+      PYTHON_LIBS=`$PYTHON_CONFIG --ldflags --embed`
+
 ###	jm test
 	  dnl PY_PREFIX=`$PYTHON -c 'import sys ; print(sys.prefix)'`
 	  dnl PYTHON_LIBS="-lpython$PYTHON_VERSION"
@@ -115,7 +120,10 @@ else
   fi # enabled_shared
 fi # with_python
 
+AC_SUBST([PYTHON_CFLAGS])
+AC_SUBST([PYTHON_LIBS])
 AC_SUBST(PYTHON_INCLUDES)
+
 AM_CONDITIONAL(WITH_PYTHON, test x"$have_python" = "xyes")
 AM_CONDITIONAL(WITH_COVERAGE, test x"$have_coverage" = "xyes")
 
@@ -125,6 +133,7 @@ AX_PKG_SWIG(1.3.21, [], [AC_MSG_ERROR([SWIG is required to build..]) ])
 
 ############################################################################
 # Check for pkg-config
+AM_PATH_PYTHON([],[have_python=yes],[have_python=no])
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 if test $PKG_CONFIG = no; then
    AC_MSG_ERROR([Cannot find pkg-config, make sure it is installed and in your PATH])

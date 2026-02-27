@@ -1,5 +1,5 @@
 /*
- *  pyglue2.c - Time-stamp: <Tue Dec 06 22:17:39 JST 2022>
+ *  pyglue2.c - Time-stamp: <Fri Feb 27 19:37:43 JST 2026>
  *
  *   Copyright (c) 2022  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -41,7 +41,7 @@
 #include <complex.h>
 #include <tgmath.h>
 
-#include "../speutils/WinSpecHeader25.h"
+#include "../WinSpecHeader25.h"
 #include "../speutils/readspe.h"
 #include "../speutils/glue.h"
 #include "../speutils/convertspe.h"

@@ -26,7 +26,7 @@ SWIG_VERSION = $(shell $(SWIG) -version | grep Version | awk '{print $$3}')
 SPEUTILS_SWIG_SRC = speutils.i numpy.i
 
 SPEUTILS_SWIG_HDRS =             \
-  $(top_srcdir)/speutils/WinSpecHeader25.h \
+  $(top_srcdir)/WinSpecHeader25.h \
   $(top_srcdir)/speutils/readspe.h	\
   $(top_srcdir)/speutils/convertspe.h	
 

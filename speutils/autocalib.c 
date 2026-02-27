@@ -47,7 +47,7 @@
 #include "config.h"
 #include "copyright.h"
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 #include "calib_util.h"
 

@@ -5,7 +5,7 @@
 #include <string.h>
 /* #include <byteswap.h> */
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "readspe.h"

@@ -42,7 +42,7 @@
 #include <tgmath.h>
 #include <unistd.h>
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 
 #define GLOBAL_VALUE_DEFINE
 #include "convertspe.h"

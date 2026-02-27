@@ -45,7 +45,7 @@
 #include "config.h"
 #include "copyright.h"
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 
 /* #define GLOBAL_VALUE_DEFINE */

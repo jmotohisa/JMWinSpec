@@ -15,7 +15,7 @@
 #include "plplotsubs0.h"
 #endif
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 
 #ifdef AQUATERM

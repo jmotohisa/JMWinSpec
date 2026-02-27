@@ -44,7 +44,7 @@
 #include <float.h>
 #include <string.h>
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 #include "calib_util.h"
 

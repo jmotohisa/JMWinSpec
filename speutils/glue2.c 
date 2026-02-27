@@ -42,7 +42,7 @@
 #include <tgmath.h>
 #include <unistd.h>
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 
 #define CHECK(cond, msg) { if (!(cond)) { fprintf(stderr, "glue2 error: %s\n", msg); exit(EXIT_FAILURE); } }

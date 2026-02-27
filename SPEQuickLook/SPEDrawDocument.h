@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import <CorePlot/CorePlot.h>
-#import "WinSpecHeader25.h"
+#import "../WinSpecHeader25.h"
 
 //extern NSString *SPEDrawDocumentCanvasSizeKey;
 //extern NSString *SPEDrawDocumentGraphicsKey;

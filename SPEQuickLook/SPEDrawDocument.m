@@ -11,7 +11,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 
-#import "WinSpecHeader25.h"
+#import "../WinSpecHeader25.h"
 #import "SPEData.h"
 #import "SPEHeader.h"
 #import "AutoTicks.h"

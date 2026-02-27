@@ -41,7 +41,7 @@
 #include <complex.h>
 #include <tgmath.h>
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 
 #define GLOBAL_VALUE_DEFINE

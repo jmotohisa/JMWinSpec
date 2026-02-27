@@ -4,7 +4,7 @@
 
 #import <CorePlot/CorePlot.h>
 
-#import "WinSpecHeader25.h"
+#import "../WinSpecHeader25.h"
 #import "SPEheader.h"
 #import "SPEData.h"
 #import "AutoTicks.h"

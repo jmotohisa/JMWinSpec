@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
-#import "WinSpecHeader25.h"
+#import "../WinSpecHeader25.h"
 
 @interface SPEData : NSObject
 {

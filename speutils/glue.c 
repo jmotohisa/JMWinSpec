@@ -46,7 +46,7 @@
 #define GLOBAL_VALUE_DEFINE
 #include "glue.h"
 
-#include "../WinSpecHeader25.h"
+#include "WinSpecHeader25.h"
 #include "readspe.h"
 
 #define TRUE 1

@@ -1,5 +1,5 @@
 /*
- *  calib_util.h - last saved: Time-stamp: <Wed Jul 12 15:45:29 JST 2023>
+ *  calib_util.h - last saved: Time-stamp: <Tue Dec 30 21:43:40 JST 2025>
  *
  *   Copyright (c) 2023  jmotohisa (Junichi Motohisa)  <motohisa@ist.hokudai.ac.jp>
  *
@@ -29,9 +29,9 @@
  *  $Id: calib_util.h 2023-07-12 15:42:12 jmotohisa $
  */
 
-/*! 
-  @file calib_util.h 
-  @brief 
+/*!
+  @file calib_util.h
+  @brief
   @author J. Motohisa
 */
 
@@ -53,7 +53,7 @@ extern "C" {
 			int verbose);
   GLOBAL int write_calibdata(char *fname,double wlcen,int xDimDet,double *coef);
   GLOBAL int read_calibdata(char *fname,double *wlcen, int *xDimDet,double *coef);
-  
+
 #undef GLOBAL_VALUE_DEFINE
 #undef GLOBAL
 

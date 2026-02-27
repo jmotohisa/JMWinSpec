@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "WinSpecHeader25.h"
+#import "../WinSpecHeader25.h"
 
 @interface SPEHeader : NSObject {
 //	IBOutlet NSString *fileName;

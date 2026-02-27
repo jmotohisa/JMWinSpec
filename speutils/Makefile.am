@@ -1,5 +1,6 @@
 lib_LTLIBRARIES = libspeutils.la
 libspeutils_la_SOURCES = readspe.c calib_util.c glue.c readspe.h calib_util.h glue.h WinSpecHeader25.h
+libspeutils_la_LDFLAGS = -no-undefined -shared
 
 LIBSPEUTILS = libspeutils.la
 
@@ -7,7 +8,7 @@ bin_PROGRAMS = viewspe checkWL fixcalib glue2 autocalib
 
 viewspe_SOURCES = viewspe.c plplotsubs0.c viewspe.h plplotsubs0.h
 viewspe_LDADD = $(LIBSPEUTILS)
-viewspe_CFLAGS = @PLPLOT_CFLAGS@
+viewspe_CFLAGS = @PLPLOT_CFLAGS@ 
 viewspe_LDFLAGS = @PLPLOT_LIBS@
 
 checkWL_SOURCES = checkWL.c
@@ -27,4 +28,3 @@ convertspe_SOURCES = convertspe.c convertspe.h
 convertspe_LDADD = $(LIBSPEUTILS)
 
 headertest_SOURCES = headertest.c
-

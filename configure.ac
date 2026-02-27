@@ -78,25 +78,23 @@ else
       AC_CHECK_HEADER([Python.h], [], [AC_MSG_WARN([disabling Python wrappers])
                                        have_python=no])
 
-      if test $have_python = yes; then
-        AC_MSG_CHECKING([for Numpy include directory])
-        pinc=`echo "import numpy; print (numpy.get_include())" | $PYTHON - 2>/dev/null`
-        AC_MSG_RESULT([${pinc:-unknown}])
-        test -n "$pinc" && PYTHON_INCLUDES="$PYTHON_INCLUDES -I$pinc"
-        CPPFLAGS="$save_CPPFLAGS $PYTHON_INCLUDES"
-        AC_CHECK_HEADER([numpy/arrayobject.h],[],[
-          AC_MSG_WARN([disabling Python wrappers])
-          have_python=no],[#include <Python.h>])
+      AC_MSG_CHECKING([for Numpy include directory])
+      pinc=`echo "import numpy; print (numpy.get_include())" | $PYTHON - 2>/dev/null`
+      AC_MSG_RESULT([${pinc:-unknown}])
+      test -n "$pinc" && PYTHON_INCLUDES="$PYTHON_INCLUDES -I$pinc"
+      CPPFLAGS="$save_CPPFLAGS $PYTHON_INCLUDES"
+      AC_CHECK_HEADER([numpy/arrayobject.h],[],[
+        AC_MSG_WARN([disabling Python wrappers])
+        have_python=no],[#include <Python.h>])
 
-        AC_MSG_CHECKING([for coverage module])
-        $PYTHON -c 'import coverage' 2>/dev/null
-        if test $? = 0; then
-          AC_MSG_RESULT([yes])
-          have_coverage=yes
-        else
-          AC_MSG_RESULT([no])
-          have_coverage=no
-        fi
+      AC_MSG_CHECKING([for coverage module])
+      $PYTHON -c 'import coverage' 2>/dev/null
+      if test $? = 0; then
+        AC_MSG_RESULT([yes])
+        have_coverage=yes
+      else
+        AC_MSG_RESULT([no])
+        have_coverage=no
       fi
 
       CPPFLAGS=$save_CPPFLAGS
@@ -126,6 +124,32 @@ AC_SUBST(PYTHON_INCLUDES)
 
 AM_CONDITIONAL(WITH_PYTHON, test x"$have_python" = "xyes")
 AM_CONDITIONAL(WITH_COVERAGE, test x"$have_coverage" = "xyes")
+
+# デフォルト値の設定
+PYTHON_EXT_LDFLAGS="-module -avoid-version -shared"
+PYTHON_EXT_SUFFIX=""
+
+case "$host_os" in
+  mingw* | msys* | cygwin*)
+    # Windows (MSYS2/MinGW) 用の設定
+    # -no-undefined は DLL 作成に必須
+    # -shrext .pyd は Python が認識する拡張子を強制
+    PYTHON_EXT_LDFLAGS="$PYTHON_EXT_LDFLAGS -no-undefined -shrext .pyd"
+    AC_MSG_NOTICE([Configuring for Windows (MSYS2/MinGW)])
+    ;;
+  darwin*)
+    # macOS 用の設定
+    # macOS の Python は .so を探すが、中身はダイナミックライブラリ
+    AC_MSG_NOTICE([Configuring for macOS])
+    ;;
+  *)
+    # Linux およびその他の Unix 系
+    AC_MSG_NOTICE([Configuring for Linux/Unix])
+    ;;
+esac
+
+# Makefile.am で使えるように変数を登録
+AC_SUBST([PYTHON_EXT_LDFLAGS])
 
 ##############################################################################
 # Checks for SWIG

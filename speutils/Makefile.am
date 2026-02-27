@@ -1,8 +1,6 @@
 lib_LTLIBRARIES = libspeutils.la
 libspeutils_la_SOURCES = readspe.c calib_util.c glue.c readspe.h calib_util.h glue.h WinSpecHeader25.h
-libspeutils_la_LDFLAGS = -module -no-undefined -shared
-libspeutils_la_CFLAGS = $(PYTHON_CFLAGS)
-libspeutils_la_LIBADD = $(PYTHON_LIBS)
+libspeutils_la_LDFLAGS = -no-undefined -shared
 
 LIBSPEUTILS = libspeutils.la
 
@@ -30,4 +28,3 @@ convertspe_SOURCES = convertspe.c convertspe.h
 convertspe_LDADD = $(LIBSPEUTILS)
 
 headertest_SOURCES = headertest.c
-
